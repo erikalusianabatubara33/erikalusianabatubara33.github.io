@@ -6,24 +6,108 @@
   <title>My Library</title>
 
   <style>
-    body{margin:0;font-family:Arial;background:#f8f9fa;}
-    header{background:#0b1f3a;color:#fff;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;}
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef3f9;
+      scroll-behavior:smooth;
+    }
+
+    header{
+      background:#0b1f3a;
+      color:white;
+      padding:15px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+    }
+
     header h2{margin:0;font-size:20px;}
-    nav a{color:#fff;text-decoration:none;margin-left:15px;font-size:14px;}
+    nav a{color:white;text-decoration:none;margin-left:15px;font-size:14px;}
     nav a:hover{text-decoration:underline;}
 
-    .hero{text-align:center;padding:60px 20px;background:#fff;}
-    .hero h1{color:#0b1f3a;font-size:35px;margin-bottom:10px;}
-    .hero p{color:#555;font-size:14px;}
+    section{
+      padding:60px 20px;
+      text-align:center;
+    }
 
-    input{padding:10px;width:60%;max-width:400px;border:1px solid #ccc;border-radius:6px;margin-top:25px;}
+    .hero{
+      background:white;
+      border-radius:12px;
+      margin:30px;
+      padding:60px 20px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
 
-    .box{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;padding:40px 20px;}
-    .card{background:#fff;width:200px;padding:18px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);text-align:center;}
+    .hero h1{
+      color:#0b1f3a;
+      font-size:35px;
+      margin-bottom:10px;
+    }
+
+    .hero p{
+      color:#555;
+      font-size:14px;
+      margin-bottom:25px;
+    }
+
+    input{
+      padding:10px;
+      width:60%;
+      max-width:400px;
+      border:1px solid #ccc;
+      border-radius:6px;
+    }
+
+    .box{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+      margin-top:35px;
+    }
+
+    .card{
+      background:#fff;
+      width:220px;
+      padding:18px;
+      border-radius:10px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+      text-align:center;
+    }
+
     .card h3{color:#0b1f3a;margin:0;}
-    .card p{color:#666;font-size:13px;}
+    .card p{color:#666;font-size:13px;margin-top:8px;}
 
-    footer{background:#0b1f3a;color:#fff;text-align:center;padding:12px;font-size:13px;}
+    .list{
+      max-width:750px;
+      margin:auto;
+      text-align:left;
+      background:white;
+      padding:25px;
+      border-radius:12px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .list h2{
+      color:#0b1f3a;
+      text-align:center;
+      margin-top:0;
+    }
+
+    .list ul{padding-left:18px;}
+    .list li{margin:8px 0;color:#333;font-size:14px;}
+
+    footer{
+      background:#0b1f3a;
+      color:white;
+      text-align:center;
+      padding:12px;
+      font-size:13px;
+      margin-top:30px;
+    }
   </style>
 </head>
 
@@ -32,36 +116,95 @@
   <header>
     <h2>My Library</h2>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Catalog</a>
-      <a href="#">Digital</a>
-      <a href="#">Services</a>
-      <a href="#">Contact</a>
+      <a href="#home">Home</a>
+      <a href="#catalog">Catalog</a>
+      <a href="#digital">Digital</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <section class="hero">
-    <h1>Welcome to My Library</h1>
-    <p>A personal digital library for reading, learning, and research.</p>
-    <input type="text" placeholder="Search books, journals, or papers...">
+  <!-- HOME -->
+  <section id="home">
+    <div class="hero">
+      <h1>Welcome to My Library</h1>
+      <p>A personal digital library for reading, learning, and research.</p>
+
+      <input type="text" placeholder="Search books, journals, or papers...">
+
+      <div class="box">
+        <div class="card">
+          <h3>Catalog</h3>
+          <p>List of book collections and categories.</p>
+        </div>
+
+        <div class="card">
+          <h3>Digital</h3>
+          <p>PDF, e-books, journals, and articles.</p>
+        </div>
+
+        <div class="card">
+          <h3>Services</h3>
+          <p>Library rules and information.</p>
+        </div>
+
+        <div class="card">
+          <h3>Contact</h3>
+          <p>WhatsApp and Instagram.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section class="box">
-    <div class="card">
-      <h3>Catalog</h3>
-      <p>Search books by title or author.</p>
+  <!-- CATALOG -->
+  <section id="catalog">
+    <div class="list">
+      <h2>Catalog Room</h2>
+      <ul>
+        <li><b>Library Science</b> - Introduction to Librarianship</li>
+        <li><b>Information Management</b> - Data and Knowledge Organization</li>
+        <li><b>Archival Studies</b> - Records and Preservation</li>
+        <li><b>Research Methodology</b> - Qualitative and Quantitative Methods</li>
+        <li><b>Academic Writing</b> - Citation and Reference Guide</li>
+      </ul>
     </div>
-    <div class="card">
-      <h3>Digital</h3>
-      <p>Access e-books and journals.</p>
+  </section>
+
+  <!-- DIGITAL -->
+  <section id="digital">
+    <div class="list">
+      <h2>Digital Room</h2>
+      <ul>
+        <li><b>E-Book:</b> Library Management Basics (PDF)</li>
+        <li><b>E-Journal:</b> Journal of Library and Information Science</li>
+        <li><b>Article:</b> Digital Literacy and Education</li>
+        <li><b>PDF:</b> Research Proposal Writing Guide</li>
+      </ul>
     </div>
-    <div class="card">
-      <h3>Services</h3>
-      <p>Rules and library information.</p>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="list">
+      <h2>Services Room</h2>
+      <ul>
+        <li>Opening Hours: Monday - Friday (08:00 - 17:00)</li>
+        <li>Silent Reading Area Policy</li>
+        <li>Book Arrangement by Category</li>
+        <li>Digital Collection Access Anytime</li>
+        <li>Library Motto: Knowledge is Power</li>
+      </ul>
     </div>
-    <div class="card">
-      <h3>Contact</h3>
-      <p>WhatsApp & Instagram.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="list">
+      <h2>Contact Room</h2>
+      <ul>
+        <li><b>WhatsApp:</b> (+62 8 136 764 1203)</li>
+        <li><b>Instagram:</b> (erikalusiana_)</li>
+      </ul>
     </div>
   </section>
 
