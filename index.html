@@ -1,103 +1,73 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Erika Personal Library</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Library</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Arial;background:#f8f9fa;}
+    header{background:#0b1f3a;color:#fff;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;}
+    header h2{margin:0;font-size:20px;}
+    nav a{color:#fff;text-decoration:none;margin-left:15px;font-size:14px;}
+    nav a:hover{text-decoration:underline;}
 
-<style>
-body{
-  margin:0;
-  font-family:'Montserrat', sans-serif;
-  background:#5f7c8a;
-  color:white;
-}
+    .hero{text-align:center;padding:60px 20px;background:#fff;}
+    .hero h1{color:#0b1f3a;font-size:35px;margin-bottom:10px;}
+    .hero p{color:#555;font-size:14px;}
 
-/* HEADER */
-header{
-  background:#2f3e4e;
-  padding:15px;
-  text-align:center;
-}
+    input{padding:10px;width:60%;max-width:400px;border:1px solid #ccc;border-radius:6px;margin-top:25px;}
 
-nav a{
-  color:#cfe3e1;
-  margin:0 10px;
-  text-decoration:none;
-  font-weight:500;
-}
+    .box{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;padding:40px 20px;}
+    .card{background:#fff;width:200px;padding:18px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);text-align:center;}
+    .card h3{color:#0b1f3a;margin:0;}
+    .card p{color:#666;font-size:13px;}
 
-/* HERO */
-.hero{
-  padding:60px 20px;
-  text-align:center;
-}
-
-/* SECTION */
-.section{
-  padding:50px 20px;
-  text-align:center;
-  background:#5f7c8a;
-}
-
-.box{
-  display:inline-block;
-  padding:15px 25px;
-  margin:10px;
-  border-radius:20px;
-  background:#2f3e4e;
-  color:#cfe3e1;
-}
-
-/* FOOTER */
-footer{
-  background:#2f3e4e;
-  padding:25px;
-  text-align:center;
-}
-
-footer a{
-  color:#7fa6a3;
-  margin:0 10px;
-  text-decoration:none;
-}
-</style>
+    footer{background:#0b1f3a;color:#fff;text-align:center;padding:12px;font-size:13px;}
+  </style>
 </head>
 
 <body>
 
-<header>
-  <h2>Erika Personal Library</h2>
-  <nav>
-    <a href="#beranda">Beranda</a>
-    <a href="#tentang">Tentang Saya</a>
-    <a href="#koleksi">Koleksi</a>
-    <a href="#kontak">Kontak</a>
-  </nav>
-</header>
+  <header>
+    <h2>My Library</h2>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Catalog</a>
+      <a href="#">Digital</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
 
-<div class="hero" id="beranda">
-  <h1>Welcome to My Library</h1>
-  <p>Tempat menyusun bacaan dan pemikiran.</p>
-</div>
-<div class="section" id="tentang">
-<h3>Tentang Saya</h3>
-<p>Website ini digunakan untuk mengelola koleksi buku dan catatan bacaan pribadi.</p>
-</div>
-<div class="section" id="koleksi">
-  <h3>Koleksi Pribadi</h3>
-  <div class="box">Koleksi Buku</div>
-  <div class="box">Status Bacaan</div>
-  <div class="box">Catatan Buku</div>
-</div>
+  <section class="hero">
+    <h1>Welcome to My Library</h1>
+    <p>A personal digital library for reading, learning, and research.</p>
+    <input type="text" placeholder="Search books, journals, or papers...">
+  </section>
 
-<footer id="kontak">
-  <p>Kontak</p>
-  <a href="#">WhatsApp</a>
-  <a href="#">Instagram</a>
-  <p style="font-size:12px;">© 2026 Erika Personal Library</p>
-</footer>
+  <section class="box">
+    <div class="card">
+      <h3>Catalog</h3>
+      <p>Search books by title or author.</p>
+    </div>
+    <div class="card">
+      <h3>Digital</h3>
+      <p>Access e-books and journals.</p>
+    </div>
+    <div class="card">
+      <h3>Services</h3>
+      <p>Rules and library information.</p>
+    </div>
+    <div class="card">
+      <h3>Contact</h3>
+      <p>WhatsApp & Instagram.</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 My Library
+  </footer>
 
 </body>
 </html>
