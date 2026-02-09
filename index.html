@@ -14,36 +14,66 @@ body{
   color:#2f3e4e;
 }
 
-/* HEADER */
+/* HEADER + NAV */
 header{
   background:#2f3e4e;
   color:white;
-  text-align:center;
-  padding:18px;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+nav a{
+  color:white;
+  margin-left:20px;
+  text-decoration:none;
+  font-weight:500;
 }
 
 /* HERO */
 .hero{
-  background:linear-gradient(to right,#5f7c8a,#7fa6a3);
+  background:linear-gradient(to right,#445e6b,#7fa6a3);
   color:white;
-  padding:50px 20px;
+  padding:70px 20px;
   text-align:center;
+}
+
+.hero h1{
+  margin-bottom:10px;
 }
 
 /* SECTION */
 .section{
-  padding:30px;
+  background:white;
+  padding:40px 20px;
   text-align:center;
 }
 
 .box{
   display:inline-block;
-  width:180px;
-  background:#ffffff;
-  padding:15px;
+  background:#f7f9fb;
+  padding:20px;
   margin:10px;
   border-radius:12px;
-  border-left:5px solid #7fa6a3;
+  width:180px;
+  border-top:4px solid #7fa6a3;
+  font-weight:600;
+}
+
+/* FOOTER */
+footer{
+  background:#2f3e4e;
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+}
+
+footer a{
+  color:#7fa6a3;
+  margin:0 10px;
+  text-decoration:none;
   font-weight:600;
 }
 </style>
@@ -52,20 +82,32 @@ header{
 <body>
 
 <header>
-  <h2>Erika Personal Library</h2>
+  <h3>Erika Library</h3>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#fitur">Fitur</a>
+    <a href="#kontak">Kontak</a>
+  </nav>
 </header>
 
-<div class="hero">
+<div class="hero" id="home">
   <h1>Welcome to My Library</h1>
   <p>Perpustakaan pribadi untuk koleksi dan catatan bacaan.</p>
 </div>
 
-<div class="section">
-  <h3>Fitur Pribadi</h3>
+<div class="section" id="fitur">
+  <h2>Fitur Pribadi</h2>
   <div class="box">Koleksi Buku</div>
   <div class="box">Status Bacaan</div>
   <div class="box">Catatan Buku</div>
 </div>
+
+<footer id="kontak">
+  <p>Hubungi Saya</p>
+  <a href="#">WhatsApp</a> |
+  <a href="#">Instagram</a>
+  <p style="font-size:13px;margin-top:10px;">© 2026 Erika Personal Library</p>
+</footer>
 
 </body>
 </html>
