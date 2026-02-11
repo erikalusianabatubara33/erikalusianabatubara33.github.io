@@ -1,217 +1,130 @@
 <!DOCTYPE html>
-<html lang="ind">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Library</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Library</title>
 
-  <style>
-    body{
-      margin:0;
-      font-family:Monsterrat;
-      background:#eef3f9;
-      scroll-behavior:smooth;
-      color:#111;
-    }
-
-    header{
-      background:#0b1f3a;
-      color:white;
-      padding:15px 40px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:sticky;
-      top:0;
-    }
-
-    header h2{margin:0;font-size:20px;}
-    nav a{color:white;text-decoration:none;margin-left:15px;font-size:14px;}
-    nav a:hover{text-decoration:underline;}
-
-    section{
-      padding:70px 20px;
-      max-width:900px;
-      margin:auto;
-    }
-
-    .hero{
-      text-align:center;
-      padding-top:90px;
-    }
-
-    .hero h1{
-      color:#0b1f3a;
-      font-size:40px;
-      margin-bottom:10px;
-    }
-
-    .hero p{
-      color:#555;
-      font-size:14px;
-      max-width:600px;
-      margin:auto;
-    }
-
-    input{
-      margin-top:25px;
-      padding:12px;
-      width:70%;
-      max-width:450px;
-      border:1px solid #ccc;
-      border-radius:20px;
-      outline:none;
-    }
-
-    .menu{
-      margin-top:50px;
-      text-align:left;
-    }
-
-    .menu a{
-      display:block;
-      padding:14px 18px;
-      margin:10px 0;
-      border-left:5px solid #0b1f3a;
-      background:rgba(255,255,255,0.7);
-      text-decoration:none;
-      color:#0b1f3a;
-      font-weight:bold;
-      border-radius:12px;
-    }
-
-    .menu a span{
-      display:block;
-      font-weight:normal;
-      color:#555;
-      font-size:13px;
-      margin-top:5px;
-    }
-
-    h2{
-      color:#0b1f3a;
-      margin-bottom:10px;
-      font-size:28px;
-    }
-
-    .desc{
-      color:#555;
-      font-size:14px;
-      margin-bottom:20px;
-    }
-
-    ul{
-      padding-left:18px;
-      line-height:1.8;
-      background:rgba(255,255,255,0.7);
-      padding:20px;
-      border-radius:14px;
-    }
-
-    footer{
-      background:#0b1f3a;
-      color:white;
-      text-align:center;
-      padding:12px;
-      font-size:13px;
-      margin-top:50px;
-    }
-  </style>
+<style>
+  body{margin:0;font-family:Arial;background:#eef3f9;}
+  header{background:#0b1f3a;color:#fff;padding:15px 30px;display:flex;justify-content:space-between;position:sticky;top:0;}
+  nav a{color:white;text-decoration:none;margin-left:12px;padding:6px 10px;border-radius:8px;cursor:pointer;}
+  nav a.active{background:white;color:#0b1f3a;font-weight:bold;}
+  .room{display:none;padding:50px 20px;text-align:center;}
+  .room.active{display:block;}
+  .box{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-top:25px;}
+  .card,.list{background:white;padding:20px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+  .card{width:200px;}
+  .list{max-width:750px;margin:auto;text-align:left;}
+  h1,h2{color:#0b1f3a;text-align:center;}
+  footer{background:#0b1f3a;color:white;text-align:center;padding:12px;margin-top:30px;}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h2>My Library</h2>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#catalog">Catalog</a>
-      <a href="#digital">Digital</a>
-      <a href="#history">History</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<header>
+  <h2>My Library</h2>
+  <nav>
+    <a onclick="showRoom('home')" id="link-home" class="active">Beranda</a>
+    <a onclick="showRoom('profile')" id="link-profile">Profil</a>
+    <a onclick="showRoom('services')" id="link-services">Layanan</a>
+    <a onclick="showRoom('collection')" id="link-collection">Koleksi</a>
+    <a onclick="showRoom('contact')" id="link-contact">Kontak</a>
+  </nav>
+</header>
 
-  <!-- HOME -->
-  <section class="hero" id="home">
-    <h1>Welcome to My Library</h1>
-    <p>A personal digital library for reading, learning, and research.</p>
+<!-- BERANDA -->
+<section id="home" class="room active">
+  <h1>Welcome to My Library</h1>
+  <p>A personal digital library for reading, learning, and research.</p>
 
-    <input type="text" placeholder="Search books, journals, or papers...">
+  <input type="text" placeholder="Search books..." style="padding:10px;width:60%;max-width:400px;border-radius:6px;border:1px solid #ccc;">
 
-    <div class="menu">
-      <a href="#catalog">Catalog Room
-        <span>Collection of books by category and topic.</span>
-      </a>
+  <div class="box">
+    <div class="card"><h3>Profil</h3><p>About this library</p></div>
+    <div class="card"><h3>Layanan</h3><p>Rules and services</p></div>
+    <div class="card"><h3>Koleksi</h3><p>Books and journals</p></div>
+    <div class="card"><h3>Kontak</h3><p>WhatsApp & Instagram</p></div>
+  </div>
+</section>
 
-      <a href="#digital">Digital Room
-        <span>PDF books, journals, and digital resources.</span>
-      </a>
+<!-- PROFIL -->
+<section id="profile" class="room">
+  <div class="list">
+    <h2>Profil Room</h2>
+    <ul>
+      <li><b>Nama:</b> My Library</li>
+      <li><b>Jenis:</b> Perpustakaan Digital Pribadi</li>
+      <li><b>Tujuan:</b> Membantu membaca, belajar, dan riset</li>
+      <li><b>Motto:</b> Knowledge is Power</li>
+    </ul>
+  </div>
+</section>
 
-      <a href="#history">Reading History Room
-        <span>List of books I have read.</span>
-      </a>
+<!-- LAYANAN -->
+<section id="services" class="room">
+  <div class="list">
+    <h2>Layanan Room</h2>
+    <ul>
+      <li>Jam Operasional: Senin - Jumat (08:00 - 17:00)</li>
+      <li>Silent Reading Area Policy</li>
+      <li>Digital Collection Access Anytime</li>
+      <li>Book Arrangement by Category</li>
+    </ul>
+  </div>
+</section>
 
-      <a href="#contact">Contact Room
-        <span>My WhatsApp and Instagram information.</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- CATALOG -->
-  <section id="catalog">
-    <h2>Catalog Room</h2>
-    <p class="desc">This room contains a list of my book collections.</p>
-
+<!-- KOLEKSI -->
+<section id="collection" class="room">
+  <div class="list">
+    <h2>Koleksi Room</h2>
     <ul>
       <li><b>Library Science</b> - Introduction to Librarianship</li>
-      <li><b>Archival Studies</b> - Records Management</li>
-      <li><b>Research Methodology</b> - Qualitative and Quantitative</li>
-      <li><b>Academic Writing</b> - Citation & Referencing</li>
-      <li><b>Information Management</b> - Data Organization</li>
+      <li><b>Information Management</b> - Data and Knowledge Organization</li>
+      <li><b>Archival Studies</b> - Records and Preservation</li>
+      <li><b>Research Methodology</b> - Qualitative and Quantitative Methods</li>
     </ul>
-  </section>
+  </div>
 
-  <!-- DIGITAL -->
-  <section id="digital">
-    <h2>Digital Room</h2>
-    <p class="desc">This room provides digital resources in PDF and journal format.</p>
+  <br>
 
+  <div class="list">
+    <h2>HyperText Markup Language (HTML)</h2>
+    <p style="text-align:center;">HTML standard bahasa yang digunakan untuk menampilkan document web.</p>
     <ul>
-      <li><b>E-Book:</b> Library Management Basics (PDF)</li>
-      <li><b>Journal:</b> Journal of Information Science</li>
-      <li><b>Article:</b> Digital Literacy in Education</li>
-      <li><b>PDF:</b> Research Proposal Writing Guide</li>
+      <li>Mengontrol tampilan dari web page dan contentnya.</li>
+      <li>Mempublikasikan document secara online sehingga bisa diakses.</li>
+      <li>Membuat online form untuk pendaftaran/transaksi online.</li>
+      <li>Menambahkan image, audio, video dalam document HTML.</li>
+      <li>File HTML berupa plain text file, bukan binary file.</li>
+      <li>HTML versi terakhir: HTML5</li>
     </ul>
-  </section>
+  </div>
+</section>
 
-  <!-- HISTORY -->
-  <section id="history">
-    <h2>Reading History Room</h2>
-    <p class="desc">This room records books that I have finished reading.</p>
-
+<!-- KONTAK -->
+<section id="contact" class="room">
+  <div class="list">
+    <h2>Kontak Room</h2>
     <ul>
-      <li><b>Atomic Habits</b> - James Clear (Finished)</li>
-      <li><b>Rich Dad Poor Dad</b> - Robert Kiyosaki (Finished)</li>
-      <li><b>Filosofi Teras</b> - Henry Manampiring (Finished)</li>
-      <li><b>Introduction to Archives</b> - (Finished)</li>
+      <li><b>WhatsApp:</b> +62 8 136 764 1203</li>
+      <li><b>Instagram:</b> erikalusiana_</li>
     </ul>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Contact Room</h2>
-    <p class="desc">This room contains my personal contact information.</p>
+<footer>© 2026 My Library</footer>
 
-    <ul>
-      <li><b>WhatsApp:</b> +62 813-6764-1203</li>
-      <li><b>Instagram:</b> @erikalusiana_</li>
-    </ul>
-  </section>
+<script>
+function showRoom(id){
+  document.querySelectorAll(".room").forEach(r=>r.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 
-  <footer>
-    © 2026 My Library
-  </footer>
+  document.querySelectorAll("nav a").forEach(a=>a.classList.remove("active"));
+  document.getElementById("link-"+id).classList.add("active");
+}
+</script>
 
 </body>
 </html>
