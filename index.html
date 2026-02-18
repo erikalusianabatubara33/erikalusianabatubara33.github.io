@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Halaman web pertama saya</title>
+<title>Web Pertama Saya</title>
+<style>
+nav{background:#333;padding:10px}
+nav a{color:white;margin-right:15px;text-decoration:none;font-weight:bold}
+</style>
 </head>
+
 <body>
-    <h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH</h1>
-    <h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
-    <p>
-        Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka.
-        Inilah web pertama yang saya buat di tugas ini.
-    </p>
-    <a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">
-        Instagramku
-    </a>
-    <p>Baca ini agar kamu lebih mengenal aku</p>
-    <p>
-        <a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing">
-            Curriculum Vitae (CV)
-        </a>
-    </p>
-    <h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
-    <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/oWnwhCDzv7E"
-        title="YouTube video player"
-        frameborder="0"
-        allowfullscreen>
-    </iframe>
 
-    <h3>Login Member</h3>
-<form action="/submit" method="POST">
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required><br><br>
+<nav>
+  <a href="#">Home</a>
+  <a href="#tentang">Tentang</a>
+  <a href="#login">Login</a>
+</nav>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-		
-		<label for="no tlp">No Tlp:</label>
-		<input type="no tlp" id="nomor telepon" name="no tlp" required><br><br>
+<h1>SELAMAT DATANG DI WEB SAYA</h1>
 
-        <input type="submit" value="Kirim">
-    </form>
+<h2 id="tentang">Tentang Saya</h2>
+<p>Haii, nama saya Erika Lusiana Batubara.</p>
+
+<a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagramku</a>
+
+<h3>FILSAFAT</h3>
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/oWnwhCDzv7E"
+allowfullscreen></iframe>
+
+<h3 id="login">Login Member</h3>
+<form>
+Nama:<br><input type="text" required><br><br>
+Email:<br><input type="email" required><br><br>
+No Tlp:<br><input type="tel" required><br><br>
+<input type="submit" value="Kirim">
+</form>
+
 </body>
 </html>
