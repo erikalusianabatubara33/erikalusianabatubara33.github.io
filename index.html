@@ -1,86 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Web Pertama Saya</title>
-
-<style>
-body{
-    margin:0;
-    font-family: Arial, sans-serif;
-}
-
-/* NAVBAR */
-nav{
-    background:#87CEEB; /* light blue */
-    padding:15px;
-}
-
-nav ul{
-    list-style:none;
-    margin:0;
-    padding:0;
-    display:flex;
-    justify-content:flex-end; /* ke kanan */
-}
-
-nav ul li{
-    margin-left:20px;
-}
-
-nav ul li a{
-    text-decoration:none;
-    color:#003366;
-    font-weight:bold;
-}
-
-nav ul li a:hover{
-    text-decoration:underline;
-}
-
-/* ISI */
-section{
-    padding:20px;
-}
-</style>
+    <title>Halaman web pertama saya</title>
 </head>
-
 <body>
+    <h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH</h1>
+    <h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
+    <p>
+        Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka.
+        Inilah web pertama yang saya buat di tugas ini.
+    </p>
+    <a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">
+        Instagramku
+    </a>
+    <p>Baca ini agar kamu lebih mengenal aku</p>
+    <p>
+        <a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing">
+            Curriculum Vitae (CV)
+        </a>
+    </p>
+    <h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
+    <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/oWnwhCDzv7E"
+        title="YouTube video player"
+        frameborder="0"
+        allowfullscreen>
+    </iframe>
 
-<nav>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#koleksi">Koleksi</a></li>
-        <li><a href="#layanan">Layanan</a></li>
-        <li><a href="#contact">Contact Us</a></li>
-        <li><a href="#about">About Us</a></li>
-    </ul>
-</nav>
+    <h3>Login Member</h3>
+<form action="/submit" method="POST">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required>
 
-<section>
-    <h1>SELAMAT DATANG DI WEB SAYA</h1>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+		
+		<label for="nomor telepon">Nomor Telepon:</label>
+		<input type="nomor telepon" id="nomor telepon" name="nomor telepon" required>
 
-    <h2 id="about">About Us</h2>
-    <p>Haii, nama saya Erika Lusiana Batubara.</p>
-    <a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagramku</a>
-
-    <h2 id="koleksi">Koleksi</h2>
-    <p>Berisi koleksi video dan referensi pembelajaran.</p>
-
-    <h2 id="layanan">Layanan</h2>
-    <p>Layanan informasi dan pembelajaran.</p>
-
-    <h2>Filsafat</h2>
-    <iframe width="560" height="315"
-    src="https://www.youtube.com/embed/oWnwhCDzv7E"
-    allowfullscreen></iframe>
-
-    <h2 id="contact">Contact Us</h2>
-    <form>
-        Nama:<br><input type="text" required><br><br>
-        Email:<br><input type="email" required><br><br>
         <input type="submit" value="Kirim">
     </form>
-</section>
-
 </body>
 </html>
