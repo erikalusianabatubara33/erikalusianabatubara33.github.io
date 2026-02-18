@@ -2,39 +2,85 @@
 <html>
 <head>
 <title>Web Pertama Saya</title>
+
 <style>
-nav{background:#333;padding:10px}
-nav a{color:white;margin-right:15px;text-decoration:none;font-weight:bold}
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+nav{
+    background:#87CEEB; /* light blue */
+    padding:15px;
+}
+
+nav ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:flex-end; /* ke kanan */
+}
+
+nav ul li{
+    margin-left:20px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:#003366;
+    font-weight:bold;
+}
+
+nav ul li a:hover{
+    text-decoration:underline;
+}
+
+/* ISI */
+section{
+    padding:20px;
+}
 </style>
 </head>
 
 <body>
 
 <nav>
-  <a href="#">Home</a>
-  <a href="#tentang">Tentang</a>
-  <a href="#login">Login</a>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#koleksi">Koleksi</a></li>
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#about">About Us</a></li>
+    </ul>
 </nav>
 
-<h1>SELAMAT DATANG DI WEB SAYA</h1>
+<section>
+    <h1>SELAMAT DATANG DI WEB SAYA</h1>
 
-<h2 id="tentang">Tentang Saya</h2>
-<p>Haii, nama saya Erika Lusiana Batubara.</p>
+    <h2 id="about">About Us</h2>
+    <p>Haii, nama saya Erika Lusiana Batubara.</p>
+    <a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagramku</a>
 
-<a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagramku</a>
+    <h2 id="koleksi">Koleksi</h2>
+    <p>Berisi koleksi video dan referensi pembelajaran.</p>
 
-<h3>FILSAFAT</h3>
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/oWnwhCDzv7E"
-allowfullscreen></iframe>
+    <h2 id="layanan">Layanan</h2>
+    <p>Layanan informasi dan pembelajaran.</p>
 
-<h3 id="login">Login Member</h3>
-<form>
-Nama:<br><input type="text" required><br><br>
-Email:<br><input type="email" required><br><br>
-No Tlp:<br><input type="tel" required><br><br>
-<input type="submit" value="Kirim">
-</form>
+    <h2>Filsafat</h2>
+    <iframe width="560" height="315"
+    src="https://www.youtube.com/embed/oWnwhCDzv7E"
+    allowfullscreen></iframe>
+
+    <h2 id="contact">Contact Us</h2>
+    <form>
+        Nama:<br><input type="text" required><br><br>
+        Email:<br><input type="email" required><br><br>
+        <input type="submit" value="Kirim">
+    </form>
+</section>
 
 </body>
 </html>
