@@ -1,97 +1,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>IGNITIA Library</title>
+    <title>IGNITIA LIBRARY</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
+            margin: 0;
             background: linear-gradient(135deg, #4e54c8, #8f94fb);
-            min-height: 100vh;
         }
 
         .page {
             display: none;
-            padding: 40px;
-        }
-
-        /* LOGIN STYLE */
-        .login-container {
-            width: 350px;
-            margin: 120px auto;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
             padding: 30px;
-            border-radius: 20px;
-            color: white;
-            text-align: center;
         }
 
-        .login-container h2 {
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 8px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: white;
-            color: #4e54c8;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #f1f1f1;
-        }
-
-        /* NAVBAR */
         nav {
-            background: rgba(255,255,255,0.1);
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         nav a {
-            color: white;
+            margin-right: 18px;
             text-decoration: none;
-            margin-left: 20px;
             font-weight: 500;
+            color: #4e54c8;
+            transition: 0.3s;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #000;
         }
 
-        .content-box {
+        h1, h2 {
+            color: #222;
+        }
+
+        /* LOGIN BOX */
+        .login-box {
             background: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-top: 40px;
+            padding: 35px;
+            border-radius: 15px;
+            width: 320px;
+            margin: 80px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
         }
 
-        h1, h2, h3 {
-            margin-bottom: 15px;
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background: #4e54c8;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #3b40a4;
+        }
+
+        /* CARD */
+        .card-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .badge {
+            background: gold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .progress {
+            background: #ddd;
+            border-radius: 10px;
+            height: 8px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            background: #4e54c8;
+            height: 8px;
+            border-radius: 10px;
+            width: 50%;
+        }
+
+        .dashboard-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
     </style>
@@ -110,178 +136,178 @@
 
 <body onload="showPage('login')">
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 <div id="login" class="page">
-    <div class="login-container">
-        <h2>IGNITIA 🔥 Library</h2>
-        <p>Masuk dan mulai petualangan membaca</p><br>
-
+    <div class="login-box">
+        <h2>IGNITIA LIBRARY 🔥</h2>
+        <p>Menyalakan Semangat Literasi</p>
         <form onsubmit="showPage('home'); return false;">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <input type="email" placeholder="Email"><br><br>
+            <input type="password" placeholder="Password"><br><br>
+            <input type="submit" value="Login">
         </form>
-
-        <br>
-        <small>Belum punya akun? 
-            <a href="#" style="color:white;" onclick="showPage('register')">Daftar</a>
-        </small>
+        <p><a href="#" onclick="showPage('register')">Daftar Akun Baru</a></p>
     </div>
 </div>
 
-<!-- ================= REGISTER ================= -->
+<!-- REGISTER -->
 <div id="register" class="page">
-    <div class="login-container">
-        <h2>Daftar Akun Baru</h2>
-
+    <div class="login-box">
+        <h2>Daftar Pengguna</h2>
         <form onsubmit="showPage('login'); return false;">
-            <input type="text" placeholder="Nama Lengkap" required>
-            <input type="email" placeholder="Email" required>
-            <input type="text" placeholder="No Handphone">
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Daftar</button>
+            <input type="text" placeholder="Nama Lengkap"><br><br>
+            <input type="email" placeholder="Email"><br><br>
+            <input type="password" placeholder="Password"><br><br>
+            <input type="submit" value="Daftar">
         </form>
-
-        <br>
-        <small>
-            Sudah punya akun?
-            <a href="#" style="color:white;" onclick="showPage('login')">Login</a>
-        </small>
     </div>
 </div>
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 <div id="home" class="page">
     <nav>
-        <div><strong>IGNITIA 🔥</strong></div>
-        <div>
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('collection')">Koleksi</a>
-            <a href="#" onclick="showPage('service')">Service</a>
-            <a href="#" onclick="showPage('about')">About Us</a>
-            <a href="#" onclick="showPage('contact')">Contact Us</a>
-            <a href="#" onclick="showPage('admin')">Admin</a>
-        </div>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="showPage('admin')">Admin</a>
     </nav>
 
-    <div class="content-box">
-        <h1>Selamat Datang di IGNITIA Library 🔥</h1>
-        <p>Tempatnya siswa SMP menemukan ilmu, inspirasi, dan petualangan lewat buku.</p>
+    <h1>Selamat Datang di IGNITIA Library</h1>
+    <p>Platform literasi digital untuk siswa SMP kelas 1–3.</p>
+
+    <h2>Dashboard Siswa</h2>
+    <div class="card-container">
+        <div class="dashboard-box">
+            <h3>12</h3>
+            <p>Buku Dibaca</p>
+        </div>
+
+        <div class="dashboard-box">
+            <h3>Level 2</h3>
+            <p>Explorer 🔥</p>
+        </div>
+
+        <div class="dashboard-box">
+            <h3><span class="badge">Book Starter</span></h3>
+            <p>Badge Aktif</p>
+        </div>
     </div>
 </div>
 
-<!-- ================= COLLECTION ================= -->
+<!-- COLLECTION -->
 <div id="collection" class="page">
     <nav>
-        <div><strong>IGNITIA 🔥</strong></div>
-        <div>
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('collection')">Koleksi</a>
-            <a href="#" onclick="showPage('service')">Service</a>
-            <a href="#" onclick="showPage('about')">About Us</a>
-            <a href="#" onclick="showPage('contact')">Contact Us</a>
-            <a href="#" onclick="showPage('admin')">Admin</a>
-        </div>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="showPage('admin')">Admin</a>
     </nav>
 
-    <div class="content-box">
-        <h2>Koleksi Buku</h2>
-        <ul>
-            <li>📘 Buku Ilmiah</li>
-            <li>📖 Fiksi & Sastra</li>
-            <li>📚 Koleksi Referensi</li>
-        </ul>
+    <h2>Koleksi Buku</h2>
+
+    <div class="card-container">
+
+        <div class="card">
+            <h3>Petualangan Nusantara</h3>
+            <p>Fiksi Remaja</p>
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Sains Itu Seru</h3>
+            <p>Edukasi</p>
+            <div class="progress">
+                <div class="progress-bar" style="width:70%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Sejarah Dunia</h3>
+            <p>Referensi</p>
+            <div class="progress">
+                <div class="progress-bar" style="width:30%"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <h2>Rekomendasi Mingguan</h2>
+    <div class="card">
+        <h3>Belajar Fisika dengan Mudah</h3>
+        <p>Direkomendasikan untuk kelas 8 SMP</p>
     </div>
 </div>
 
-<!-- ================= SERVICE ================= -->
+<!-- SERVICE -->
 <div id="service" class="page">
     <nav>
-        <div><strong>IGNITIA 🔥</strong></div>
-        <div>
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('collection')">Koleksi</a>
-            <a href="#" onclick="showPage('service')">Service</a>
-            <a href="#" onclick="showPage('about')">About Us</a>
-            <a href="#" onclick="showPage('contact')">Contact Us</a>
-            <a href="#" onclick="showPage('admin')">Admin</a>
-        </div>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="showPage('admin')">Admin</a>
     </nav>
 
-    <div class="content-box">
-        <h2>Layanan Perpustakaan</h2>
-        <ul>
-            <li>Peminjaman Buku</li>
-            <li>Pengembalian Buku</li>
-            <li>Perpanjangan Masa Pinjam</li>
-            <li>Layanan Referensi</li>
-        </ul>
-    </div>
+    <h2>Layanan</h2>
+    <ul>
+        <li>Peminjaman Buku</li>
+        <li>Pengembalian Buku</li>
+        <li>Perpanjangan Masa Pinjam</li>
+        <li>Rekomendasi Bacaan</li>
+    </ul>
 </div>
 
-<!-- ================= ABOUT ================= -->
+<!-- ABOUT -->
 <div id="about" class="page">
     <nav>
-        <div><strong>IGNITIA 🔥</strong></div>
-        <div>
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('collection')">Koleksi</a>
-            <a href="#" onclick="showPage('service')">Service</a>
-            <a href="#" onclick="showPage('about')">About Us</a>
-            <a href="#" onclick="showPage('contact')">Contact Us</a>
-            <a href="#" onclick="showPage('admin')">Admin</a>
-        </div>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="showPage('admin')">Admin</a>
     </nav>
 
-    <div class="content-box">
-        <h2>Tentang IGNITIA Library</h2>
-        <p>IGNITIA Library hadir untuk menyalakan semangat literasi siswa SMP melalui bacaan edukatif dan inspiratif.</p>
-    </div>
+    <h2>Tentang IGNITIA</h2>
+    <p>IGNITIA Library dibuat untuk meningkatkan minat baca siswa melalui pendekatan digital yang sederhana, modern, dan mudah diakses.</p>
 </div>
 
-<!-- ================= CONTACT ================= -->
+<!-- CONTACT -->
 <div id="contact" class="page">
     <nav>
-        <div><strong>IGNITIA 🔥</strong></div>
-        <div>
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('collection')">Koleksi</a>
-            <a href="#" onclick="showPage('service')">Service</a>
-            <a href="#" onclick="showPage('about')">About Us</a>
-            <a href="#" onclick="showPage('contact')">Contact Us</a>
-            <a href="#" onclick="showPage('admin')">Admin</a>
-        </div>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="showPage('admin')">Admin</a>
     </nav>
 
-    <div class="content-box">
-        <h2>Contact Us</h2>
-        <p>Email: erikalusianabatubara@gmail.com</p>
-        <p>WhatsApp: 0813-6764-1203</p>
-    </div>
+    <h2>Hubungi Kami</h2>
+    <p>Email: erikalusianabatubara@gmail.com</p>
 </div>
 
-<!-- ================= ADMIN ================= -->
+<!-- ADMIN -->
 <div id="admin" class="page">
     <nav>
-        <div><strong>IGNITIA 🔥</strong></div>
-        <div>
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('collection')">Koleksi</a>
-            <a href="#" onclick="showPage('service')">Service</a>
-            <a href="#" onclick="showPage('about')">About Us</a>
-            <a href="#" onclick="showPage('contact')">Contact Us</a>
-            <a href="#" onclick="showPage('admin')">Admin</a>
-        </div>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="showPage('admin')">Admin</a>
     </nav>
 
-    <div class="content-box">
-        <h1>Selamat Datang di Web Saya</h1>
-        <p>Nama saya Erika Lusiana Batubara. Ini adalah web IGNITIA Library yang saya kembangkan.</p>
-        <h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
-        <iframe width="560" height="315"
-        src="https://www.youtube.com/embed/oWnwhCDzv7E"
-        frameborder="0" allowfullscreen></iframe>
-    </div>
+    <h2>Profil Admin</h2>
+    <p>Nama: Erika Lusiana Batubara</p>
+    <p>Instagram: @erikalusiana_</p>
 </div>
 
 </body>
