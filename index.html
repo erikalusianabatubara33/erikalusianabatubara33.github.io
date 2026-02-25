@@ -23,7 +23,7 @@ body{
 .page{
     display:none;
     padding:30px;
-    animation:fadeIn 0.6s ease;
+    animation:fadeIn 0.5s ease;
 }
 
 @keyframes fadeIn{
@@ -77,34 +77,6 @@ input[type="submit"]{
 input[type="submit"]:hover{
     background:#3b40a4;
 }
-
-.card-container{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.card{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    width:220px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:scale(1.05);
-}
-
-.dashboard-box{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    width:200px;
-    text-align:center;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
 </style>
 
 <script>
@@ -113,20 +85,27 @@ function showPage(pageId){
 }
 
 function loadPage(){
-    var page = window.location.hash.replace("#","");
-    if(page==""){ page="login"; }
+    var page = window.location.hash.substring(1);
 
-    var pages=document.getElementsByClassName("page");
-    for(var i=0;i<pages.length;i++){
-        pages[i].style.display="none";
+    if(!page){
+        page = "login";
     }
 
-    var active=document.getElementById(page);
-    if(active){ active.style.display="block"; }
+    var pages = document.querySelectorAll(".page");
+    pages.forEach(function(p){
+        p.style.display="none";
+    });
+
+    var active = document.getElementById(page);
+    if(active){
+        active.style.display="block";
+    } else {
+        document.getElementById("login").style.display="block";
+    }
 }
 
-window.onhashchange=loadPage;
-window.onload=loadPage;
+window.addEventListener("hashchange", loadPage);
+window.addEventListener("load", loadPage);
 </script>
 </head>
 
@@ -137,12 +116,19 @@ window.onload=loadPage;
 <div class="login-box">
 <h2>IGNITIA LIBRARY 🔥</h2>
 <p>Menyalakan Semangat Literasi</p>
+
 <form onsubmit="showPage('home'); return false;">
 <input type="email" placeholder="Email" required><br><br>
 <input type="password" placeholder="Password" required><br><br>
 <input type="submit" value="Login">
 </form>
-<p><a href="#" onclick="showPage('register')">Daftar Akun Baru</a></p>
+
+<p>
+<a href="javascript:void(0)" onclick="showPage('register')">
+Daftar Akun Baru
+</a>
+</p>
+
 </div>
 </div>
 
@@ -150,6 +136,7 @@ window.onload=loadPage;
 <div id="register" class="page">
 <div class="login-box">
 <h2>Pendaftaran Pengguna Baru</h2>
+
 <form onsubmit="showPage('login'); return false;">
 Last Name:<br>
 <input type="text" required><br><br>
@@ -168,69 +155,41 @@ Password:<br>
 
 <input type="submit" value="Daftar">
 </form>
+
+<p>
+<a href="javascript:void(0)" onclick="showPage('login')">
+Kembali ke Login
+</a>
+</p>
+
 </div>
 </div>
 
 <!-- HOME -->
 <div id="home" class="page">
 <nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+<a href="javascript:void(0)" onclick="showPage('collection')">Collection</a>
+<a href="javascript:void(0)" onclick="showPage('service')">Service</a>
+<a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
+<a href="javascript:void(0)" onclick="showPage('contact')">Contact Us</a>
+<a href="javascript:void(0)" onclick="showPage('admin')">Admin</a>
 </nav>
 
 <h1>Selamat Datang di IGNITIA Library</h1>
-<p>Platform literasi digital untuk siswa SMP kelas 1–3.</p>
+<p>Platform literasi digital untuk siswa SMP kelas 7–9.</p>
 
-<h2>Dashboard Siswa</h2>
-<div class="card-container">
-<div class="dashboard-box">
-<h3>12</h3>
-<p>Buku Dibaca</p>
-</div>
-
-<div class="dashboard-box">
-<h3>Level 2</h3>
-<p>Explorer 🔥</p>
-</div>
-
-<div class="dashboard-box">
-<h3>Book Starter</h3>
-<p>Badge Aktif</p>
-</div>
-</div>
-
-<h2>🔥 Buku Terpopuler Minggu Ini</h2>
-<div class="card-container">
-<div class="card">
-<h3>Petualangan Nusantara</h3>
-<p>Fiksi Remaja</p>
-</div>
-
-<div class="card">
-<h3>Sains Itu Seru</h3>
-<p>Edukasi</p>
-</div>
-
-<div class="card">
-<h3>Sejarah Dunia</h3>
-<p>Referensi</p>
-</div>
-</div>
 </div>
 
 <!-- COLLECTION -->
 <div id="collection" class="page">
 <nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+<a href="javascript:void(0)" onclick="showPage('collection')">Collection</a>
+<a href="javascript:void(0)" onclick="showPage('service')">Service</a>
+<a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
+<a href="javascript:void(0)" onclick="showPage('contact')">Contact Us</a>
+<a href="javascript:void(0)" onclick="showPage('admin')">Admin</a>
 </nav>
 
 <h2>Koleksi Buku</h2>
@@ -244,12 +203,12 @@ Password:<br>
 <!-- SERVICE -->
 <div id="service" class="page">
 <nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+<a href="javascript:void(0)" onclick="showPage('collection')">Collection</a>
+<a href="javascript:void(0)" onclick="showPage('service')">Service</a>
+<a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
+<a href="javascript:void(0)" onclick="showPage('contact')">Contact Us</a>
+<a href="javascript:void(0)" onclick="showPage('admin')">Admin</a>
 </nav>
 
 <h2>Layanan</h2>
@@ -257,85 +216,53 @@ Password:<br>
 <li>Peminjaman Buku</li>
 <li>Pengembalian Buku</li>
 <li>Perpanjangan Masa Pinjam</li>
-<li>Layanan Referensi</li>
 </ul>
 </div>
 
 <!-- ABOUT -->
 <div id="about" class="page">
 <nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+<a href="javascript:void(0)" onclick="showPage('collection')">Collection</a>
+<a href="javascript:void(0)" onclick="showPage('service')">Service</a>
+<a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
+<a href="javascript:void(0)" onclick="showPage('contact')">Contact Us</a>
+<a href="javascript:void(0)" onclick="showPage('admin')">Admin</a>
 </nav>
 
-<h2>Tentang IGNITIA Library</h2>
-<p><b>IGNITIA</b> berasal dari kata ignite yang berarti menyalakan.</p>
-<p>Web ini dibuat untuk menyalakan semangat membaca siswa SMP kelas 7, 8, dan 9 melalui platform digital yang sederhana dan menarik.</p>
-
-<h3>Tujuan Web:</h3>
-<ul>
-<li>Meningkatkan minat baca siswa</li>
-<li>Menyediakan akses literasi digital</li>
-<li>Membuat membaca lebih menyenangkan</li>
-</ul>
-
-<h3>Target Pengguna:</h3>
-<p>Siswa SMP yang ingin membaca dengan cara modern dan interaktif.</p>
+<h2>Tentang IGNITIA</h2>
+<p>Website literasi digital untuk meningkatkan minat baca siswa SMP kelas 7–9.</p>
 </div>
 
 <!-- CONTACT -->
 <div id="contact" class="page">
 <nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+<a href="javascript:void(0)" onclick="showPage('collection')">Collection</a>
+<a href="javascript:void(0)" onclick="showPage('service')">Service</a>
+<a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
+<a href="javascript:void(0)" onclick="showPage('contact')">Contact Us</a>
+<a href="javascript:void(0)" onclick="showPage('admin')">Admin</a>
 </nav>
 
 <h2>Contact Us</h2>
 <p>Email: erikalusianabatubara@gmail.com</p>
 <p>WhatsApp: 0813-6764-1203</p>
-
-<p>
-<a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagram</a> |
-<a href="https://www.facebook.com/share/1GYJU1wnMC/">Facebook</a>
-</p>
-
-<h3>Kritik dan Saran</h3>
-<form>
-Nama:<br>
-<input type="text"><br><br>
-
-Email:<br>
-<input type="email"><br><br>
-
-Pesan:<br>
-<textarea rows="4"></textarea><br><br>
-
-<input type="submit" value="Kirim">
-</form>
 </div>
 
 <!-- ADMIN -->
 <div id="admin" class="page">
 <nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+<a href="javascript:void(0)" onclick="showPage('collection')">Collection</a>
+<a href="javascript:void(0)" onclick="showPage('service')">Service</a>
+<a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
+<a href="javascript:void(0)" onclick="showPage('contact')">Contact Us</a>
+<a href="javascript:void(0)" onclick="showPage('admin')">Admin</a>
 </nav>
 
 <h2>Profil Admin</h2>
 <p>Nama: Erika Lusiana Batubara</p>
-<p>Instagram: @erikalusiana_</p>
 </div>
 
 </body>
