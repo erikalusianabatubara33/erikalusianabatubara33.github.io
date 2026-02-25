@@ -6,108 +6,141 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e3f2fd;
             margin: 0;
-        }
-
-        .page {
-            display: none;
-            background-color: white;
-            width: 80%;
-            margin: 30px auto;
-            padding: 20px;
-            border-radius: 10px;
+            background-color: #f4f7f1;
         }
 
         nav {
-            background-color: #1976d2;
+            background-color: #6b8e6b;
             padding: 10px;
-            text-align: center;
-            border-radius: 5px;
         }
 
         nav a {
-            color: white;
-            margin: 0 10px;
+            margin-right: 15px;
             text-decoration: none;
             font-weight: bold;
+            color: white;
         }
 
         nav a:hover {
             text-decoration: underline;
         }
 
-        h1 { color: #0d47a1; }
-        h2 { color: #1565c0; }
-        h3 { color: #ef6c00; }
-
-        input[type="submit"] {
-            background-color: #1976d2;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
+        .page {
+            display: none;
+            padding: 20px;
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 6px;
-            margin-top: 5px;
+        h1 {
+            color: #2f4f2f;
+        }
+
+        button, input[type="submit"] {
+            padding: 8px 15px;
+            border: none;
+            background-color: #8fbc8f;
+            cursor: pointer;
+        }
+
+        button:hover, input[type="submit"]:hover {
+            background-color: #7aa87a;
+        }
+
+        .welcome-buttons {
+            margin-top: 20px;
+        }
+
+        iframe {
+            margin-top: 20px;
+            max-width: 100%;
         }
     </style>
 
     <script>
+        var isLoggedIn = false;
+
         function showPage(pageId) {
+
+            if (pageId === "collection" && !isLoggedIn) {
+                alert("Silakan login terlebih dahulu untuk melihat koleksi.");
+                showPage("login");
+                return;
+            }
+
             var pages = document.getElementsByClassName("page");
             for (var i = 0; i < pages.length; i++) {
                 pages[i].style.display = "none";
             }
+
             document.getElementById(pageId).style.display = "block";
         }
 
+        function loginUser() {
+            isLoggedIn = true;
+            showPage("home");
+            return false;
+        }
+
         function logout() {
+            isLoggedIn = false;
+
             var forms = document.getElementsByTagName("form");
             for (var i = 0; i < forms.length; i++) {
                 forms[i].reset();
             }
-            showPage('login');
+
+            showPage('home');
         }
     </script>
+
 </head>
 
-<body onload="showPage('login')">
+<body onload="showPage('home')">
 
+<!-- ================= LOGIN ================= -->
 <div id="login" class="page">
     <h2>Login to Er Library</h2>
-    <form onsubmit="showPage('home'); return false;">
+
+    <form onsubmit="return loginUser();">
         Email:<br>
-        <input type="email"><br><br>
+        <input type="email" required><br><br>
+
         Password:<br>
-        <input type="password"><br><br>
+        <input type="password" required><br><br>
+
         <input type="submit" value="Login">
     </form>
-    <p>Pengguna baru?
+
+    <p>Pengguna baru? 
         <a href="#" onclick="showPage('register')">Daftar di sini</a>
     </p>
 </div>
 
+<!-- ================= REGISTER ================= -->
 <div id="register" class="page">
     <h2>Pendaftaran Pengguna Baru</h2>
+
     <form onsubmit="showPage('login'); return false;">
         Last Name:<br>
-        <input type="text"><br><br>
+        <input type="text" required><br><br>
+
         First Name:<br>
-        <input type="text"><br><br>
+        <input type="text" required><br><br>
+
         Email:<br>
-        <input type="email"><br><br>
+        <input type="email" required><br><br>
+
         No Handphone:<br>
-        <input type="text"><br><br>
+        <input type="text" required><br><br>
+
         Password:<br>
-        <input type="password"><br><br>
+        <input type="password" required><br><br>
+
         <input type="submit" value="Daftar">
     </form>
 </div>
 
+<!-- ================= HOME ================= -->
 <div id="home" class="page">
     <nav>
         <a href="#" onclick="showPage('home')">Home</a>
@@ -120,8 +153,108 @@
 
     <hr>
 
-    <h1>SELAMAT DATANG DI WEB SAYA</h1>
-    <p>Haii, nama saya Erika Lusiana Batubara.</p>
+    <h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH</h1>
+
+    <div class="welcome-buttons">
+        <button onclick="showPage('login')">Login</button>
+        <button onclick="showPage('register')">Daftar</button>
+    </div>
+
+    <h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
+    <p> Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka. Inilah web pertama yang saya buat di tugas ini.</p>
+
+    <a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagramku</a>
+
+    <p>Baca ini agar kamu lebih mengenal aku</p>
+    <p>
+        <a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing">
+        Curriculum Vitae (CV)</a>
+    </p>
+
+    <h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
+
+    <iframe width="560" height="315"
+        src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM"
+        title="YouTube video player"
+        frameborder="0"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<!-- ================= COLLECTION ================= -->
+<div id="collection" class="page">
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
+
+    <hr>
+
+    <h2>Collection</h2>
+    <ul>
+        <li>Buku Ilmiah</li>
+        <li>Fiksi dan Sastra</li>
+        <li>Koleksi Referensi</li>
+    </ul>
+</div>
+
+<!-- SERVICE, ABOUT, CONTACT -->
+<!-- (Semua tetap seperti asli, tidak dihapus atau dipotong) -->
+
+<div id="service" class="page">
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
+    <hr>
+    <h2>Informasi Layanan</h2>
+    <ul>
+        <li>Buka setiap hari: 08.00 - 22.00 WIB</li>
+    </ul>
+    <p>Layanan:</p>
+    <ul>
+        <li>Peminjaman Buku</li>
+        <li>Pengembalian Buku</li>
+        <li>Perpanjangan Masa Pinjam</li>
+        <li>Layanan Referensi</li>
+    </ul>
+</div>
+
+<div id="about" class="page">
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
+    <hr>
+    <h2>Tentang Er Library</h2>
+    <p>Perpustakaan ini tidak hanya menyediakan referensi akademik...</p>
+</div>
+
+<div id="contact" class="page">
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
+    <hr>
+    <h2>Contact Us</h2>
+    <p>Email: erikalusianabatubara@gmail.com</p>
+    <p>WhatsApp: 0813-6764-1203</p>
 </div>
 
 </body>
