@@ -3,202 +3,271 @@
 <head>
     <title>Er Library</title>
 
-    <style>
-        body {
-            font-family: Arial;
-            margin:0;
-            background: linear-gradient(135deg,#74C0FC,#A5FFD6,#FFD6E0);
-            background-size:300% 300%;
-            animation: bgMove 8s infinite alternate;
-        }
+<style>
+body {
+    font-family: Arial;
+    margin:0;
+    background: linear-gradient(135deg,#74C0FC,#A5FFD6,#FFD6E0);
+    background-size:300% 300%;
+    animation: bgMove 8s infinite alternate;
+    overflow-x:hidden;
+}
 
-        @keyframes bgMove{
-            0%{background-position:left;}
-            100%{background-position:right;}
-        }
+@keyframes bgMove{
+    0%{background-position:left;}
+    100%{background-position:right;}
+}
 
-        .page {
-            display: none;
-            padding: 20px;
-        }
+/* ===== BINTANG ANIMASI ===== */
+.star{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    animation: twinkle 2s infinite alternate;
+}
 
-        /* ===== NAVBAR ===== */
-        nav{
-            background:linear-gradient(to right,#3A86FF,#8338EC);
-            padding:12px;
-            border-radius:10px;
-        }
+@keyframes twinkle{
+    from{opacity:0.3;}
+    to{opacity:1;}
+}
 
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            color:white;
-        }
+/* ===== PAGE ===== */
+.page{
+    display:none;
+    padding:20px;
+}
 
-        nav a:hover{
-            color:#FFD60A;
-        }
+/* ===== NAVBAR ===== */
+nav{
+    background:linear-gradient(to right,#3A86FF,#8338EC);
+    padding:12px;
+    border-radius:10px;
+}
 
-        /* ===== LOGIN ===== */
-        #login{
-            text-align:center;
-        }
+nav a{
+    margin-right:15px;
+    text-decoration:none;
+    font-weight:bold;
+    color:white;
+    transition:0.3s;
+}
 
-        #login form{
-            background:white;
-            padding:25px;
-            width:300px;
-            margin:auto;
-            border-radius:15px;
-            box-shadow:0 8px 20px rgba(0,0,0,0.2);
-        }
+nav a:hover{
+    color:#FFD60A;
+}
 
-        #login input{
-            width:90%;
-            padding:8px;
-            border-radius:8px;
-            border:1px solid #ccc;
-        }
+/* ===== LOGIN ===== */
+#login{
+    text-align:center;
+    height:100vh;
+    background: linear-gradient(to right,#141E30,#243B55);
+    color:white;
+}
 
-        #login input[type="submit"]{
-            background:#3A86FF;
-            color:white;
-            font-weight:bold;
-            cursor:pointer;
-        }
+#login form{
+    background:white;
+    color:black;
+    padding:25px;
+    width:300px;
+    margin:auto;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.5);
+    animation: fadeIn 1.5s ease;
+}
 
-        #login input[type="submit"]:hover{
-            background:#FF006E;
-        }
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(-20px);}
+    to{opacity:1; transform:translateY(0);}
+}
 
-        /* ===== HOME BOX ===== */
-        #home{
-            background:rgba(255,255,255,0.95);
-            border-radius:15px;
-            padding:25px;
-            box-shadow:0 5px 15px rgba(0,0,0,0.1);
-        }
+#login input{
+    width:90%;
+    padding:8px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
 
-        /* tombol link di home */
-        #home a{
-            display:inline-block;
-            margin:8px 0;
-            padding:8px 15px;
-            background:linear-gradient(45deg,#FF006E,#8338EC);
-            color:white;
-            border-radius:20px;
-            text-decoration:none;
-        }
+#login input[type="submit"]{
+    background:#3A86FF;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
 
-        #home a:hover{
-            transform:scale(1.05);
-            background:linear-gradient(45deg,#FFBE0B,#FB5607);
-        }
+#login input[type="submit"]:hover{
+    background:#FF006E;
+}
 
-        iframe{
-            border-radius:15px;
-            box-shadow:0 5px 15px rgba(0,0,0,0.2);
-        }
+/* ===== HOME ===== */
+#home{
+    background:rgba(255,255,255,0.95);
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
 
-    </style>
+#home a{
+    display:inline-block;
+    margin:8px 0;
+    padding:8px 15px;
+    background:linear-gradient(45deg,#FF006E,#8338EC);
+    color:white;
+    border-radius:20px;
+    text-decoration:none;
+    transition:0.3s;
+}
 
-    <script>
-        function showPage(pageId) {
-            var pages = document.getElementsByClassName("page");
-            for (var i = 0; i < pages.length; i++) {
-                pages[i].style.display = "none";
-            }
-            document.getElementById(pageId).style.display = "block";
-        }
+#home a:hover{
+    transform:scale(1.05);
+    background:linear-gradient(45deg,#FFBE0B,#FB5607);
+}
 
-        function logout() {
-            var forms = document.getElementsByTagName("form");
-            for (var i = 0; i < forms.length; i++) {
-                forms[i].reset();
-            }
-            showPage('login');
-        }
-    </script>
+iframe{
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
 
+/* ===== DARK MODE ===== */
+.dark{
+    background:#121212 !important;
+    color:white !important;
+}
+</style>
+
+<script>
+function showPage(pageId) {
+    var pages = document.getElementsByClassName("page");
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].style.display = "none";
+    }
+    document.getElementById(pageId).style.display = "block";
+}
+
+function logout() {
+    var forms = document.getElementsByTagName("form");
+    for (var i = 0; i < forms.length; i++) {
+        forms[i].reset();
+    }
+    showPage('login');
+}
+
+/* JAM DIGITAL */
+function updateClock(){
+    var now = new Date();
+    document.getElementById("clock").innerHTML =
+    now.toLocaleTimeString();
+}
+setInterval(updateClock,1000);
+
+/* DARK MODE */
+function toggleDark(){
+    document.body.classList.toggle("dark");
+}
+
+/* WELCOME ALERT */
+function loginSuccess(){
+    alert("Selamat datang di Er Library ✨");
+    showPage('home');
+}
+
+/* BINTANG RANDOM */
+function createStars(){
+    for(let i=0;i<40;i++){
+        let star=document.createElement("div");
+        star.className="star";
+        star.style.top=Math.random()*100+"vh";
+        star.style.left=Math.random()*100+"vw";
+        star.style.animationDuration=(Math.random()*2+1)+"s";
+        document.body.appendChild(star);
+    }
+}
+window.onload=function(){
+    showPage('login');
+    createStars();
+}
+</script>
 </head>
 
-<body onload="showPage('login')">
+<body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 <div id="login" class="page">
-    <h2>Login to Er Library 🦉</h2>
+<h2>Login to Er Library 🦉</h2>
 
-    <form onsubmit="showPage('home'); return false;">
-        Email:<br>
-        <input type="email"><br><br>
+<form onsubmit="loginSuccess(); return false;">
+Email:<br>
+<input type="email"><br><br>
 
-        Password:<br>
-        <input type="password"><br><br>
+Password:<br>
+<input type="password"><br><br>
 
-        <input type="submit" value="Login">
-    </form>
+<input type="submit" value="Login">
+</form>
 
-    <p>Pengguna baru? 
-        <a href="#" onclick="showPage('register')">Daftar di sini</a>
-    </p>
+<p>Pengguna baru?
+<a href="#" onclick="showPage('register')" style="color:#FFD60A;">Daftar di sini</a>
+</p>
 </div>
 
-<!-- ================= REGISTER ================= -->
+<!-- REGISTER -->
 <div id="register" class="page">
-    <h2>Pendaftaran Pengguna Baru</h2>
+<h2>Pendaftaran Pengguna Baru</h2>
 
-    <form onsubmit="showPage('login'); return false;">
-        Last Name:<br>
-        <input type="text"><br><br>
+<form onsubmit="showPage('login'); return false;">
+Last Name:<br>
+<input type="text"><br><br>
 
-        First Name:<br>
-        <input type="text"><br><br>
+First Name:<br>
+<input type="text"><br><br>
 
-        Email:<br>
-        <input type="email"><br><br>
+Email:<br>
+<input type="email"><br><br>
 
-        No Handphone:<br>
-        <input type="text"><br><br>
+No Handphone:<br>
+<input type="text"><br><br>
 
-        Password:<br>
-        <input type="password"><br><br>
+Password:<br>
+<input type="password"><br><br>
 
-        <input type="submit" value="Daftar">
-    </form>
+<input type="submit" value="Daftar">
+</form>
 </div>
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 <div id="home" class="page">
-    <nav>
-        <a href="#" onclick="showPage('home')">🏠 Home</a>
-        <a href="#" onclick="showPage('collection')">📚 Collection</a>
-        <a href="#" onclick="showPage('service')">🛎 Service</a>
-        <a href="#" onclick="showPage('about')">ℹ About Us</a>
-        <a href="#" onclick="showPage('contact')">📩 Contact Us</a>
-        <a href="#" onclick="logout()">🚪 Logout</a>
-    </nav>
+<nav>
+<a href="#" onclick="showPage('home')">🏠 Home</a>
+<a href="#">📚 Collection</a>
+<a href="#">🛎 Service</a>
+<a href="#">ℹ About Us</a>
+<a href="#">📩 Contact Us</a>
+<a href="#" onclick="toggleDark()">🌙 Dark Mode</a>
+<a href="#" onclick="logout()">🚪 Logout</a>
+</nav>
 
-    <hr>
+<hr>
 
-   <h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH 🌟</h1>
-    <h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
-    <p> Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka. Inilah web pertama yang saya buat di tugas ini.</p>
+<h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH 🌟</h1>
+<h3>Jam sekarang: <span id="clock"></span></h3>
 
-    <a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq" target="_blank">📸 Instagramku</a>
+<h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
+<p>Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka. Inilah web pertama yang saya buat di tugas ini.</p>
 
-    <p>Baca ini agar kamu lebih mengenal aku</p>
+<a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq" target="_blank">📸 Instagramku</a>
 
-    <a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing" target="_blank">📄 Curriculum Vitae (CV)</a>
+<p>Baca ini agar kamu lebih mengenal aku</p>
 
-    <h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3> 
+<a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing" target="_blank">📄 Curriculum Vitae (CV)</a>
 
-    <iframe width="560" height="315" 
-    src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allowfullscreen>
-    </iframe>
+<h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
+
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM"
+frameborder="0"
+allowfullscreen>
+</iframe>
 
 </div>
 
