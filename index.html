@@ -1,274 +1,229 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Er Library</title>
+<title>Er Library</title>
 
 <style>
-body {
-    font-family: Arial;
+body{
     margin:0;
-    background: linear-gradient(135deg,#74C0FC,#A5FFD6,#FFD6E0);
-    background-size:300% 300%;
-    animation: bgMove 8s infinite alternate;
-    overflow-x:hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background:#f4f6f9;
 }
 
-@keyframes bgMove{
-    0%{background-position:left;}
-    100%{background-position:right;}
+/* ===== NAVBAR CLEAN ===== */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+    background:rgba(255,255,255,0.8);
+    backdrop-filter:blur(10px);
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    position:sticky;
+    top:0;
 }
 
-/* ===== BINTANG ANIMASI ===== */
-.star{
+nav .menu a{
+    margin:0 15px;
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+    position:relative;
+}
+
+nav .menu a::after{
+    content:"";
     position:absolute;
-    width:4px;
-    height:4px;
-    background:white;
-    border-radius:50%;
-    animation: twinkle 2s infinite alternate;
+    left:0;
+    bottom:-5px;
+    width:0;
+    height:2px;
+    background:#3A86FF;
+    transition:0.3s;
 }
 
-@keyframes twinkle{
-    from{opacity:0.3;}
-    to{opacity:1;}
+nav .menu a:hover::after{
+    width:100%;
+}
+
+nav .logout{
+    color:#ff4d6d;
+    cursor:pointer;
 }
 
 /* ===== PAGE ===== */
 .page{
     display:none;
-    padding:20px;
+    padding:40px;
 }
 
-/* ===== NAVBAR ===== */
-nav{
-    background:linear-gradient(to right,#3A86FF,#8338EC);
-    padding:12px;
-    border-radius:10px;
+/* ===== CARD STYLE ===== */
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
 }
 
-nav a{
-    margin-right:15px;
-    text-decoration:none;
-    font-weight:bold;
-    color:white;
-    transition:0.3s;
-}
-
-nav a:hover{
-    color:#FFD60A;
-}
-
-/* ===== LOGIN ===== */
+/* LOGIN */
 #login{
-    text-align:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     height:100vh;
-    background: linear-gradient(to right,#141E30,#243B55);
-    color:white;
+    background:linear-gradient(135deg,#3A86FF,#8338EC);
 }
 
 #login form{
     background:white;
-    color:black;
-    padding:25px;
-    width:300px;
-    margin:auto;
+    padding:30px;
     border-radius:15px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.5);
-    animation: fadeIn 1.5s ease;
+    width:300px;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(-20px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
-#login input{
-    width:90%;
-    padding:8px;
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
     border-radius:8px;
-    border:1px solid #ccc;
+    border:1px solid #ddd;
 }
 
-#login input[type="submit"]{
+input[type="submit"]{
     background:#3A86FF;
     color:white;
-    font-weight:bold;
+    border:none;
     cursor:pointer;
 }
 
-#login input[type="submit"]:hover{
-    background:#FF006E;
+input[type="submit"]:hover{
+    background:#265df2;
 }
 
-/* ===== HOME ===== */
-#home{
-    background:rgba(255,255,255,0.95);
-    border-radius:15px;
-    padding:25px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-#home a{
-    display:inline-block;
-    margin:8px 0;
+button{
     padding:8px 15px;
-    background:linear-gradient(45deg,#FF006E,#8338EC);
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#3A86FF;
     color:white;
-    border-radius:20px;
-    text-decoration:none;
-    transition:0.3s;
-}
-
-#home a:hover{
-    transform:scale(1.05);
-    background:linear-gradient(45deg,#FFBE0B,#FB5607);
 }
 
 iframe{
     border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* ===== DARK MODE ===== */
-.dark{
-    background:#121212 !important;
-    color:white !important;
+    margin-top:20px;
 }
 </style>
 
 <script>
-function showPage(pageId) {
-    var pages = document.getElementsByClassName("page");
-    for (var i = 0; i < pages.length; i++) {
-        pages[i].style.display = "none";
+function showPage(id){
+    var pages=document.getElementsByClassName("page");
+    for(var i=0;i<pages.length;i++){
+        pages[i].style.display="none";
     }
-    document.getElementById(pageId).style.display = "block";
+    document.getElementById(id).style.display="block";
 }
 
-function logout() {
-    var forms = document.getElementsByTagName("form");
-    for (var i = 0; i < forms.length; i++) {
-        forms[i].reset();
-    }
+function logout(){
     showPage('login');
 }
 
-/* JAM DIGITAL */
-function updateClock(){
-    var now = new Date();
-    document.getElementById("clock").innerHTML =
-    now.toLocaleTimeString();
-}
-setInterval(updateClock,1000);
-
-/* DARK MODE */
-function toggleDark(){
-    document.body.classList.toggle("dark");
-}
-
-/* WELCOME ALERT */
 function loginSuccess(){
-    alert("Selamat datang di Er Library ✨");
     showPage('home');
-}
-
-/* BINTANG RANDOM */
-function createStars(){
-    for(let i=0;i<40;i++){
-        let star=document.createElement("div");
-        star.className="star";
-        star.style.top=Math.random()*100+"vh";
-        star.style.left=Math.random()*100+"vw";
-        star.style.animationDuration=(Math.random()*2+1)+"s";
-        document.body.appendChild(star);
-    }
-}
-window.onload=function(){
-    showPage('login');
-    createStars();
 }
 </script>
 </head>
 
-<body>
+<body onload="showPage('login')">
 
 <!-- LOGIN -->
 <div id="login" class="page">
-<h2>Login to Er Library 🦉</h2>
-
 <form onsubmit="loginSuccess(); return false;">
-Email:<br>
-<input type="email"><br><br>
-
-Password:<br>
-<input type="password"><br><br>
-
+<h2>Login Er Library</h2>
+<input type="email" placeholder="Email">
+<input type="password" placeholder="Password">
 <input type="submit" value="Login">
-</form>
-
-<p>Pengguna baru?
-<a href="#" onclick="showPage('register')" style="color:#FFD60A;">Daftar di sini</a>
+<p style="text-align:center;">
+<a href="#" onclick="showPage('register')">Daftar</a>
 </p>
+</form>
 </div>
 
 <!-- REGISTER -->
 <div id="register" class="page">
-<h2>Pendaftaran Pengguna Baru</h2>
-
-<form onsubmit="showPage('login'); return false;">
-Last Name:<br>
-<input type="text"><br><br>
-
-First Name:<br>
-<input type="text"><br><br>
-
-Email:<br>
-<input type="email"><br><br>
-
-No Handphone:<br>
-<input type="text"><br><br>
-
-Password:<br>
-<input type="password"><br><br>
-
-<input type="submit" value="Daftar">
-</form>
+<div class="card">
+<h2>Pendaftaran</h2>
+<input type="text" placeholder="Last Name">
+<input type="text" placeholder="First Name">
+<input type="email" placeholder="Email">
+<input type="text" placeholder="No HP">
+<input type="password" placeholder="Password">
+<button onclick="showPage('login')">Daftar</button>
 </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+<div><strong>Er Library</strong></div>
+<div class="menu">
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About</a>
+<a href="#" onclick="showPage('contact')">Contact</a>
+<a class="logout" onclick="logout()">Logout</a>
+</div>
+</nav>
 
 <!-- HOME -->
 <div id="home" class="page">
-<nav>
-<a href="#" onclick="showPage('home')">🏠 Home</a>
-<a href="#">📚 Collection</a>
-<a href="#">🛎 Service</a>
-<a href="#">ℹ About Us</a>
-<a href="#">📩 Contact Us</a>
-<a href="#" onclick="toggleDark()">🌙 Dark Mode</a>
-<a href="#" onclick="logout()">🚪 Logout</a>
-</nav>
+<div class="card">
+<h1>Selamat Datang 🌿</h1>
+<p>Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka. Ini web pertama yang saya buat.</p>
 
-<hr>
+<a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq" target="_blank">Instagramku</a><br><br>
 
-<h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH 🌟</h1>
-<h3>Jam sekarang: <span id="clock"></span></h3>
+<a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing" target="_blank">Curriculum Vitae (CV)</a>
 
-<h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
-<p>Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka. Inilah web pertama yang saya buat di tugas ini.</p>
-
-<a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq" target="_blank">📸 Instagramku</a>
-
-<p>Baca ini agar kamu lebih mengenal aku</p>
-
-<a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing" target="_blank">📄 Curriculum Vitae (CV)</a>
-
-<h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
+<h3>Filsafat: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
 
 <iframe width="560" height="315"
 src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM"
-frameborder="0"
 allowfullscreen>
 </iframe>
+</div>
+</div>
 
+<!-- COLLECTION -->
+<div id="collection" class="page">
+<div class="card">
+<h2>Collection</h2>
+<p>Berisi koleksi buku dan referensi yang tersedia di Er Library.</p>
+</div>
+</div>
+
+<!-- SERVICE -->
+<div id="service" class="page">
+<div class="card">
+<h2>Service</h2>
+<p>Layanan peminjaman, pengembalian, dan konsultasi literasi.</p>
+</div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page">
+<div class="card">
+<h2>About Us</h2>
+<p>Website ini dibuat sebagai tugas perkuliahan dan pengembangan diri dalam bidang web design.</p>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+<div class="card">
+<h2>Contact</h2>
+<p>Email: erika@email.com</p>
+</div>
 </div>
 
 </body>
