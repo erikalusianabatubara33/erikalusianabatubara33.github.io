@@ -1,264 +1,323 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Er Library</title>
+<title>Er Library</title>
 
 <style>
-body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
     background: linear-gradient(to right, #4DA6FF, #FFD93D);
 }
 
-/* ================= LOGIN DESIGN ================= */
-.login-box {
-    width: 350px;
-    background: white;
-    padding: 30px;
-    margin: 100px auto;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    text-align: center;
+/* halaman */
+.page{
+    display:none;
+    padding:20px;
+    background:white;
+    min-height:100vh;
 }
 
-.login-box h2 {
-    color: #4DA6FF;
+/* navbar */
+nav{
+    background:#1B4965;
+    padding:15px;
+    border-radius:10px;
 }
 
-input, textarea {
-    width: 90%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+nav a{
+    color:white;
+    margin-right:15px;
+    text-decoration:none;
+    font-weight:bold;
 }
 
-button {
-    background: #FF914D;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+nav a:hover{
+    color:#FFD93D;
 }
 
-button:hover {
-    background: #ff6f1f;
+/* login */
+.login-box{
+    width:350px;
+    margin:100px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    text-align:center;
 }
 
-.page {
-    display: none;
-    padding: 20px;
-    background: white;
-    min-height: 100vh;
+input, textarea{
+    width:90%;
+    padding:8px;
+    margin:6px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
 }
 
-/* ================= NAVBAR ================= */
-nav {
-    background: #1B4965;
-    padding: 15px;
+input[type="submit"]{
+    background:#FF914D;
+    color:white;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-right: 15px;
-    font-weight: bold;
+input[type="submit"]:hover{
+    background:#ff6f1f;
 }
 
-nav a:hover {
-    color: #FFD93D;
+/* buku */
+.book-box{
+    background:#F6F7C4;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:10px;
 }
 
-/* ================= BOOK CARD ================= */
-.book-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.points{
+    background:#2EC4B6;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    display:inline-block;
+    margin-top:10px;
 }
-
-.book-card {
-    background: #F6F7C4;
-    width: 180px;
-    padding: 15px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.book-card button {
-    margin-top: 10px;
-}
-
-.points-box {
-    background: #2EC4B6;
-    padding: 10px;
-    color: white;
-    border-radius: 10px;
-    display: inline-block;
-    margin-bottom: 20px;
-}
-
 </style>
 
 <script>
 let points = 0;
 
-function showPage(pageId) {
-    var pages = document.getElementsByClassName("page");
-    for (var i = 0; i < pages.length; i++) {
-        pages[i].style.display = "none";
+function showPage(pageId){
+    var pages=document.getElementsByClassName("page");
+    for(var i=0;i<pages.length;i++){
+        pages[i].style.display="none";
     }
-    document.getElementById(pageId).style.display = "block";
+    document.getElementById(pageId).style.display="block";
 }
 
-function loginUser(event){
-    event.preventDefault();
-    showPage('home');
-}
-
-function logout() {
+function logout(){
+    var forms=document.getElementsByTagName("form");
+    for(var i=0;i<forms.length;i++){
+        forms[i].reset();
+    }
     showPage('login');
 }
 
-function borrowBook(bookName){
-    points += 10;
-    document.getElementById("points").innerHTML = points;
-    alert("Kamu meminjam: " + bookName + " 🎉 +10 poin!");
+function addPoint(book){
+    points+=10;
+    document.getElementById("pointValue").innerHTML=points;
+    alert("Kamu meminjam " + book + " (+10 poin)");
 }
 
 function searchBook(){
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let books = document.getElementsByClassName("book-card");
+    var input=document.getElementById("searchInput").value.toLowerCase();
+    var books=document.getElementsByClassName("book-box");
 
-    for(let i = 0; i < books.length; i++){
-        let title = books[i].innerText.toLowerCase();
-        books[i].style.display = title.includes(input) ? "block" : "none";
+    for(var i=0;i<books.length;i++){
+        var text=books[i].innerText.toLowerCase();
+        books[i].style.display=text.includes(input)?"block":"none";
     }
 }
 </script>
+
 </head>
 
 <body onload="showPage('login')">
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 <div id="login" class="page">
-    <div class="login-box">
-        <h2>📚 Welcome to Er Library</h2>
-        <form onsubmit="loginUser(event)">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-    </div>
+<div class="login-box">
+<h2>Login to Er Library</h2>
+
+<form onsubmit="showPage('home'); return false;">
+Email:<br>
+<input type="email" required><br><br>
+
+Password:<br>
+<input type="password" required><br><br>
+
+<input type="submit" value="Login">
+</form>
+
+<p>Pengguna baru? 
+<a href="#" onclick="showPage('register')">Daftar di sini</a>
+</p>
+</div>
 </div>
 
-<!-- ================= HOME ================= -->
+<!-- REGISTER -->
+<div id="register" class="page">
+<h2>Pendaftaran Pengguna Baru</h2>
+
+<form onsubmit="showPage('login'); return false;">
+Last Name:<br>
+<input type="text"><br><br>
+
+First Name:<br>
+<input type="text"><br><br>
+
+Email:<br>
+<input type="email"><br><br>
+
+No Handphone:<br>
+<input type="text"><br><br>
+
+Password:<br>
+<input type="password"><br><br>
+
+<input type="submit" value="Daftar">
+</form>
+</div>
+
+<!-- HOME -->
 <div id="home" class="page">
-
 <nav>
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('collection')">Collection</a>
-    <a href="#" onclick="showPage('service')">Service</a>
-    <a href="#" onclick="showPage('about')">About</a>
-    <a href="#" onclick="showPage('contact')">Contact</a>
-    <a href="#" onclick="logout()">Logout</a>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="logout()">Logout</a>
 </nav>
 
-<h1>🌟 Selamat Datang di Er Library</h1>
-<div class="points-box">
-    Poin Membaca Kamu: <span id="points">0</span> ⭐
+<hr>
+
+<h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH</h1>
+<h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
+
+<p>Haii, nama saya <b>Erika Lusiana Batubara</b>, kamu boleh memanggil aku er ataupun ka. Inilah web pertama yang saya buat di tugas ini.</p>
+
+<p><a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagramku</a></p>
+
+<p>Baca ini agar kamu lebih mengenal aku</p>
+<p><a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing">Curriculum Vitae (CV)</a></p>
+
+<div class="points">
+Poin Membaca Kamu: <span id="pointValue">0</span> ⭐
 </div>
 
-<p>Perpustakaan digital yang seru dan menyenangkan!</p>
-
+<h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/oWnwhCDzv7E"
+frameborder="0" allowfullscreen
+style="border-radius:15px; box-shadow:0 6px 15px rgba(0,0,0,0.2);">
+</iframe>
 </div>
 
-<!-- ================= COLLECTION ================= -->
+<!-- COLLECTION -->
 <div id="collection" class="page">
-
 <nav>
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('collection')">Collection</a>
-    <a href="#" onclick="showPage('service')">Service</a>
-    <a href="#" onclick="showPage('about')">About</a>
-    <a href="#" onclick="showPage('contact')">Contact</a>
-    <a href="#" onclick="logout()">Logout</a>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="logout()">Logout</a>
 </nav>
 
-<h2>📚 Koleksi Buku</h2>
+<hr>
 
-<input type="text" id="searchInput" placeholder="Cari buku..." onkeyup="searchBook()">
+<h2>Collection</h2>
 
-<div class="book-container">
+<input type="text" id="searchInput" placeholder="Cari buku..." onkeyup="searchBook()"><br><br>
 
-<div class="book-card">
-    <h4>Matematika SMP</h4>
-    <p>Buku Pelajaran</p>
-    <button onclick="borrowBook('Matematika SMP')">Pinjam</button>
+<div class="book-box">
+<b>Buku Ilmiah</b><br>
+<button onclick="addPoint('Buku Ilmiah')">Pinjam</button>
 </div>
 
-<div class="book-card">
-    <h4>IPA Seru</h4>
-    <p>Sains</p>
-    <button onclick="borrowBook('IPA Seru')">Pinjam</button>
+<div class="book-box">
+<b>Fiksi dan Sastra</b><br>
+<button onclick="addPoint('Fiksi dan Sastra')">Pinjam</button>
 </div>
 
-<div class="book-card">
-    <h4>Novel Remaja</h4>
-    <p>Fiksi</p>
-    <button onclick="borrowBook('Novel Remaja')">Pinjam</button>
+<div class="book-box">
+<b>Koleksi Referensi</b><br>
+<button onclick="addPoint('Koleksi Referensi')">Pinjam</button>
 </div>
 
 </div>
-</div>
 
-<!-- ================= SERVICE ================= -->
+<!-- SERVICE -->
 <div id="service" class="page">
 <nav>
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('collection')">Collection</a>
-    <a href="#" onclick="showPage('service')">Service</a>
-    <a href="#" onclick="showPage('about')">About</a>
-    <a href="#" onclick="showPage('contact')">Contact</a>
-    <a href="#" onclick="logout()">Logout</a>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="logout()">Logout</a>
 </nav>
 
-<h2>🕒 Layanan</h2>
-<p>Buka: 08.00 - 15.00 WIB</p>
-<p>Peminjaman | Pengembalian | Perpanjangan</p>
+<hr>
+
+<h2>Informasi Layanan</h2>
+<ul>
+<li>Buka setiap hari: 08.00 - 22.00 WIB</li>
+</ul>
+
+<p>Layanan:</p>
+<ul>
+<li>Peminjaman Buku</li>
+<li>Pengembalian Buku</li>
+<li>Perpanjangan Masa Pinjam</li>
+<li>Layanan Referensi</li>
+</ul>
 </div>
 
-<!-- ================= ABOUT ================= -->
+<!-- ABOUT -->
 <div id="about" class="page">
 <nav>
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('collection')">Collection</a>
-    <a href="#" onclick="showPage('service')">Service</a>
-    <a href="#" onclick="showPage('about')">About</a>
-    <a href="#" onclick="showPage('contact')">Contact</a>
-    <a href="#" onclick="logout()">Logout</a>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="logout()">Logout</a>
 </nav>
 
-<h2>📖 Tentang Kami</h2>
-<p>Er Library hadir untuk meningkatkan literasi siswa SMP dengan sistem digital yang menyenangkan.</p>
+<hr>
+
+<h2>Tentang Er Library</h2>
+<p>Perpustakaan ini tidak hanya menyediakan referensi akademik, tetapi juga menghadirkan bacaan ringan dan inspiratif untuk menciptakan suasana literasi yang lebih santai dan menyenangkan.</p>
+<p>Mendukung Prestasi Melalui Literasi.</p>
 </div>
 
-<!-- ================= CONTACT ================= -->
+<!-- CONTACT -->
 <div id="contact" class="page">
 <nav>
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('collection')">Collection</a>
-    <a href="#" onclick="showPage('service')">Service</a>
-    <a href="#" onclick="showPage('about')">About</a>
-    <a href="#" onclick="showPage('contact')">Contact</a>
-    <a href="#" onclick="logout()">Logout</a>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="logout()">Logout</a>
 </nav>
 
-<h2>📞 Contact</h2>
+<hr>
+
+<h2>Contact Us</h2>
+
 <p>Email: erikalusianabatubara@gmail.com</p>
 <p>WhatsApp: 0813-6764-1203</p>
+
+<p><a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagram</a></p>
+<p><a href="https://www.facebook.com/share/1GYJU1wnMC/">Facebook</a></p>
+
+<h3>Kritik dan Saran</h3>
+<form onsubmit="alert('Terima kasih atas kritik dan sarannya 😊'); return false;">
+Nama:<br>
+<input type="text"><br><br>
+
+Email:<br>
+<input type="email"><br><br>
+
+Pesan:<br>
+<textarea rows="4"></textarea><br><br>
+
+<input type="submit" value="Kirim">
+</form>
 </div>
 
 </body>
