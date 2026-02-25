@@ -37,17 +37,9 @@
             text-decoration: underline;
         }
 
-        h1 {
-            color: #0d47a1;
-        }
-
-        h2 {
-            color: #1565c0;
-        }
-
-        h3 {
-            color: #ef6c00;
-        }
+        h1 { color: #0d47a1; }
+        h2 { color: #1565c0; }
+        h3 { color: #ef6c00; }
 
         input[type="submit"] {
             background-color: #1976d2;
@@ -81,7 +73,56 @@
             showPage('login');
         }
     </script>
-
 </head>
 
 <body onload="showPage('login')">
+
+<div id="login" class="page">
+    <h2>Login to Er Library</h2>
+    <form onsubmit="showPage('home'); return false;">
+        Email:<br>
+        <input type="email"><br><br>
+        Password:<br>
+        <input type="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+    <p>Pengguna baru?
+        <a href="#" onclick="showPage('register')">Daftar di sini</a>
+    </p>
+</div>
+
+<div id="register" class="page">
+    <h2>Pendaftaran Pengguna Baru</h2>
+    <form onsubmit="showPage('login'); return false;">
+        Last Name:<br>
+        <input type="text"><br><br>
+        First Name:<br>
+        <input type="text"><br><br>
+        Email:<br>
+        <input type="email"><br><br>
+        No Handphone:<br>
+        <input type="text"><br><br>
+        Password:<br>
+        <input type="password"><br><br>
+        <input type="submit" value="Daftar">
+    </form>
+</div>
+
+<div id="home" class="page">
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('collection')">Collection</a>
+        <a href="#" onclick="showPage('service')">Service</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
+
+    <hr>
+
+    <h1>SELAMAT DATANG DI WEB SAYA</h1>
+    <p>Haii, nama saya Erika Lusiana Batubara.</p>
+</div>
+
+</body>
+</html>
