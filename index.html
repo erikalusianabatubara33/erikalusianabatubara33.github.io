@@ -75,12 +75,16 @@
 </style>
 
 <script>
-function showPage(pageId){
-    var pages=document.getElementsByClassName("page");
+function showPage(pageId, addToHistory = true){
+    var pages = document.getElementsByClassName("page");
     for(var i=0;i<pages.length;i++){
         pages[i].style.display="none";
     }
     document.getElementById(pageId).style.display="block";
+
+    if(addToHistory){
+        history.pushState({page: pageId}, null, "#" + pageId);
+    }
 }
 
 function logout(){
@@ -90,6 +94,13 @@ function logout(){
 function loginSuccess(){
     showPage('home');
 }
+
+/* Saat tombol back/forward ditekan */
+window.onpopstate = function(event){
+    if(event.state && event.state.page){
+        showPage(event.state.page, false);
+    }
+};
 </script>
 </head>
 
