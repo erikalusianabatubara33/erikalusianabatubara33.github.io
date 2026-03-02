@@ -2,86 +2,44 @@
 <html>
 <head>
 <title>PetalVerse Library</title>
+
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #F5EFE6; /* Soft Cream */
-        color: #3A4F3C; /* Dark Brown */
-    }
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #F5EFE6;
+    color: #3A4F3C;
+}
 
-    .page {
-        display: none;
-        padding: 40px 80px;
-    }
+.page {
+    display: none;
+    padding: 40px 80px;
+}
 
-    nav {
-        background-color: #5F6F52; /* Olive Green */
-        padding: 15px 30px;
-    }
+nav {
+    background-color: #5F6F52;
+    padding: 15px 30px;
+}
 
-    nav a {
-        margin-right: 20px;
-        text-decoration: none;
-        font-weight: 500;
-        color: #F5EFE6;
-        transition: 0.3s;
-    }
+nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #F5EFE6;
+}
 
-    nav a:hover {
-        color: #A9B388; /* Sage Green */
-    }
-
-    hr {
-        border: 0;
-        height: 1px;
-        background-color: #A9B388;
-        margin: 20px 0;
-    }
-
-    h1, h2, h3 {
-        color: #3A4F3C;
-    }
-
-    input, textarea {
-        padding: 8px;
-        border-radius: 5px;
-        border: 1px solid #A9B388;
-        width: 250px;
-    }
-
-    input[type="submit"] {
-        background-color: #5F6F52;
-        color: white;
-        border: none;
-        cursor: pointer;
-        width: 120px;
-    }
-
-    input[type="submit"]:hover {
-        background-color: #3A4F3C;
-    }
-
-    iframe {
-        margin-top: 20px;
-        border-radius: 10px;
-    }
-
-    ul li {
-        margin-bottom: 8px;
-    }
+nav a:hover {
+    color: #A9B388;
+}
 
 .section-title {
     text-align: center;
     margin-bottom: 40px;
-    color: #3A4F3C;
 }
 
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
-    padding: 20px;
 }
 
 .book-card {
@@ -94,23 +52,11 @@
 
 .book-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-}
-
-.book-card h2 {
-    color: #5F6F52;
-    font-size: 18px;
 }
 
 .author {
     font-size: 14px;
-    color: #3A4F3C;
     font-weight: bold;
-}
-
-.desc {
-    font-size: 14px;
-    margin: 10px 0;
 }
 
 .btn-detail {
@@ -120,63 +66,41 @@
     padding: 8px 15px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 13px;
-    transition: 0.3s;
 }
 
 .btn-detail:hover {
     background-color: #3A4F3C;
 }
-
-/* Special Rare Collection */
-.rare {
-    border-left: 5px solid #A9B388;
-}
-    
 </style>
 
 <script>
-function showPage(pageId, addToHistory = true){
+function showPage(pageId){
     var pages = document.getElementsByClassName("page");
     for(var i=0;i<pages.length;i++){
         pages[i].style.display="none";
     }
     document.getElementById(pageId).style.display="block";
-
-    if(addToHistory){
-        history.pushState({page: pageId}, null, "#" + pageId);
-    }
-}
-
-function logout(){
-    showPage('login');
 }
 
 function loginSuccess(){
     showPage('home');
 }
 
-window.onpopstate = function(event){
-    if(event.state && event.state.page){
-        showPage(event.state.page, false);
-    }
-};
+function logout(){
+    showPage('login');
+}
 
 window.onload = function(){
-    let page = location.hash ? location.hash.substring(1) : "login";
-    
-    showPage(page, false);
-
-    history.replaceState({page: page}, null, "#" + page);
+    showPage('login');
 };
 </script>
 </head>
 
-<body onload="showPage('login')">
+<body>
 
 <!-- LOGIN -->
 <div id="login" class="page" style="text-align:center; padding-top:100px;">
-<h2>Login PetalVerse Library 🌌</h2>
+<h2>Login PetalVerse Library</h2>
 <form onsubmit="loginSuccess(); return false;">
 Email:<br>
 <input type="email"><br><br>
@@ -184,214 +108,54 @@ Password:<br>
 <input type="password"><br><br>
 <input type="submit" value="Login">
 </form>
-<p><a href="#" onclick="showPage('register')">Daftar</a></p>
 </div>
 
-<!-- REGISTER -->
-<div id="register" class="page">
-<h2>Pendaftaran Pengguna Baru</h2>
-<form onsubmit="showPage('login'); return false;">
-Last Name:<br>
-<input type="text"><br><br>
-First Name:<br>
-<input type="text"><br><br>
-Email:<br>
-<input type="email"><br><br>
-No Handphone:<br>
-<input type="text"><br><br>
-Password:<br>
-<input type="password"><br><br>
-<input type="submit" value="Daftar">
-</form>
-</div>
-
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 <div id="home" class="page">
 <nav>
 <a href="#" onclick="showPage('home')">Home</a>
 <a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
 <a href="#" onclick="logout()">Logout</a>
 </nav>
 
-<hr>
-
-<h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH</h1>
-<h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
-<p>Haii, nama saya Erika Lusiana Batubara, kamu boleh memanggil aku er ataupun ka. Inilah web pertama yang saya buat di tugas ini.</p>
-<a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq" target="_blank">Instagramku</a>
-<p>Baca ini agar kamu lebih mengenal aku</p>
-<p><a href="https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing" target="_blank">Curriculum Vitae (CV)</a></p>
-<h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM"
-allowfullscreen></iframe>
+<h1>Selamat Datang di PetalVerse Library</h1>
+<p>Web literasi flora tropis Indonesia.</p>
 </div>
 
-<!-- ================= COLLECTION ================= -->
+<!-- COLLECTION -->
 <div id="collection" class="page">
 <nav>
 <a href="#" onclick="showPage('home')">Home</a>
 <a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
 <a href="#" onclick="logout()">Logout</a>
 </nav>
-
-<hr>
 
 <h1 class="section-title">Floral Knowledge Collection</h1>
 
 <div class="card-container">
 
-    <div class="book-card">
-        <h2>Sunflower Philosophy</h2>
-        <p class="author">Erika L. Batubara (2026)</p>
-        <p class="desc">Makna keteguhan dan cahaya dalam filosofi bunga matahari.</p>
-        <button class="btn-detail" onclick="alert('PDF belum ditambahkan')">View Detail</button>
-    </div>
-
-    <div class="book-card">
-        <h2>Edelweis Jawa: Keabadian Pegunungan</h2>
-        <p class="author">Flora Nusantara (2019)</p>
-        <p class="desc">Kajian tentang Anaphalis javanica dan konservasinya.</p>
-        <button class="btn-detail" onclick="alert('PDF belum ditambahkan')">View Detail</button>
-    </div>
-
-    <div class="book-card">
-        <h2>Sweet Alyssum & Pollinators</h2>
-        <p class="author">Garden Science Journal (2021)</p>
-        <p class="desc">Peran alyssum dalam ekosistem lebah dan taman tropis.</p>
-        <button class="btn-detail" onclick="alert('PDF belum ditambahkan')">View Detail</button>
-    </div>
-
-    <div class="book-card">
-        <h2>Lilium: Symbol of Purity</h2>
-        <p class="author">Botanical Studies (2017)</p>
-        <p class="desc">Kajian ilmiah tentang genus Lilium dan makna simboliknya.</p>
-        <button class="btn-detail" onclick="alert('PDF belum ditambahkan')">View Detail</button>
-    </div>
-
-    <div class="book-card rare">
-        <h2>Rare Tropical Flora of Indonesia</h2>
-        <p class="author">Indonesian Biodiversity Center (2022)</p>
-        <p class="desc">Dokumentasi Rafflesia dan Titan Arum sebagai flora langka nusantara.</p>
-        <button class="btn-detail" onclick="alert('PDF belum ditambahkan')">Explore</button>
-    </div>
-
-</div>
+<div class="book-card">
+<h2>Sunflower Philosophy</h2>
+<p class="author">Erika L. Batubara (2026)</p>
+<p>Makna keteguhan dan cahaya.</p>
+<button class="btn-detail" onclick="alert('PDF belum ditambahkan')">View</button>
 </div>
 
-<!-- ================= SERVICE ================= -->
-<div id="service" class="page">
-<nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
-<a href="#" onclick="logout()">Logout</a>
-</nav>
-
-<hr>
-
-<h2>Informasi Layanan</h2>
-<ul>
-<li>Buka setiap hari: 08.00 - 22.00 WIB</li>
-</ul>
-
-<p>Layanan:</p>
-<ul>
-<li>Peminjaman Buku</li>
-<li>Pengembalian Buku</li>
-<li>Perpanjangan Masa Pinjam</li>
-<li>Layanan Referensi</li>
-</ul>
+<div class="book-card">
+<h2>Edelweis Jawa</h2>
+<p class="author">Flora Nusantara (2019)</p>
+<p>Kajian konservasi bunga pegunungan.</p>
+<button class="btn-detail" onclick="alert('PDF belum ditambahkan')">View</button>
 </div>
 
-<!-- ================= ABOUT ================= -->
-<div id="about" class="page">
-<nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
-<a href="#" onclick="logout()">Logout</a>
-</nav>
-
-<hr>
-
-<h2>Tentang PetalVerse Library</h2>
-<p>PetalVerse Library is a digital educational platform dedicated to rare tropical flora of Indonesia.</p>
-    <p>Explore botanical knowledge and deepen your awareness of conservation and biodiversity.</p>
-    <button onclick="showPage('collection')">Explore Collection</button>
-<p>Mendukung Prestasi Melalui Literasi.</p>
+<div class="book-card">
+<h2>Lily: Symbol of Purity</h2>
+<p class="author">Botanical Studies (2017)</p>
+<p>Makna simbolik dan ilmiah.</p>
+<button class="btn-detail" onclick="alert('PDF belum ditambahkan')">View</button>
 </div>
 
-<!-- ================= CONTACT ================= -->
-<div id="contact" class="page">
-<nav>
-<a href="#" onclick="showPage('home')">Home</a>
-<a href="#" onclick="showPage('collection')">Collection</a>
-<a href="#" onclick="showPage('service')">Service</a>
-<a href="#" onclick="showPage('about')">About Us</a>
-<a href="#" onclick="showPage('contact')">Contact Us</a>
-<a href="#" onclick="showPage('admin')">Admin</a>
-<a href="#" onclick="logout()">Logout</a>
-</nav>
-
-<hr>
-
-<h2>Contact Us</h2>
-
-<p>Email: erikalusianabatubara@gmail.com</p>
-<p>WhatsApp: 0813-6764-1203</p>
-
-<p><a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagram</a></p>
-<p><a href="https://www.facebook.com/share/1GYJU1wnMC/">Facebook</a></p>
-
-<h3>Kritik dan Saran</h3>
-<form>
-Nama:<br>
-<input type="text"><br><br>
-Email:<br>
-<input type="email"><br><br>
-Pesan:<br>
-<textarea rows="4" cols="30"></textarea><br><br>
-<input type="submit" value="Kirim">
-</form>
 </div>
-    <!-- ================= ADMIN ================= -->
-<div id="admin" class="page">
-    <nav>
-        <div><strong>Petalverse 🔥</strong></div>
-        <div>
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('collection')">Koleksi</a>
-            <a href="#" onclick="showPage('service')">Service</a>
-            <a href="#" onclick="showPage('about')">About Us</a>
-            <a href="#" onclick="showPage('contact')">Contact Us</a>
-            <a href="#" onclick="showPage('admin')">Admin</a>
-            <a href="#" onclick="logout()">Logout</a>
-        </div>
-    </nav>
-
-    <div class="content-box">
-        <h1>Selamat Datang di Web Saya</h1>
-        <p>Nama saya Erika Lusiana Batubara. Ini adalah web PetalVerse Library yang saya kembangkan.</p>
-        <h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
-        <iframe width="560" height="315"
-        src="https://www.youtube.com/embed/oWnwhCDzv7E"
-        frameborder="0" allowfullscreen></iframe>
-    </div>
 </div>
 
 </body>
