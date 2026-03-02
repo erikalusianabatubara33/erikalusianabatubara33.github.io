@@ -72,7 +72,6 @@
     }
 
 </style>
-</style>
 
 <script>
 function showPage(pageId, addToHistory = true){
@@ -95,7 +94,6 @@ function loginSuccess(){
     showPage('home');
 }
 
-/* Saat tombol back/forward ditekan */
 window.onpopstate = function(event){
     if(event.state && event.state.page){
         showPage(event.state.page, false);
