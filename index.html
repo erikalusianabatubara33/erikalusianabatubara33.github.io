@@ -94,10 +94,21 @@ function loginSuccess(){
     showPage('home');
 }
 
+/* HANDLE BACK/FORWARD */
 window.onpopstate = function(event){
     if(event.state && event.state.page){
         showPage(event.state.page, false);
     }
+};
+
+/* SAAT PERTAMA KALI LOAD */
+window.onload = function(){
+    let page = location.hash ? location.hash.substring(1) : "login";
+    
+    showPage(page, false);
+
+    // penting supaya state pertama tercatat
+    history.replaceState({page: page}, null, "#" + page);
 };
 </script>
 </head>
