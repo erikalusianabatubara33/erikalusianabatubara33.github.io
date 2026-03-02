@@ -4,106 +4,76 @@
 <title>Er Library</title>
 
 <style>
-body{
-    margin:0;
-    font-family:'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top,#1b2735,#090a0f 80%);
-    color:#e0e6ff;
-}
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #F5EFE6; /* Soft Cream */
+        color: #3A4F3C; /* Dark Brown */
+    }
 
-/* ===== TEXT STYLE ===== */
-h1, h2, h3{
-    color:#ffffff;
-    letter-spacing:1px;
-}
+    .page {
+        display: none;
+        padding: 40px 80px;
+    }
 
-p, li{
-    color:#cbd5ff;
-}
+    nav {
+        background-color: #5F6F52; /* Olive Green */
+        padding: 15px 30px;
+    }
 
-/* ===== NAVBAR ===== */
-nav{
-    display:flex;
-    justify-content:center;
-    gap:25px;
-    padding:18px;
-    background:rgba(255,255,255,0.04);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid rgba(255,255,255,0.08);
-}
+    nav a {
+        margin-right: 20px;
+        text-decoration: none;
+        font-weight: 500;
+        color: #F5EFE6;
+        transition: 0.3s;
+    }
 
-nav a{
-    text-decoration:none;
-    color:#a9b8ff;
-    font-weight:500;
-    transition:0.3s;
-    position:relative;
-}
+    nav a:hover {
+        color: #A9B388; /* Sage Green */
+    }
 
-nav a:hover{
-    color:#ffffff;
-    text-shadow:0 0 8px #8ec5ff;
-}
+    hr {
+        border: 0;
+        height: 1px;
+        background-color: #A9B388;
+        margin: 20px 0;
+    }
 
-nav a::after{
-    content:"";
-    position:absolute;
-    width:0;
-    height:2px;
-    background:#8ec5ff;
-    left:0;
-    bottom:-6px;
-    transition:0.3s;
-}
+    h1, h2, h3 {
+        color: #3A4F3C;
+    }
 
-nav a:hover::after{
-    width:100%;
-}
+    input, textarea {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #A9B388;
+        width: 250px;
+    }
 
-/* ===== LINK STYLE ===== */
-a{
-    color:#8ec5ff;
-    transition:0.3s;
-}
+    input[type="submit"] {
+        background-color: #5F6F52;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 120px;
+    }
 
-a:hover{
-    color:#ffffff;
-    text-shadow:0 0 6px #8ec5ff;
-}
+    input[type="submit"]:hover {
+        background-color: #3A4F3C;
+    }
 
-/* ===== PAGE ===== */
-.page{
-    display:none;
-    padding:40px;
-}
+    iframe {
+        margin-top: 20px;
+        border-radius: 10px;
+    }
 
-/* ===== FORM ===== */
-input, textarea{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.2);
-    color:white;
-    border-radius:8px;
-    padding:8px;
-}
+    ul li {
+        margin-bottom: 8px;
+    }
 
-input[type="submit"]{
-    background:#5c6bc0;
-    border:none;
-    cursor:pointer;
-}
-
-input[type="submit"]:hover{
-    background:#7986cb;
-}
-
-hr{
-    border:0.5px solid rgba(255,255,255,0.1);
-}
-
-iframe{
-    border-radius:15px;
-    margin-top:15px;
-}
+</style>
 </style>
 
 <script>
