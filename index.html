@@ -71,68 +71,6 @@
         margin-bottom: 8px;
     }
 
-.section-title {
-    text-align: center;
-    margin-bottom: 40px;
-    color: #3A4F3C;
-}
-
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    padding: 20px;
-}
-
-.book-card {
-    background-color: #F5EFE6;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-}
-
-.book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-}
-
-.book-card h2 {
-    color: #5F6F52;
-    font-size: 18px;
-}
-
-.author {
-    font-size: 14px;
-    color: #3A4F3C;
-    font-weight: bold;
-}
-
-.desc {
-    font-size: 14px;
-    margin: 10px 0;
-}
-
-.btn-detail {
-    background-color: #5F6F52;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: 0.3s;
-}
-
-.btn-detail:hover {
-    background-color: #3A4F3C;
-}
-
-/* Special Rare Collection */
-.rare {
-    border-left: 5px solid #A9B388;
-}
-    
 </style>
 
 <script>
@@ -160,14 +98,6 @@ window.onpopstate = function(event){
     if(event.state && event.state.page){
         showPage(event.state.page, false);
     }
-};
-
-window.onload = function(){
-    let page = location.hash ? location.hash.substring(1) : "login";
-    
-    showPage(page, false);
-
-    history.replaceState({page: page}, null, "#" + page);
 };
 </script>
 </head>
@@ -245,68 +175,16 @@ allowfullscreen></iframe>
 
 <hr>
 
-<h2>Rare Tropical Flora of Indonesia</h2>
-
+<h2>Collection</h2>
 <ul>
-<li><a href="#" onclick="showPlant('Sunflower')">Sunflower</a></li>
-<li><a href="#" onclick="showPlant('Edelweis')">Edelweis</a></li>
-<li><a href="#" onclick="showPlant('Alyssum')">Alyssum</a></li>
-<li><a href="#" onclick="showPlant('Lily')">Lily</a></li>
-<li><a href="#" onclick="showPlant('Rare Tropical Flora')">Rare Tropical Flora<</a></li>
+<h2>Rare Tropical Flora Collection</h2>
+        <ul>
+            <li>Sunflower</li>
+            <li>Edelweis</li>
+            <li>Alyssum</li>
+            <li>Lily</li>
+            <li>Rare Tropical Flora</li>
 </ul>
-
-<hr>
-
-<div id="plantDetail">
-<p>Pilih salah satu tanaman untuk melihat informasi detail.</p>
-</div>
-
-<div id="collection" class="page">
-    <h1 class="section-title">Floral Knowledge Collection</h1>
-
-    <div class="card-container">
-
-        <!-- Sunflower -->
-        <div class="book-card">
-            <h2>Sunflower Philosophy</h2>
-            <p class="author">Erika L. Batubara (2026)</p>
-            <p class="desc">Makna keteguhan dan cahaya dalam filosofi bunga matahari.</p>
-            <button class="btn-detail">View Detail</button>
-        </div>
-
-        <!-- Edelweis -->
-        <div class="book-card">
-            <h2>Edelweis Jawa: Keabadian Pegunungan</h2>
-            <p class="author">Flora Nusantara (2019)</p>
-            <p class="desc">Kajian tentang Anaphalis javanica dan konservasinya.</p>
-            <button class="btn-detail">View Detail</button>
-        </div>
-
-        <!-- Alyssum -->
-        <div class="book-card">
-            <h2>Sweet Alyssum & Pollinators</h2>
-            <p class="author">Garden Science Journal (2021)</p>
-            <p class="desc">Peran alyssum dalam ekosistem lebah dan taman tropis.</p>
-            <button class="btn-detail">View Detail</button>
-        </div>
-
-        <!-- Lily -->
-        <div class="book-card">
-            <h2>Lilium: Symbol of Purity</h2>
-            <p class="author">Botanical Studies (2017)</p>
-            <p class="desc">Kajian ilmiah tentang genus Lilium dan makna simboliknya.</p>
-            <button class="btn-detail">View Detail</button>
-        </div>
-
-        <!-- Rare Tropical Flora -->
-        <div class="book-card rare">
-            <h2>Rare Tropical Flora of Indonesia</h2>
-            <p class="author">Indonesian Biodiversity Center (2022)</p>
-            <p class="desc">Dokumentasi Rafflesia dan Titan Arum sebagai flora langka nusantara.</p>
-            <button class="btn-detail">Explore</button>
-        </div>
-
-    </div>
 </div>
 
 <!-- ================= SERVICE ================= -->
