@@ -11,7 +11,6 @@ body {
     color: #3A4F3C;
 }
 
-/* ===== NAVBAR ===== */
 nav {
     background-color: #5F6F52;
     padding: 15px 40px;
@@ -38,7 +37,6 @@ nav {
     color: #A9B388;
 }
 
-/* ===== PAGE ===== */
 .page {
     display: none;
     padding: 50px 80px;
@@ -55,7 +53,6 @@ hr {
     margin: 20px 0;
 }
 
-/* ===== HERO HOME ===== */
 .hero {
     text-align: center;
     padding: 80px 20px;
@@ -77,7 +74,6 @@ hr {
     color: #5F6F52;
 }
 
-/* ===== FORM ===== */
 input, textarea {
     padding: 8px;
     border-radius: 5px;
@@ -119,6 +115,12 @@ function logout(){
 function loginSuccess(){
     showPage('home');
 }
+
+    window.onpopstate = function(event){
+    if(event.state && event.state.page){
+        showPage(event.state.page, false);
+    }
+};
 </script>
 </head>
 
@@ -133,6 +135,25 @@ Email:<br>
 Password:<br>
 <input type="password"><br><br>
 <input type="submit" value="Login">
+</form>
+<p><a href="#" onclick="showPage('register')">Daftar</a></p>
+</div>
+
+<!-- REGISTER -->
+<div id="register" class="page">
+<h2>Pendaftaran Pengguna Baru</h2>
+<form onsubmit="showPage('login'); return false;">
+Last Name:<br>
+<input type="text"><br><br>
+First Name:<br>
+<input type="text"><br><br>
+Email:<br>
+<input type="email"><br><br>
+No Handphone:<br>
+<input type="text"><br><br>
+Password:<br>
+<input type="password"><br><br>
+<input type="submit" value="Daftar">
 </form>
 </div>
 
@@ -149,7 +170,6 @@ Password:<br>
 <a href="#" onclick="showPage('contact')">Contact Us</a>
 <a href="#" onclick="showPage('admin')">Admin</a>
 <a href="#" onclick="logout()">Logout</a>
-</div>
 </nav>
 
 <hr>
@@ -160,6 +180,59 @@ Password:<br>
 <p class="tagline">Membaca • Belajar • Bertumbuh</p>
 </div>
 
+</div>
+
+<!-- COLLECTION -->
+<div id="collection" class="page">
+<nav>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
+
+<hr>
+
+<h2>Collection</h2>
+<ul>
+<h2>Rare Tropical Flora Collection</h2>
+        <ul>
+            <li>Pendidikan</li>
+            <li>Pengetahuan Umum</li>
+            <li>Literasi dan Pengembangan Diri</li>
+            <li>Kearifan Lokal Desa</li>
+</ul>
+</div>
+    
+<!-- ================= SERVICE ================= -->
+<div id="service" class="page">
+<nav>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
+
+<hr>
+
+<h2>Informasi Layanan</h2>
+<ul>
+<li>Buka setiap hari: 08.00 - 22.00 WIB</li>
+</ul>
+
+<p>Layanan:</p>
+<ul>
+<li>Peminjaman Buku</li>
+<li>Pengembalian Buku</li>
+<li>Perpanjangan Masa Pinjam</li>
+<li>Layanan Referensi</li>
+</ul>
 </div>
 
 <!-- ABOUT -->
@@ -177,9 +250,51 @@ Password:<br>
 <a href="#" onclick="logout()">Logout</a>
 </div>
 </nav>
+<!-- ================= CONTACT ================= -->
+<div id="contact" class="page">
+<nav>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('collection')">Collection</a>
+<a href="#" onclick="showPage('service')">Service</a>
+<a href="#" onclick="showPage('about')">About Us</a>
+<a href="#" onclick="showPage('contact')">Contact Us</a>
+<a href="#" onclick="showPage('admin')">Admin</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
 
 <hr>
 
+<h2>Contact Us</h2>
+
+<p>Email: erikalusianabatubara@gmail.com</p>
+<p>WhatsApp: 0813-6764-1203</p>
+
+<p><a href="https://www.instagram.com/erikalusiana_?igsh=cnUxNWozbWxpOWFq">Instagram</a></p>
+<p><a href="https://www.facebook.com/share/1GYJU1wnMC/">Facebook</a></p>
+
+<h3>Kritik dan Saran</h3>
+<form>
+Nama:<br>
+<input type="text"><br><br>
+Email:<br>
+<input type="email"><br><br>
+Pesan:<br>
+<textarea rows="4" cols="30"></textarea><br><br>
+<input type="submit" value="Kirim">
+</form>
+</div>
+    
+<hr>
+
+<hr>
+
+<h2>Tentang PINLIT Library</h2>
+<p>PINLITLibrary is a digital educational platform dedicated to rare tropical flora of Indonesia.</p>
+    <p>Explore botanical knowledge and deepen your awareness of conservation and biodiversity.</p>
+    <button onclick="showPage('collection')">Explore Collection</button>
+<p>Mendukung Prestasi Melalui Literasi.</p>
+</div>
+    
 <h2>Tentang PINLIT Library</h2>
 <p>
 PINLIT Library adalah perpustakaan digital yang dikembangkan untuk mendukung literasi dan pendidikan masyarakat Desa Pinal.
@@ -194,6 +309,31 @@ Dengan semangat literasi, PINLIT hadir sebagai ruang belajar yang modern, sederh
 </p>
 
 </div>
+    <!-- ================= ADMIN ================= -->
+<div id="admin" class="page">
+    <nav>
+        <div><strong>Petalverse 🔥</strong></div>
+        <div>
+            <a href="#" onclick="showPage('home')">Home</a>
+            <a href="#" onclick="showPage('collection')">Koleksi</a>
+            <a href="#" onclick="showPage('service')">Service</a>
+            <a href="#" onclick="showPage('about')">About Us</a>
+            <a href="#" onclick="showPage('contact')">Contact Us</a>
+            <a href="#" onclick="showPage('admin')">Admin</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </nav>
 
+    <div class="content-box">
+        <h1>Selamat Datang di Web Saya</h1>
+        <p>Nama saya Erika Lusiana Batubara. Ini adalah web PetalVerse Library yang saya kembangkan.</p>
+        <h3>FILSAFAT: Sebuah Ilmu Yang Melahirkan Ilmu</h3>
+        <iframe width="560" height="315"
+        src="https://www.youtube.com/embed/oWnwhCDzv7E"
+        frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+    
+    
 </body>
 </html>
