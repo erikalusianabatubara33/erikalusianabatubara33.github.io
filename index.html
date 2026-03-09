@@ -8,7 +8,8 @@ body{
 font-family: Arial, sans-serif;
 margin:0;
 padding:0;
-background:#e8f5e9;
+background: linear-gradient(135deg,#e8f5e9,#c8e6c9,#a5d6a7);
+min-height:100vh;
 }
 
 nav{
@@ -30,12 +31,16 @@ color:white;
 text-decoration:none;
 margin:0 10px;
 font-size:16px;
+padding:6px 10px;
+border-radius:5px;
+transition:0.3s;
 }
 
 .nav-links a:hover{
-color:#c8e6c9;
+background:#1b5e20;
+color:white;
 }
-
+    
 .page{
 padding:20px;
 }
@@ -117,14 +122,26 @@ background:#1b5e20;
 
 .hero{
 text-align:center;
-padding:80px 20px;
+padding:100px 20px;
+background:white;
+margin:40px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
 }
 
 .tagline{
-font-size:18px;
-color:#1b5e20;
+font-size:20px;
+color:#2e7d32;
 font-weight:bold;
+margin-top:10px;
 }
+
+<img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" width="120">
 
 .card{
 background:white;
@@ -256,13 +273,13 @@ Password:<br>
 <nav>
 <div class="logo">PINLIT Library</div>
 <div class="nav-links">
-<a href="#" onclick="event.preventDefault(); showPage('home')">Home</a>
-<a href="#" onclick="event.preventDefault(); showPage('collection')">Collection</a>
-<a href="#" onclick="event.preventDefault(); showPage('service')">Service</a>
-<a href="#" onclick="event.preventDefault(); showPage('about')">About</a>
-<a href="#" onclick="event.preventDefault(); showPage('contact')">Contact</a>
-<a href="#" onclick="event.preventDefault(); showPage('admin')">Admin</a>
-<a href="#" onclick="event.preventDefault(); logout()">Logout</a>
+<a href="#" onclick="event.preventDefault(); showPage('home')">🏠 Home</a>
+<a href="#" onclick="event.preventDefault(); showPage('collection')">📚 Collection</a>
+<a href="#" onclick="event.preventDefault(); showPage('service')">🛠 Service</a>
+<a href="#" onclick="event.preventDefault(); showPage('about')">📖 About</a>
+<a href="#" onclick="event.preventDefault(); showPage('contact')">📞 Contact</a>
+<a href="#" onclick="event.preventDefault(); showPage('admin')">👩‍💻 Admin</a>
+<a href="#" onclick="event.preventDefault(); logout()">🚪 Logout</a>
 </div>
 </nav>
     
