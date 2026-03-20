@@ -86,12 +86,6 @@ border-radius:5px;
 .book h4{
 margin:10px 0;
 }
-.book-container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:20px;
-margin-top:20px;
-}
 
 button{
   background:#4f46e5;
@@ -237,6 +231,22 @@ function showPage(pageId){
     document.getElementById(pageId).style.display="block";
 }
 
+let isLogin = false;
+
+function cekLogin(){
+  if(!isLogin){
+    alert("Silakan login dulu untuk membaca buku 📚");
+    showPage('login');
+  } else {
+    alert("Selamat membaca! 🎉");
+  }
+}
+
+function loginSuccess(){
+  isLogin = true;
+  showPage('home');
+}
+
 function logout(){
     showPage('login');
 }
@@ -263,10 +273,8 @@ books[i].style.display="none";
 
 </head>
 
-<body onload="showPage('login')">
+<body onload="showPage('home')">
 
-<!-- LOGIN -->
-<div id="login" class="page" style="text-align:center; padding-top:120px;">
 <h2>Login PINLIT Library</h2>
 <form onsubmit="event.preventDefault(); loginSuccess();">
 Email:<br>
@@ -278,8 +286,6 @@ Password:<br>
 <p><a href="#" onclick="event.preventDefault(); showPage('register')">Daftar</a></p>
 </div>
 
-<!-- REGISTER -->
-<div id="register" class="page">
 <h2>Pendaftaran Pengguna Baru</h2>
 <form onsubmit="event.preventDefault(); showPage('login');">
 Last Name:<br>
@@ -317,9 +323,25 @@ Password:<br>
 <p class="tagline">Membaca • Belajar • Bertumbuh</p>
 
 <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" width="120">
-    
-</div>
 
+<div class="card" style="margin-top:30px;">
+<h3>🌿 Tentang PINLIT Library</h3>
+<p>
+PINLIT Library adalah perpustakaan digital untuk masyarakat Desa Pinal di Danau Toba, 
+yang bertujuan meningkatkan minat baca dari anak-anak hingga dewasa.
+</p>
+
+<h3>🎯 Visi</h3>
+<p>Menjadikan masyarakat Desa Pinal sebagai komunitas yang cerdas, literat, dan berkembang.</p>
+
+<h3>🚀 Misi</h3>
+<ul>
+<li>Menyediakan akses buku digital yang mudah</li>
+<li>Meningkatkan budaya membaca sejak dini</li>
+<li>Menyediakan ruang belajar dan hiburan edukatif</li>
+</ul>
+</div>
+    
 <div class="card-container">
 
 <div class="card">
@@ -336,6 +358,19 @@ Password:<br>
 <p>Lomba seru bersama keluarga dengan sentuhan buku dan cerita. Untuk semua warga!</p>
 <p><b>📅 (isi tanggal)</b></p>
 </div>
+</div>
+
+<div class="card">
+<h3>🏆 Reward Membaca</h3>
+<p>Baca 5 buku = 🎁 Badge Pembaca Aktif</p>
+<p>Baca 10 buku = 🥇 Reward Spesial</p>
+<p>Ayo rajin membaca dan kumpulkan hadiahmu!</p>
+</div>
+
+<div class="card">
+<h3>🎮 Zona Bermain</h3>
+<p>Main sambil belajar! (tebak cerita, kuis buku, dll)</p>
+<button onclick="alert('Game segera hadir 😄')">Main Sekarang</button>
 </div>
 
 </div>
@@ -368,7 +403,7 @@ Password:<br>
 <img src="https://via.placeholder.com/100x140">
 <h4>Legenda Danau Toba</h4>
 <p>Cerita Rakyat</p>
-<button>Baca</button>
+<button onclick="cekLogin()">Baca</button>
 </div>
 
 <div class="book">
@@ -459,6 +494,20 @@ Password:<br>
 <li>Layanan Referensi</li>
 </ul>
 </div>
+
+<h3>📥 Usulkan Buku</h3>
+<form>
+Nama Buku:<br>
+<input type="text"><br><br>
+
+Kategori:<br>
+<input type="text"><br><br>
+
+Alasan:<br>
+<textarea rows="3"></textarea><br><br>
+
+<button type="submit">Kirim Usulan</button>
+</form>
 
 <!-- ABOUT -->
 <div id="about" class="page">
