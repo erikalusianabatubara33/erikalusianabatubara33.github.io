@@ -9,6 +9,54 @@ body{
   margin:0;
   background:#f5f7fb;
 }
+
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <h2>Login PINLIT</h2>
+    <form onsubmit="event.preventDefault(); loginSuccess();">
+      <input type="email" placeholder="Email" required><br><br>
+      <input type="password" placeholder="Password" required><br><br>
+      <button type="submit">Login</button>
+    </form>
+    <p>Belum punya akun? <a href="#" onclick="openRegister()">Daftar</a></p>
+    <button onclick="closeModal()">Tutup</button>
+  </div>
+</div>
+
+.modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  width:300px;
+  text-align:center;
+  animation:fadeIn 0.3s;
+}
+
+function openLogin(){
+  document.getElementById("loginModal").style.display="flex";
+}
+
+function closeModal(){
+  document.getElementById("loginModal").style.display="none";
+}
+
+function loginSuccess(){
+  isLogin = true;
+  closeModal();
+  alert("Login berhasil 🎉");
+}
     
 nav{
   background: white;
@@ -251,9 +299,6 @@ function logout(){
     showPage('login');
 }
 
-function loginSuccess(){
-    showPage('home');
-}
 function searchBook(){
 let input = document.getElementById("searchBook").value.toLowerCase();
 let books = document.getElementsByClassName("book");
@@ -274,33 +319,6 @@ books[i].style.display="none";
 </head>
 
 <body onload="showPage('home')">
-
-<h2>Login PINLIT Library</h2>
-<form onsubmit="event.preventDefault(); loginSuccess();">
-Email:<br>
-<input type="email" required><br><br>
-Password:<br>
-<input type="password" required><br><br>
-<button type="submit">Login</button>
-</form>
-<p><a href="#" onclick="event.preventDefault(); showPage('register')">Daftar</a></p>
-</div>
-
-<h2>Pendaftaran Pengguna Baru</h2>
-<form onsubmit="event.preventDefault(); showPage('login');">
-Last Name:<br>
-<input type="text" required><br><br>
-First Name:<br>
-<input type="text" required><br><br>
-Email:<br>
-<input type="email" required><br><br>
-No Handphone:<br>
-<input type="text" required><br><br>
-Password:<br>
-<input type="password" required><br><br>
-<button type="submit">Daftar</button>
-</form>
-</div>
 
 <!-- HOME -->
 <div id="home" class="page">
