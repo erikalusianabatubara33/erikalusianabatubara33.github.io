@@ -121,6 +121,22 @@ function cekLogin(){
 window.onload = function(){
   showPage('home');
 }
+
+  function searchBook(){
+  let input = document.getElementById("searchBook").value.toLowerCase();
+  let books = document.getElementsByClassName("book");
+
+  for(let i=0;i<books.length;i++){
+    let title = books[i].getElementsByTagName("h4")[0].innerText.toLowerCase();
+
+    if(title.includes(input)){
+      books[i].style.display="block";
+    }else{
+      books[i].style.display="none";
+    }
+  }
+}
+  
 </script>
 
 </head>
@@ -136,6 +152,7 @@ window.onload = function(){
     <a onclick="showPage('service')">Service</a>
     <a onclick="showPage('about')">About</a>
     <a onclick="showPage('contact')">Contact</a>
+    <a onclick="showPage('admin')">Admin</a>
   </div>
 </nav>
 
@@ -292,20 +309,21 @@ window.onload = function(){
     <li>Pengembalian Buku</li>
     <li>Perpanjangan Masa Pinjam</li>
   </ul>
+
+  <h3>📥 Ayo Usulkan Buku</h3>
+  <form>
+    Judul Buku:<br>
+    <input type="text"><br><br>
+
+    Kategori:<br>
+    <input type="text"><br><br>
+
+    Alasan:<br>
+    <textarea rows="3"></textarea><br><br>
+
+    <button type="submit">Kirim Usulan</button>
+  </form>
 </div>
-<h3>📥 Ayo Usulkan Buku yang Kalian Butuhkan</h3>
-<form>
-Judul Buku:<br>
-<input type="text"><br><br>
-
-Kategori:<br>
-<input type="text"><br><br>
-
-Alasan:<br>
-<textarea rows="3"></textarea><br><br>
-
-<button type="submit">Kirim Usulan</button>
-</form>
 
 <!-- ABOUT -->
 <div id="about" class="page">
@@ -336,7 +354,7 @@ Pesan:<br>
 </div>
 
 <!-- Admin -->
-<div id="Admin" class="page">
+<div id="admin" class="page">
 <h2>Admin</h2>
 <h1>SELAMAT DATANG DI WEB SAYA, SELAMAT MENJELAJAH</h1>
 <h2>Sebelum menjelajah lebih jauh, ketahui dulu siapa aku</h2>
@@ -348,7 +366,6 @@ Pesan:<br>
 <iframe width="560" height="315"
 src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM"
 allowfullscreen></iframe>
-</div>
 </div>
   
 </body>
