@@ -16,7 +16,7 @@ body{
 }
 
 nav{
-  background: linear-gradient(to right,#0ea5e9,#0284c7);
+  background: linear-gradient(to right,#2563eb,#1e3a8a);
   padding:15px 40px;
   display:flex;
   justify-content:space-between;
@@ -52,10 +52,13 @@ nav{
 
 .hero{
   text-align:center;
-  padding:80px 20px;
-  background: linear-gradient(to right,#0ea5e9,#22c55e);
+  padding:100px 20px;
+  background:
+    linear-gradient(rgba(30,58,138,0.7), rgba(30,58,138,0.7)),
+    url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');
+  background-size:cover;
+  background-position:center;
   color:white;
-  border-radius:0 0 30px 30px;
 }
 
 .tagline{
@@ -63,27 +66,17 @@ nav{
   opacity:0.9;
 }
 
-.card{
+  .card{
   background:white;
   padding:20px;
-  border-radius:15px;
+  border-radius:20px;
   margin-top:20px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
   transition:0.3s;
-  
-  border:1px solid #eee;
-  position:relative;
-  overflow:hidden;
 }
 
-.card::before{
-  content:'';
-  position:absolute;
-  width:100%;
-  height:5px;
-  background: linear-gradient(to right,#22c55e,#6366f1);
-  top:0;
-  left:0;
+.card-content{
+  padding-top:10px;
 }
 
 .card:hover{
@@ -113,6 +106,11 @@ nav{
 
 .book{
   cursor:pointer;
+}
+
+.book{
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
 .book:hover{
