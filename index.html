@@ -15,6 +15,22 @@ body{
   color:#1e293b;
 }
 
+body{
+  line-height:1.6;
+}
+
+h1{
+  font-size:36px;
+}
+
+h2{
+  font-size:28px;
+}
+
+h3{
+  font-size:20px;
+}
+
 nav{
   background: linear-gradient(to right,#2563eb,#1e3a8a);
   padding:15px 40px;
@@ -66,7 +82,7 @@ nav{
   opacity:0.9;
 }
 
-  .card{
+ .card{
   background:white;
   padding:20px;
   border-radius:20px;
@@ -80,7 +96,8 @@ nav{
 }
 
 .card:hover{
-  transform:translateY(-8px) scale(1.02);
+  transform:translateY(-5px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.12);
 }
 
 .card-container{
@@ -125,13 +142,7 @@ nav{
 }
 
 button{
-  background: linear-gradient(to right,#0284c7,#22c55e);
-  color:white;
-  border:none;
-  padding:8px 15px;
-  border-radius:8px;
-  cursor:pointer;
-  transition:0.3s;
+  background: linear-gradient(to right,#3b82f6,#1e40af);
 }
 
 button:hover{
@@ -170,6 +181,13 @@ h1, h2, h3 {
 
 button:active{
   transform:scale(0.95);
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:15px;
 }
 
 </style>
@@ -249,6 +267,11 @@ window.onload = function(){
 <!-- NAV -->
 <nav>
   <div><b>PINLIT Library</b></div>
+  <div style="display:flex;align-items:center;gap:10px;">
+  <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="35">
+  <b>PINLIT Library</b>
+</div>
+
   <div class="nav-links">
     <a onclick="showPage('home')">Home</a>
     <a onclick="showPage('collection')">Collection</a>
@@ -296,7 +319,6 @@ window.onload = function(){
     <p>Mewujudkan masyarakat Desa Pinal yang cerdas dan literat melalui akses bacaan digital.</p>
     <button onclick="showPage('about')">Lihat Selengkapnya</button>
   </div>
-</div>
 
 <div class="card">
   <h3>📚 Tentang Perpustakaan</h3>
@@ -305,7 +327,7 @@ window.onload = function(){
 
 <div class="card-container">
 
-<div class="card" style="background: linear-gradient(to right,#fef9c3,#fde68a);">
+<div class="card">
 <h1>🎈</h1>
 <h3>Dunia Ceria Anak</h3>
 <p>Main, belajar, dan ketawa bareng! Khusus anak SD.</p>
@@ -333,15 +355,6 @@ window.onload = function(){
 </div>
 
 </div>
-
-<div class="card">
-<h3>🎮 Zona Bermain</h3>
-<p>Main sambil belajar! (tebak cerita, kuis buku, dll)</p>
-<button onclick="alert('Game segera hadir 😄')">Main Sekarang</button>
-</div>
-
-</div>
-    
 </div>
 
 <!-- COLLECTION -->
