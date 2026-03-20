@@ -13,9 +13,6 @@ body{
   margin:0;
   background:#f8fafc;
   color:#1e293b;
-}
-
-body{
   line-height:1.6;
 }
 
@@ -69,9 +66,9 @@ nav{
 .hero{
   text-align:center;
   padding:100px 20px;
-  background:
-    linear-gradient(rgba(30,58,138,0.7), rgba(30,58,138,0.7)),
-    url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');
+ background:
+  linear-gradient(rgba(30,58,138,0.4), rgba(30,58,138,0.4)),
+  url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');
   background-size:cover;
   background-position:center;
   color:white;
@@ -143,6 +140,12 @@ nav{
 
 button{
   background: linear-gradient(to right,#3b82f6,#1e40af);
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 button:hover{
@@ -266,7 +269,6 @@ window.onload = function(){
 
 <!-- NAV -->
 <nav>
-  <div><b>PINLIT Library</b></div>
   <div style="display:flex;align-items:center;gap:10px;">
   <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="35">
   <b>PINLIT Library</b>
@@ -332,6 +334,7 @@ window.onload = function(){
 <h3>Dunia Ceria Anak</h3>
 <p>Main, belajar, dan ketawa bareng! Khusus anak SD.</p>
 <p><b>📅 (isi tanggal)</b></p>
+</div>
 </div>
 
 <div class="card" style="background: linear-gradient(to right,#dbeafe,#bfdbfe);">
@@ -405,7 +408,6 @@ window.onload = function(){
 <p>Dongeng</p>
 <button onclick="cekLogin()">📖 Baca Buku</button>
 </div>
-</div>
     
 <div class="card-container">
 
@@ -415,14 +417,12 @@ window.onload = function(){
 <h3>Pengetahuan Umum</h3>
 <p>Sejarah, geografi, dan ilmu sosial.</p>
 </div>
-</div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6">
 <div class="card-content">
 <h3>Pengembangan Diri</h3>
 <p>Motivasi, kepemimpinan, dan soft skill.</p>
-</div>
 </div>
 
 <div class="card">
@@ -431,11 +431,6 @@ window.onload = function(){
 <h3>Kearifan Lokal</h3>
 <p>Budaya dan potensi Desa Pinal.</p>
 </div>
-</div>
-
-</div>
-</div>
-
 
 <!-- SERVICE -->
 <div id="service" class="page">
