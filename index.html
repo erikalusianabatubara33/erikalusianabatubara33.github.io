@@ -64,14 +64,18 @@ nav{
 }
 
 .hero{
-  text-align:center;
-  padding:100px 20px;
- background:
-  linear-gradient(rgba(30,58,138,0.4), rgba(30,58,138,0.4)),
-  url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');
+  background:
+  linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');
   background-size:cover;
   background-position:center;
+  height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   color:white;
+  border-radius:20px;
 }
 
 .tagline{
@@ -80,12 +84,14 @@ nav{
 }
 
 .card{
-  background:#f1f5f9;
-  padding:20px;
-  border-radius:20px;
-  margin-top:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  background:rgba(255,255,255,0.7); /* transparan elegan */
+  backdrop-filter:blur(10px);
+  padding:15px;
+  border-radius:15px;
+  margin-top:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
   transition:0.3s;
+  width:220px; /* BIAR GA GEDE */
 }
 
 .card-content{
@@ -94,13 +100,14 @@ nav{
 
 .card:hover{
   transform:translateY(-5px);
-  box-shadow:0 15px 35px rgba(0,0,0,0.12);
 }
 
 .card-container{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,0.4);
 }
 
 .book-container{
@@ -193,8 +200,17 @@ button:active{
   border-radius:15px;
 }
 
-.card h1, .card h3, .card p{
-  color:#1e293b;
+.card h1{
+  font-size:30px;
+}
+
+.card h3{
+  font-size:16px;
+}
+
+.card p{
+  font-size:13px;
+  color:#334155;
 }
 
 </style>
@@ -333,7 +349,7 @@ window.onload = function(){
 
 <div class="card-container">
 
-<div class="card" style="background:#fef3c7;">
+<div class="card" 
 <h1>🎈</h1>
 <h3>Dunia Ceria Anak</h3>
 <p>Main, belajar, dan ketawa bareng! Khusus anak SD.</p>
@@ -510,6 +526,10 @@ Pesan:<br>
 src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM"
 allowfullscreen></iframe>
 </div>
+
+<footer style="text-align:center; margin-top:40px; padding:20px; color:#64748b;">
+  © 2026 PINLIT Library 
+</footer>
   
 </body>
 </html>
