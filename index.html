@@ -79,8 +79,8 @@ nav{
   opacity:0.9;
 }
 
- .card{
-  background:white;
+.card{
+  background:#f1f5f9;
   padding:20px;
   border-radius:20px;
   margin-top:20px;
@@ -191,6 +191,10 @@ button:active{
   height:180px;
   object-fit:cover;
   border-radius:15px;
+}
+
+.card h1, .card h3, .card p{
+  color:#1e293b;
 }
 
 </style>
@@ -312,24 +316,24 @@ window.onload = function(){
 <!-- HOME -->
 <div id="home" class="page">
   <div class="hero">
-    <h1>Selamat Datang di PINLIT Library</h1>
-<p>Perpustakaan Digital Desa Pinal</p>
-<p class="tagline">Membaca • Belajar • Bertumbuh</p>
+  <h1>Selamat Datang di PINLIT Library</h1>
+  <p>Perpustakaan Digital Desa Pinal</p>
+  <p class="tagline">Membaca • Belajar • Bertumbuh</p>
 
-  <div class="card">
-    <h3>🎯 Visi & Misi</h3>
-    <p>Mewujudkan masyarakat Desa Pinal yang cerdas dan literat melalui akses bacaan digital.</p>
-    <button onclick="showPage('about')">Lihat Selengkapnya</button>
+ <div class="card" style="background:#fef3c7;">
+  <h3>🎯 Visi & Misi</h3>
+  <p>Mewujudkan masyarakat Desa Pinal yang cerdas dan literat melalui akses bacaan digital.</p>
+  <button onclick="showPage('about')">Lihat Selengkapnya</button>
   </div>
 
-<div class="card">
+<div class="card" style="background:#dbeafe;">
   <h3>📚 Tentang Perpustakaan</h3>
   <p>PINLIT Library adalah ruang belajar digital untuk masyarakat Desa Pinal. Dari anak-anak hingga dewasa, semua bisa membaca, bermain, dan berkembang bersama.</p>
 </div>
 
 <div class="card-container">
 
-<div class="card">
+<div class="card" style="background:#fef3c7;">
 <h1>🎈</h1>
 <h3>Dunia Ceria Anak</h3>
 <p>Main, belajar, dan ketawa bareng! Khusus anak SD.</p>
@@ -337,25 +341,22 @@ window.onload = function(){
 </div>
 </div>
 
-<div class="card" style="background: linear-gradient(to right,#dbeafe,#bfdbfe);">
+<div class="card" style="background:#dbeafe;">
 <h1>🎉</h1>
 <h3>Pesta Rakyat Literasi</h3>
 <p>Lomba seru bersama keluarga dengan sentuhan buku.</p>
 <p><b>📅 (isi tanggal)</b></p>
 </div>
 
-<div class="card" style="background: linear-gradient(to right,#dcfce7,#bbf7d0);">
+<div class="card" style="background:#dcfce7;">
 <h1>🏆</h1>
 <h3>Reward Membaca</h3>
 <p>Baca buku dan dapatkan hadiah menarik!</p>
 </div>
 
-<div class="card">
+<div class="card" style="background:#e0f2fe;">
 <h1>🎮</h1>
 <h3>Zona Bermain</h3>
-<p>Main sambil belajar!</p>
-<button onclick="alert('Game segera hadir 😄')">Main Sekarang</button>
-</div>
 
 </div>
 </div>
