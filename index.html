@@ -66,7 +66,7 @@ nav{
 .hero{
   background:
   linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');
+ url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
   background-size:cover;
   background-position:center;
   height:300px;
@@ -84,14 +84,13 @@ nav{
 }
 
 .card{
-  background:rgba(255,255,255,0.7); /* transparan elegan */
+  background:rgba(255,255,255,0.7); 
   backdrop-filter:blur(10px);
   padding:15px;
   border-radius:15px;
   margin-top:15px;
   box-shadow:0 8px 20px rgba(0,0,0,0.1);
   transition:0.3s;
-  width:220px; /* BIAR GA GEDE */
 }
 
 .card-content{
@@ -103,11 +102,10 @@ nav{
 }
 
 .card-container{
-  display:flex;
-  flex-wrap:wrap;
-  gap:15px;
-  justify-content:center;
-  border:1px solid rgba(255,255,255,0.4);
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  margin-top:20px;
 }
 
 .book-container{
@@ -335,6 +333,7 @@ window.onload = function(){
   <h1>Selamat Datang di PINLIT Library</h1>
   <p>Perpustakaan Digital Desa Pinal</p>
   <p class="tagline">Membaca • Belajar • Bertumbuh</p>
+</div>
 
  <div class="card" style="background:#fef3c7;">
   <h3>🎯 Visi & Misi</h3>
@@ -349,32 +348,33 @@ window.onload = function(){
 
 <div class="card-container">
 
-<div class="card" 
-<h1>🎈</h1>
-<h3>Dunia Ceria Anak</h3>
-<p>Main, belajar, dan ketawa bareng! Khusus anak SD.</p>
-<p><b>📅 (isi tanggal)</b></p>
-</div>
-</div>
+<div class="card-container">
 
-<div class="card" style="background:#dbeafe;">
-<h1>🎉</h1>
-<h3>Pesta Rakyat Literasi</h3>
-<p>Lomba seru bersama keluarga dengan sentuhan buku.</p>
-<p><b>📅 (isi tanggal)</b></p>
-</div>
+  <div class="card">
+    <h1>🎈</h1>
+    <h3>Dunia Ceria Anak</h3>
+    <p>Main, belajar, dan ketawa bareng! Khusus anak SD.</p>
+    <p><b>📅 (isi tanggal)</b></p>
+  </div>
 
-<div class="card" style="background:#dcfce7;">
-<h1>🏆</h1>
-<h3>Reward Membaca</h3>
-<p>Baca buku dan dapatkan hadiah menarik!</p>
-</div>
+  <div class="card">
+    <h1>🎉</h1>
+    <h3>Pesta Rakyat Literasi</h3>
+    <p>Lomba seru bersama keluarga dengan sentuhan buku.</p>
+    <p><b>📅 (isi tanggal)</b></p>
+  </div>
 
-<div class="card" style="background:#e0f2fe;">
-<h1>🎮</h1>
-<h3>Zona Bermain</h3>
+  <div class="card">
+    <h1>🏆</h1>
+    <h3>Reward Membaca</h3>
+    <p>Baca buku dan dapatkan hadiah menarik!</p>
+  </div>
 
-</div>
+  <div class="card">
+    <h1>🎮</h1>
+    <h3>Zona Bermain</h3>
+  </div>
+
 </div>
 
 <!-- COLLECTION -->
@@ -429,24 +429,27 @@ window.onload = function(){
 <div class="card-container">
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
-<div class="card-content">
-<h3>Pengetahuan Umum</h3>
-<p>Sejarah, geografi, dan ilmu sosial.</p>
+  <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+  <div class="card-content">
+    <h3>Pengetahuan Umum</h3>
+    <p>Sejarah, geografi, dan ilmu sosial.</p>
+  </div>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6">
-<div class="card-content">
-<h3>Pengembangan Diri</h3>
-<p>Motivasi, kepemimpinan, dan soft skill.</p>
+  <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6">
+  <div class="card-content">
+    <h3>Pengembangan Diri</h3>
+    <p>Motivasi, kepemimpinan, dan soft skill.</p>
+  </div>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d">
-<div class="card-content">
-<h3>Kearifan Lokal</h3>
-<p>Budaya dan potensi Desa Pinal.</p>
+  <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d">
+  <div class="card-content">
+    <h3>Kearifan Lokal</h3>
+    <p>Budaya dan potensi Desa Pinal.</p>
+  </div>
 </div>
 
 <!-- SERVICE -->
@@ -471,6 +474,7 @@ window.onload = function(){
 
     <button type="submit">Kirim Usulan</button>
   </form>
+  </div>
 </div>
 
 <!-- ABOUT -->
@@ -489,6 +493,7 @@ window.onload = function(){
 <li>Menyediakan hiburan edukatif</li>
 </ul>
 
+  </div>
 </div>
 
 <!-- CONTACT -->
@@ -525,6 +530,7 @@ Pesan:<br>
 <iframe width="560" height="315"
 src="https://www.youtube.com/embed/oWnwhCDzv7E?si=TDtcp1NfuDwPPtdM"
 allowfullscreen></iframe>
+  </div>
 </div>
 
 <footer style="text-align:center; margin-top:40px; padding:20px; color:#64748b;">
