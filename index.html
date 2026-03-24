@@ -221,6 +221,10 @@ button:active{
 .card p{
   color:#e2e8f0;
 }
+
+.card{
+  cursor:pointer;
+}
 </style>
 
 <script>
@@ -401,7 +405,7 @@ window.onload = function(){
 
 <div class="card-container">
 
- <div class="card">
+<div class="card" onclick="showPage('service')">
   <h1>🎈</h1>
   <h3>Dunia Ceria Anak</h3>
   <p>Kegiatan membaca cerita, mewarnai, dan permainan edukatif untuk anak SD.</p>
@@ -522,6 +526,8 @@ window.onload = function(){
   </div>
 
 </div>
+</div>
+
 
 <!-- SERVICE -->
 <div id="service" class="page">
