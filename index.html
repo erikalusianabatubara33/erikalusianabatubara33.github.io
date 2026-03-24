@@ -289,6 +289,44 @@ window.onload = function(){
   }
 }
   
+  let angka1, angka2, operator, jawabanBenar;
+
+function buatSoal(){
+  angka1 = Math.floor(Math.random()*10)+1;
+  angka2 = Math.floor(Math.random()*10)+1;
+
+  let opsi = ["+", "×"];
+  operator = opsi[Math.floor(Math.random()*2)];
+
+  if(operator === "+"){
+    jawabanBenar = angka1 + angka2;
+  }else{
+    jawabanBenar = angka1 * angka2;
+  }
+
+  document.getElementById("soal").innerText = 
+    "Berapa " + angka1 + " " + operator + " " + angka2 + " ?";
+  
+  document.getElementById("hasil").innerText = "";
+  document.getElementById("jawaban").value = "";
+}
+
+function cekJawaban(){
+  let jawabanUser = document.getElementById("jawaban").value;
+
+  if(jawabanUser == jawabanBenar){
+    document.getElementById("hasil").innerText = "✅ Benar! Hebat!";
+  }else{
+    document.getElementById("hasil").innerText = 
+    "❌ Salah, jawabannya: " + jawabanBenar;
+  }
+}
+
+window.onload = function(){
+  showPage('home');
+  buatSoal(); // langsung muncul soal
+}
+  
 </script>
 
 </head>
@@ -391,6 +429,18 @@ window.onload = function(){
   <h3>Zona Bermain Edukatif</h3>
   <p>Game edukasi, puzzle, dan belajar sambil bermain untuk semua usia.</p>
   <p><b>📅 Setiap hari Sabtu</b></p>
+  
+  <h2>🎮 Game Matematika</h2>
+
+<p id="soal"></p>
+
+<input type="number" id="jawaban" placeholder="Jawaban kamu">
+<br><br>
+
+<button onclick="cekJawaban()">Cek Jawaban</button>
+<button onclick="buatSoal()">Soal Baru</button>
+
+<p id="hasil"></p>
 </div>
 
   </div>
