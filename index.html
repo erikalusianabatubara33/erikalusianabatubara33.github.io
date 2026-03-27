@@ -64,20 +64,11 @@ nav{
 }
 
 .hero{
-  background:
-  linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-  url('toba.jpeg');
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-
-  min-height:100vh; 
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:center;
-  padding-top:80px;
+  background: linear-gradient(to right,#7c3aed,#6366f1);
   color:white;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
 }
 
 .tagline{
@@ -376,12 +367,32 @@ window.onload = function(){
 </div>
 
 <!-- HOME -->
-<div id="home" class="page">
-  <div class="hero">
-  
-    <h1>Selamat Datang di PINLIT Library</h1>
-    <p>Perpustakaan Digital Desa Pinal</p>
-    <p class="tagline">Membaca • Belajar • Bertumbuh</p>
+<div id="home" class="page active">
+  <div class="hero" style="flex-direction:row; justify-content:space-between; padding:80px;">
+
+    <!-- KIRI -->
+    <div style="max-width:500px;">
+      <p style="letter-spacing:2px;">Perpustakaan Digital</p>
+      
+      <h1 style="font-size:45px;">
+        PINLIT Library <br> Desa Pinal
+      </h1>
+
+      <p style="margin-top:15px;">
+        Membaca • Belajar • Bertumbuh bersama masyarakat
+      </p>
+
+      <button style="margin-top:20px;" onclick="showPage('collection')">
+        Jelajahi Buku
+      </button>
+    </div>
+
+    <div>
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" width="300">
+    </div>
+
+  </div>
+</div>
     
 	<div class="card" style="background:#dbeafe;">
     <h3>📚 Tentang Perpustakaan</h3>
