@@ -52,7 +52,7 @@
             position: relative;
             z-index: 1;
             color: white;
-            padding: 80px 60px;
+            padding: 60px;
             text-align: center;
             border-radius: 20px;
             margin-bottom: 20px;
@@ -60,42 +60,56 @@
         
         .hero h1 {
             text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-            font-size: 2.5em;
         }
         
         .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 20px; 
             z-index: -1;
         }
 
-        /* --- CARD SYSTEM --- */
         .card {
             background: white;
+            padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             margin-bottom: 20px;
             transition: 0.3s;
             border: 1px solid #e2e8f0;
-            overflow: hidden;
         }
-
-        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        
+        .card:hover { transform: translateY(-5px); }
 
         .card-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
 
         .event-img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* --- CSS PROGRESS BAR (Fungsi Baru) --- */
+        .progress-container {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 15px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            background: linear-gradient(to right, #10b981, #34d399);
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
         }
 
         /* --- BUKU --- */
@@ -113,21 +127,15 @@
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
 
-        .book img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; }
-
         /* --- TOMBOL --- */
         button {
             background: linear-gradient(to right, #3b82f6, #1e40af);
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 10px 20px;
             border-radius: 10px;
             cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
         }
-
-        button:hover { opacity: 0.9; }
 
         /* --- MODAL --- */
         .modal {
@@ -151,10 +159,7 @@
         input, textarea {
             width: 100%; padding: 10px; margin: 10px 0;
             border-radius: 8px; border: 1px solid #ddd;
-            box-sizing: border-box;
         }
-
-        footer { padding: 40px; color: #64748b; }
     </style>
 
     <script>
@@ -167,32 +172,45 @@
             window.scrollTo(0, 0);
         }
 
+        // --- FUNGSI JAM (Baru) ---
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
+                            now.getMinutes().toString().padStart(2, '0') + ":" + 
+                            now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('clock').innerText = timeStr;
+        }
+        setInterval(updateClock, 1000);
+
+        // --- FUNGSI GREETING (Baru) ---
+        function updateGreeting() {
+            const jam = new Date().getHours();
+            let sapaan = "";
+            if (jam >= 5 && jam < 12) sapaan = "Selamat Pagi, Erika! ☀️";
+            else if (jam >= 12 && jam < 15) sapaan = "Selamat Siang, Erika! 🌤️";
+            else if (jam >= 15 && jam < 18) sapaan = "Selamat Sore, Erika! ⛅";
+            else sapaan = "Selamat Malam, Erika! ✨";
+            document.getElementById("greeting").innerText = sapaan;
+        }
+
+        // --- FUNGSI PROGRESS BAR (Baru) ---
+        function updateProgress() {
+            let input = document.getElementById("halamanInput").value;
+            let target = 100; 
+            if (input > target) input = target;
+            let hasilPersen = (input / target) * 100;
+            document.getElementById("myBar").style.width = hasilPersen + "%";
+            document.getElementById("persenText").innerText = "Progress: " + Math.round(hasilPersen) + "% dari target!";
+            if(hasilPersen >= 100) alert("Hebat Erika! Target tercapai! 🎉");
+        }
+
         function openLogin() { document.getElementById("loginModal").style.display = "flex"; }
         function closeModal() { document.getElementById("loginModal").style.display = "none"; }
-        function openRegister() { 
-            closeModal();
-            document.getElementById("registerModal").style.display = "flex"; 
-        }
-        function closeRegister() { document.getElementById("registerModal").style.display = "none"; }
-
+        
         function loginSuccess() {
             isLogin = true;
             closeModal();
             alert("Login berhasil 🎉 Selamat datang Erika!");
-        }
-
-        function cekLogin() {
-            if(!isLogin) openLogin();
-            else alert("Selamat membaca 📚");
-        }
-
-        function searchBook() {
-            let input = document.getElementById("searchBook").value.toLowerCase();
-            let books = document.getElementsByClassName("book");
-            for(let i=0; i<books.length; i++) {
-                let title = books[i].getElementsByTagName("h4")[0].innerText.toLowerCase();
-                books[i].style.display = title.includes(input) ? "block" : "none";
-            }
         }
 
         // Game Matematika
@@ -208,16 +226,15 @@
 
         function cekJawaban() {
             let ans = document.getElementById("jawaban").value;
-            if(ans == jawabanBenar) {
-                document.getElementById("hasil").innerText = "✅ Benar! Hebat!";
-                document.getElementById("hasil").style.color = "green";
-            } else {
-                document.getElementById("hasil").innerText = "❌ Salah! Coba lagi.";
-                document.getElementById("hasil").style.color = "red";
-            }
+            if(ans == jawabanBenar) document.getElementById("hasil").innerText = "✅ Benar!";
+            else document.getElementById("hasil").innerText = "❌ Salah!";
         }
 
-        window.onload = buatSoal;
+        window.onload = function() {
+            buatSoal();
+            updateClock();
+            updateGreeting();
+        };
     </script>
 </head>
 <body>
@@ -226,6 +243,7 @@
     <div style="display:flex; align-items:center; gap:10px;">
        <img src="https://ui-avatars.com/api/?name=P&background=ffffff&color=2563eb&bold=true&rounded=true" width="35">
         <b>PINLIT Library</b>
+        <div id="clock" style="margin-left: 15px; background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 5px; font-size: 14px;">00:00:00</div>
     </div>
     <div class="nav-links">
         <a onclick="showPage('home')">Home</a>
@@ -237,157 +255,78 @@
     </div>
 </nav>
 
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h2>Login</h2>
-        <input type="email" placeholder="Email"><br>
-        <input type="password" placeholder="Password"><br>
-        <p>Belum punya akun? <a href="#" onclick="openRegister()">Daftar disini</a></p>
-        <button onclick="loginSuccess()">Login</button>
-        <button onclick="closeModal()" style="background:gray;">Tutup</button>
-    </div>
-</div>
-
-<div id="registerModal" class="modal">
-    <div class="modal-content">
-        <h2>Daftar</h2>
-        <input type="text" placeholder="Nama"><br>
-        <input type="email" placeholder="Email"><br>
-        <button onclick="alert('Berhasil Daftar!'); closeRegister(); openLogin();">Daftar</button>
-        <button onclick="closeRegister()" style="background:gray;">Tutup</button>
-    </div>
-</div>
-
 <div id="home" class="page active">
     <div class="hero">
-        <h1>Selamat Datang di PINLIT Library</h1>
+        <h1 id="greeting">Selamat Datang!</h1>
         <p>Perpustakaan Digital Desa Pinal</p>
         <p><i>Membaca • Belajar • Bertumbuh</i></p>
         <br>
-        <button onclick="showPage('collection')">Mulai Jelajahi Koleksi</button>
+        <button onclick="showPage('collection')">Jelajahi Buku</button>
     </div>
 
-    <div class="card" style="background:#dbeafe; color:#1e3a8a; padding: 25px;">
-        <h3>📚 Mengenal PINLIT</h3>
-        <p>PINLIT Library adalah ruang belajar digital untuk masyarakat Desa Pinal. Kami hadir untuk memastikan semua warga bisa mengakses ilmu pengetahuan, membaca cerita, dan berkembang bersama teknologi secara gratis.</p>
+    <div class="card" style="background: #f1f5f9;">
+        <h3>📊 Progress Membaca Erika</h3>
+        <p style="font-size: 13px;">Sudah baca berapa halaman hari ini? (Target: 100)</p>
+        <div class="progress-container">
+            <div id="myBar" class="progress-bar"></div>
+        </div>
+        <input type="number" id="halamanInput" placeholder="Masukkan angka..." style="width:150px;">
+        <button onclick="updateProgress()" style="background: #10b981;">Update</button>
+        <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
+    </div>
+
+    <div class="card" style="background:#dbeafe; color:#1e3a8a;">
+        <h3>📚 Tentang Perpustakaan</h3>
+        <p>PINLIT Library adalah ruang belajar digital untuk masyarakat Desa Pinal. Semua bisa membaca, bermain, dan berkembang bersama.</p>
     </div>
 
     <div class="card-container">
-        <div class="card"> 
-            <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=600" class="event-img">
-            <div style="padding:20px; text-align: left;"> 
-                <h3 style="margin-top:0; color:#2563eb;">Dunia Ceria Anak: Dongeng & Kreativitas</h3>
-                <p style="font-size: 14px; color: #64748b;">Ayo ajak adik-adik untuk seru-seruan bareng di akhir pekan ini! Kegiatannya meliputi:</p>
-                <ul style="padding-left: 20px; font-size: 14px; color: #475569;">
-                    <li>📖 <b>Mendongeng:</b> Kisah Legenda Rakyat.</li>
-                    <li>🎨 <b>Mewarnai:</b> Karakter impian anak-anak.</li>
-                    <li>🎁 <b>Hadiah:</b> Bingkisan untuk karya terbaik.</li>
+        <div class="card" style="padding:0; overflow:hidden;"> 
+            <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=500" class="event-img">
+            <div style="padding:20px;"> 
+                <h3 style="margin-top:0; color:#2563eb;">🎈 Dunia Ceria Anak: Dongeng & Kreativitas</h3>
+                <p style="font-size: 14px;">Ayo ajak adik-adik seru-seruan bareng di PINLIT!</p>
+                <ul style="padding-left: 20px; font-size: 13px; color: #475569;">
+                    <li>📖 Mendongeng: Kisah Legenda Toba.</li>
+                    <li>🎨 Mewarnai: Karakter favorit.</li>
                 </ul>
-                <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 15px; font-size: 13px;">
-                    <b>📅 12 April 2026 | ⏰ 09:00 WIB | 📍 Aula Desa Pinal</b>
-                </div>
-                <br>
-                <button onclick="alert('Terima kasih sudah mendaftar!')" style="width:100%; background:#10b981;">Ikuti Kegiatan</button>
+                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background:#10b981;">Daftar Sekarang</button>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
-            <div style="padding:20px; text-align: center;">
-                <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Tantangan Matematika</h3>
-                <p style="font-size: 14px; color: #64748b;">Uji kemampuan logikamu setiap hari dan jadilah pembaca paling jenius di Desa Pinal!</p>
-                <div style="background:#f8fafc; padding:20px; border-radius:15px; border: 1px dashed #cbd5e1;">
-                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;"></p>
-                    <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
-                    <br>
-                    <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
-                    <button onclick="buatSoal()" style="background:#64748b;">Soal Baru</button>
-                    <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
-                </div>
-            </div>
+            <h1>🎮</h1>
+            <h3>Game Matematika</h3>
+            <p id="soal"></p>
+            <input type="number" id="jawaban" style="width:80px;">
+            <button onclick="cekJawaban()">Cek</button>
+            <button onclick="buatSoal()" style="background:#10b981;">Soal Baru</button>
+            <p id="hasil" style="font-weight:bold;"></p>
         </div>
     </div>
 </div>
 
 <div id="collection" class="page">
-    <h2>Koleksi Buku Digital</h2>
-    <input type="text" id="searchBook" placeholder="Cari judul buku..." onkeyup="searchBook()"><br><br>
-
+    <h2>Koleksi Buku</h2>
     <div class="book-container">
         <div class="book">
-            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400" width="100%">
             <h4>Legenda Danau Toba</h4>
-            <p>Cerita Rakyat</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
+            <button onclick="alert('Silakan Login')">Baca</button>
         </div>
-        <div class="book">
-            <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
-            <h4>Si Kancil dan Buaya</h4>
-            <p>Buku Anak</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
-        </div>
-        <div class="book">
-            <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400">
-            <h4>Matematika Dasar</h4>
-            <p>Pelajaran</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
-        </div>
-    </div>
-</div>
-
-<div id="service" class="page">
-    <h2>🛠️ Layanan Kami</h2>
-    <div class="card" style="padding: 25px;">
-        <ul style="padding-left: 20px;">
-            <li><b>Peminjaman Buku Digital:</b> Akses gratis 24 jam.</li>
-            <li><b>Ruang Baca Virtual:</b> Diskusi bersama pembaca lain.</li>
-            <li><b>Konsultasi Literasi:</b> Tanya jawab seputar tugas sekolah.</li>
-        </ul>
-    </div>
-    <h3>📥 Usulkan Buku Baru</h3>
-    <input type="text" placeholder="Judul Buku yang Diinginkan"><br>
-    <textarea placeholder="Kenapa buku ini menarik untuk dibaca?"></textarea><br>
-    <button onclick="alert('Usulan terkirim! Terima kasih!')">Kirim Usulan</button>
-</div>
-
-<div id="about" class="page">
-    <h2>ℹ️ Tentang PINLIT Library</h2>
-    <div class="card" style="padding: 25px;">
-        <p>PINLIT Library adalah inisiatif perpustakaan digital mandiri yang dirancang khusus untuk mendukung literasi masyarakat di Desa Pinal, Danau Toba.</p>
-        <h3>Visi:</h3>
-        <p>Menciptakan masyarakat desa yang cerdas, kreatif, dan melek teknologi informasi melalui budaya membaca.</p>
-    </div>
-</div>
-
-<div id="contact" class="page">
-    <h2>📞 Hubungi Kami</h2>
-    <div class="card" style="padding: 20px;">
-        <p><b>Email:</b> erikalusianabatubara@gmail.com</p>
-        <p><b>WhatsApp:</b> 0813-6764-1203</p>
-    </div>
-    <br>
-    <div class="card" style="padding: 25px;">
-        <h3>Kirim Pesan Langsung</h3>
-        <input type="text" placeholder="Nama Anda"><br>
-        <textarea placeholder="Tuliskan pesan atau saran Anda..."></textarea><br>
-        <button onclick="alert('Pesan Terkirim!')">Kirim Pesan</button>
     </div>
 </div>
 
 <div id="admin" class="page">
     <center>
-        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff" width="100" style="border-radius:50%">
         <h1>Halo, Saya Erika Lusiana Batubara</h1>
-        <p style="color: #64748b;">Pengembang PINLIT Library</p>
-        <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Buka CV Digital Saya</button>
-        <br><br>
-        <h3 style="margin-top: 30px;">Video Edukasi Pilihan</h3>
-        <iframe width="100%" height="400" src="https://www.youtube.com/embed/oWnwhCDzv7E" frameborder="0" style="border-radius: 20px; max-width: 800px;" allowfullscreen></iframe>
+        <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Lihat CV</button>
     </center>
 </div>
 
 <footer>
-    <center><p>© 2026 PINLIT Library | Dirancang dengan penuh dedikasi oleh Erika Lusiana Batubara</p></center>
+    <center><p>© 2026 PINLIT Library | Erika Lusiana Batubara</p></center>
 </footer>
 
 </body>
