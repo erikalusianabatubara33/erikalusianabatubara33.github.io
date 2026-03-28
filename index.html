@@ -43,62 +43,59 @@
         .page { display: none; padding: 40px; }
         .active { display: block; }
 
-        /* --- DESAIN CARD (Gaya Erika tapi lebih rapi) --- */
+        /* --- DESAIN HERO --- */
         .hero {
             background-image: url('toba.jpeg');
-			background-size: cover;     
+            background-size: cover;      
             background-position: center; 
             background-repeat: no-repeat;
-			position: relative;
+            position: relative;
             z-index: 1;
             color: white;
-            padding: 60px;
+            padding: 80px 60px;
             text-align: center;
             border-radius: 20px;
             margin-bottom: 20px;
         }
-		
-		.hero h1 {
+        
+        .hero h1 {
             text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            font-size: 2.5em;
         }
-		
-		.hero::before {
+        
+        .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.45);
             border-radius: 20px; 
             z-index: -1;
-		}
-			
-			.hero h1, .hero p, .hero i {
-            color: white !important;
-            margin-bottom: 10px;
         }
 
+        /* --- CARD SYSTEM --- */
         .card {
             background: white;
-            padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
             margin-bottom: 20px;
             transition: 0.3s;
             border: 1px solid #e2e8f0;
-        }
-		
-		.event-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover; /* Biar foto nggak penyet */
-            border-radius: 15px 15px 0 0; /* Lengkung atas saja */
+            overflow: hidden;
         }
 
-        .card:hover { transform: translateY(-5px); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
 
         .card-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Tetap pakai 2 kolom seperti maumu */
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .event-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
 
         /* --- BUKU --- */
@@ -116,22 +113,21 @@
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
 
-        .event-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover; /* Biar foto pas dan tidak gepeng */
-            border-radius: 20px 20px 0 0; /* Lengkung hanya di atas */
-        }
+        .book img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; }
 
         /* --- TOMBOL --- */
         button {
             background: linear-gradient(to right, #3b82f6, #1e40af);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 10px;
             cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
         }
+
+        button:hover { opacity: 0.9; }
 
         /* --- MODAL --- */
         .modal {
@@ -155,7 +151,10 @@
         input, textarea {
             width: 100%; padding: 10px; margin: 10px 0;
             border-radius: 8px; border: 1px solid #ddd;
+            box-sizing: border-box;
         }
+
+        footer { padding: 40px; color: #64748b; }
     </style>
 
     <script>
@@ -209,8 +208,13 @@
 
         function cekJawaban() {
             let ans = document.getElementById("jawaban").value;
-            if(ans == jawabanBenar) document.getElementById("hasil").innerText = "✅ Benar!";
-            else document.getElementById("hasil").innerText = "❌ Salah!";
+            if(ans == jawabanBenar) {
+                document.getElementById("hasil").innerText = "✅ Benar! Hebat!";
+                document.getElementById("hasil").style.color = "green";
+            } else {
+                document.getElementById("hasil").innerText = "❌ Salah! Coba lagi.";
+                document.getElementById("hasil").style.color = "red";
+            }
         }
 
         window.onload = buatSoal;
@@ -259,124 +263,131 @@
         <h1>Selamat Datang di PINLIT Library</h1>
         <p>Perpustakaan Digital Desa Pinal</p>
         <p><i>Membaca • Belajar • Bertumbuh</i></p>
-        <br><br>
-        <button onclick="showPage('collection')">Jelajahi Buku</button>
+        <br>
+        <button onclick="showPage('collection')">Mulai Jelajahi Koleksi</button>
     </div>
 
-    <div class="card" style="background:#dbeafe; color:#1e3a8a;">
-        <h3>📚 Tentang Perpustakaan</h3>
-        <p>PINLIT Library adalah ruang belajar digital untuk masyarakat Desa Pinal. Semua bisa membaca, bermain, dan berkembang bersama.</p>
+    <div class="card" style="background:#dbeafe; color:#1e3a8a; padding: 25px;">
+        <h3>📚 Mengenal PINLIT</h3>
+        <p>PINLIT Library adalah ruang belajar digital untuk masyarakat Desa Pinal. Kami hadir untuk memastikan semua warga bisa mengakses ilmu pengetahuan, membaca cerita, dan berkembang bersama teknologi secara gratis.</p>
     </div>
 
-    <div class="card" style="padding:0; overflow:hidden;"> <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=500" class="event-img">
-            
-    <div style="padding:20px; text-align: left;"> <h3 style="margin-top:0; color:#2563eb;">🎈 Dunia Ceria Anak: Dongeng & Kreativitas</h3>
-    <p>Ayo ajak adik-adik dan teman-teman untuk seru-seruan bareng di PINLIT! Minggu ini kita bakal ada kegiatan:</p>
-    
-    <ul style="padding-left: 20px; font-size: 14px; color: #475569;">
-        <li>📖 <b>Mendongeng:</b> Kisah seru Legenda Toba.</li>
-        <li>🎨 <b>Mewarnai:</b> Lomba mewarnai karakter favorit.</li>
-        <li>🎁 <b>Hadiah:</b> Ada bingkisan menarik buat yang paling kreatif!</li>
-    </ul>
+    <div class="card-container">
+        <div class="card"> 
+            <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=600" class="event-img">
+            <div style="padding:20px; text-align: left;"> 
+                <h3 style="margin-top:0; color:#2563eb;">Dunia Ceria Anak: Dongeng & Kreativitas</h3>
+                <p style="font-size: 14px; color: #64748b;">Ayo ajak adik-adik untuk seru-seruan bareng di akhir pekan ini! Kegiatannya meliputi:</p>
+                <ul style="padding-left: 20px; font-size: 14px; color: #475569;">
+                    <li>📖 <b>Mendongeng:</b> Kisah Legenda Rakyat.</li>
+                    <li>🎨 <b>Mewarnai:</b> Karakter impian anak-anak.</li>
+                    <li>🎁 <b>Hadiah:</b> Bingkisan untuk karya terbaik.</li>
+                </ul>
+                <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 15px; font-size: 13px;">
+                    <b>📅 12 April 2026 | ⏰ 09:00 WIB | 📍 Aula Desa Pinal</b>
+                </div>
+                <br>
+                <button onclick="alert('Terima kasih sudah mendaftar!')" style="width:100%; background:#10b981;">Ikuti Kegiatan</button>
+            </div>
+        </div>
 
-    <div style="background: #f1f5f9; padding: 10px; border-radius: 10px; margin-top: 15px;">
-        <p style="margin:0; font-size: 13px;"><b>📅 12 April 2026</b></p>
-        <p style="margin:0; font-size: 13px;"><b>⏰ 09:00 - 12:00 WIB</b></p>
-        <p style="margin:0; font-size: 13px;"><b>📍 Aula Serbaguna Desa Pinal</b></p>
-    </div>
-    
-    <br>
-    <button onclick="alert('Pendaftaran Berhasil! Sampai jumpa di lokasi ya!')" style="width:100%; background:#10b981;">Daftar Sekarang (Gratis)</button>
-</div>
         <div class="card">
-            <h1>🎮</h1>
-            <h3>Game Matematika</h3>
-            <p id="soal"></p>
-            <input type="number" id="jawaban" style="width:80px;">
-            <button onclick="cekJawaban()">Cek</button>
-			<button onclick="buatSoal()" style="background:#10b981;">Soal Baru</button>
-            <p id="hasil"></p>
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
+            <div style="padding:20px; text-align: center;">
+                <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Tantangan Matematika</h3>
+                <p style="font-size: 14px; color: #64748b;">Uji kemampuan logikamu setiap hari dan jadilah pembaca paling jenius di Desa Pinal!</p>
+                <div style="background:#f8fafc; padding:20px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;"></p>
+                    <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
+                    <br>
+                    <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
+                    <button onclick="buatSoal()" style="background:#64748b;">Soal Baru</button>
+                    <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <div id="collection" class="page">
-    <h2>Koleksi Buku</h2>
-    <input type="text" id="searchBook" placeholder="Cari buku..." onkeyup="searchBook()"><br><br>
+    <h2>Koleksi Buku Digital</h2>
+    <input type="text" id="searchBook" placeholder="Cari judul buku..." onkeyup="searchBook()"><br><br>
 
     <div class="book-container">
         <div class="book">
-            <img src="https://via.placeholder.com/150x200">
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
             <h4>Legenda Danau Toba</h4>
             <p>Cerita Rakyat</p>
-            <button onclick="cekLogin()">Baca</button>
+            <button onclick="cekLogin()">Baca Sekarang</button>
         </div>
         <div class="book">
-            <img src="https://via.placeholder.com/150x200">
+            <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
             <h4>Si Kancil dan Buaya</h4>
             <p>Buku Anak</p>
-            <button onclick="cekLogin()">Baca</button>
+            <button onclick="cekLogin()">Baca Sekarang</button>
         </div>
         <div class="book">
-            <img src="https://via.placeholder.com/150x200">
+            <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400">
             <h4>Matematika Dasar</h4>
             <p>Pelajaran</p>
-            <button onclick="cekLogin()">Baca</button>
+            <button onclick="cekLogin()">Baca Sekarang</button>
         </div>
     </div>
 </div>
 
 <div id="service" class="page">
-    <h2>🛠️ Layanan</h2>
-    <div class="card">
-        <ul>
-            <li>Peminjaman Buku Digital</li>
-            <li>Ruang Baca Virtual</li>
-            <li>Konsultasi Literasi</li>
+    <h2>🛠️ Layanan Kami</h2>
+    <div class="card" style="padding: 25px;">
+        <ul style="padding-left: 20px;">
+            <li><b>Peminjaman Buku Digital:</b> Akses gratis 24 jam.</li>
+            <li><b>Ruang Baca Virtual:</b> Diskusi bersama pembaca lain.</li>
+            <li><b>Konsultasi Literasi:</b> Tanya jawab seputar tugas sekolah.</li>
         </ul>
     </div>
-    <h3>📥 Usulkan Buku</h3>
-    <input type="text" placeholder="Judul Buku"><br>
-    <textarea placeholder="Kenapa buku ini menarik?"></textarea><br>
-    <button onclick="alert('Usulan terkirim!')">Kirim</button>
+    <h3>📥 Usulkan Buku Baru</h3>
+    <input type="text" placeholder="Judul Buku yang Diinginkan"><br>
+    <textarea placeholder="Kenapa buku ini menarik untuk dibaca?"></textarea><br>
+    <button onclick="alert('Usulan terkirim! Terima kasih!')">Kirim Usulan</button>
 </div>
 
 <div id="about" class="page">
-    <h2>ℹ️ Tentang PINLIT</h2>
-    <div class="card">
-        <p>PINLIT Library adalah perpustakaan digital untuk mendukung literasi masyarakat Desa Pinal.</p>
+    <h2>ℹ️ Tentang PINLIT Library</h2>
+    <div class="card" style="padding: 25px;">
+        <p>PINLIT Library adalah inisiatif perpustakaan digital mandiri yang dirancang khusus untuk mendukung literasi masyarakat di Desa Pinal, Danau Toba.</p>
         <h3>Visi:</h3>
-        <p>Menciptakan masyarakat yang cerdas dan melek teknologi.</p>
+        <p>Menciptakan masyarakat desa yang cerdas, kreatif, dan melek teknologi informasi melalui budaya membaca.</p>
     </div>
 </div>
 
 <div id="contact" class="page">
     <h2>📞 Hubungi Kami</h2>
-    <p>Email: erikalusianabatubara@gmail.com</p>
-    <p>WhatsApp: 0813-6764-1203</p>
+    <div class="card" style="padding: 20px;">
+        <p><b>Email:</b> erikalusianabatubara@gmail.com</p>
+        <p><b>WhatsApp:</b> 0813-6764-1203</p>
+    </div>
     <br>
-    <div class="card">
-        <h3>Kirim Pesan</h3>
+    <div class="card" style="padding: 25px;">
+        <h3>Kirim Pesan Langsung</h3>
         <input type="text" placeholder="Nama Anda"><br>
-        <textarea placeholder="Pesan/Saran"></textarea><br>
-        <button onclick="alert('Pesan Terkirim!')">Kirim</button>
+        <textarea placeholder="Tuliskan pesan atau saran Anda..."></textarea><br>
+        <button onclick="alert('Pesan Terkirim!')">Kirim Pesan</button>
     </div>
 </div>
 
 <div id="admin" class="page">
     <center>
-        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff" width="100" style="border-radius:50%">
+        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         <h1>Halo, Saya Erika Lusiana Batubara</h1>
-        <p>Inilah web pertama yang saya buat. Selamat menjelajah!</p>
-        <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Lihat CV Saya</button>
+        <p style="color: #64748b;">Pengembang PINLIT Library</p>
+        <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Buka CV Digital Saya</button>
         <br><br>
-        <h3>Rekomendasi Video</h3>
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/oWnwhCDzv7E" frameborder="0" allowfullscreen></iframe>
+        <h3 style="margin-top: 30px;">Video Edukasi Pilihan</h3>
+        <iframe width="100%" height="400" src="https://www.youtube.com/embed/oWnwhCDzv7E" frameborder="0" style="border-radius: 20px; max-width: 800px;" allowfullscreen></iframe>
     </center>
 </div>
 
 <footer>
-    <center><p>© 2026 PINLIT Library | Dibuat oleh Erika Lusiana Batubara</p></center>
+    <center><p>© 2026 PINLIT Library | Dirancang dengan penuh dedikasi oleh Erika Lusiana Batubara</p></center>
 </footer>
 
 </body>
