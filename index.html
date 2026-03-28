@@ -86,6 +86,13 @@ ini fix
             transition: 0.3s;
             border: 1px solid #e2e8f0;
         }
+		
+		.event-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover; /* Biar foto nggak penyet */
+            border-radius: 15px 15px 0 0; /* Lengkung atas saja */
+        }
 
         .card:hover { transform: translateY(-5px); }
 
@@ -209,7 +216,7 @@ ini fix
 
 <nav>
     <div style="display:flex; align-items:center; gap:10px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="35">
+       <img src="https://ui-avatars.com/api/?name=P&background=ffffff&color=2563eb&bold=true&rounded=true" width="35">
         <b>PINLIT Library</b>
     </div>
     <div class="nav-links">
@@ -259,18 +266,20 @@ ini fix
     </div>
 
     <div class="card-container">
-        <div class="card">
-            <h1>🎈</h1>
-            <h3>Dunia Ceria Anak</h3>
-            <p>Membaca cerita dan mewarnai untuk anak SD.</p>
-            <p><b>📅 12 April 2026</b></p>
-        </div>
+        <div class="card" style="padding:0;"> <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=500" class="event-img">
+        <div style="padding:20px;">
+        <h3>🎈 Dunia Ceria Anak</h3>
+        <p>Mendongeng & mewarnai bersama teman-teman.</p>
+        <p><b>📅 12 April 2026 | 📍 Aula Desa</b></p>
+    </div>
+</div>
         <div class="card">
             <h1>🎮</h1>
             <h3>Game Matematika</h3>
             <p id="soal"></p>
             <input type="number" id="jawaban" style="width:80px;">
             <button onclick="cekJawaban()">Cek</button>
+			<button onclick="buatSoal()" style="background:#10b981;">Soal Baru</button>
             <p id="hasil"></p>
         </div>
     </div>
