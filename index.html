@@ -98,7 +98,7 @@
             object-fit: cover;
         }
 
-        /* --- PROGRESS BAR (Fungsi Tambahan) --- */
+        /* --- PROGRESS BAR --- */
         .progress-container {
             background: #e2e8f0;
             border-radius: 10px;
@@ -175,7 +175,9 @@
 
     <script>
         let isLogin = false;
+        let totalSkor = 0; // Untuk menyimpan skor lomba
 
+        // 1. Perbaikan Navigasi: Menggunakan sistem SPA agar tidak keluar dari web
         function showPage(id) {
             let pages = document.querySelectorAll(".page");
             pages.forEach(p => p.classList.remove("active"));
@@ -200,22 +202,33 @@
             else if (jam >= 15 && jam < 18) sapaan = "Selamat Sore! ⛅";
             else sapaan = "Selamat Malam! ✨";
             
-            // Update greeting di Home dan Admin
             const greets = document.querySelectorAll(".dynamic-greet");
             greets.forEach(g => g.innerText = sapaan);
         }
 
+        // 5. Reward untuk 100 halaman
         function updateProgress() {
             let input = document.getElementById("halamanInput").value;
             let target = 100; 
-            if (input > target) input = target;
             let hasilPersen = (input / target) * 100;
+            
+            if (hasilPersen > 100) hasilPersen = 100;
+            
             document.getElementById("myBar").style.width = hasilPersen + "%";
-            document.getElementById("persenText").innerText = "Progress Membaca: " + Math.round(hasilPersen) + "% dari target!";
+            
+            if (input >= 100) {
+                totalSkor += 50; // Bonus skor reward
+                document.getElementById("persenText").innerHTML = "🏆 Luar Biasa! Target tercapai. <br> Skor Lomba Kamu: " + totalSkor;
+                document.getElementById("persenText").style.color = "#10b981";
+            } else {
+                document.getElementById("persenText").innerText = "Progress Membaca: " + Math.round(hasilPersen) + "% dari target!";
+                document.getElementById("persenText").style.color = "#1e293b";
+            }
         }
 
         function openLogin() { document.getElementById("loginModal").style.display = "flex"; }
         function closeModal() { document.getElementById("loginModal").style.display = "none"; }
+        
         function openRegister() { 
             closeModal();
             document.getElementById("registerModal").style.display = "flex"; 
@@ -228,9 +241,14 @@
             alert("Login berhasil 🎉 Selamat datang di PINLIT!");
         }
 
-        function cekLogin() {
-            if(!isLogin) openLogin();
-            else alert("Selamat membaca 📚");
+        // 2. Proteksi Halaman: Belum punya akun hanya bisa liat Home
+        function cekLoginDanPindah(pageId) {
+            if(!isLogin) {
+                alert("Silakan daftar/login terlebih dahulu untuk mengakses fitur ini!");
+                openRegister();
+            } else {
+                showPage(pageId);
+            }
         }
 
         function searchBook() {
@@ -242,12 +260,27 @@
             }
         }
 
-        let angka1, angka2, jawabanBenar;
+        // 4. Penjumlahan, Pengurangan, Perkalian, Pembagian
+        let angka1, angka2, jawabanBenar, simbol;
         function buatSoal() {
-            angka1 = Math.floor(Math.random()*10)+1;
-            angka2 = Math.floor(Math.random()*10)+1;
-            jawabanBenar = angka1 + angka2;
-            document.getElementById("soal").innerText = "Berapa " + angka1 + " + " + angka2 + " ?";
+            const ops = ['+', '-', '*', '/'];
+            simbol = ops[Math.floor(Math.random() * ops.length)];
+            
+            angka1 = Math.floor(Math.random() * 10) + 1;
+            angka2 = Math.floor(Math.random() * 10) + 1;
+
+            if (simbol === '+') jawabanBenar = angka1 + angka2;
+            else if (simbol === '-') {
+                if (angka1 < angka2) [angka1, angka2] = [angka2, angka1]; // Hindari hasil negatif
+                jawabanBenar = angka1 - angka2;
+            }
+            else if (simbol === '*') jawabanBenar = angka1 * angka2;
+            else if (simbol === '/') {
+                angka1 = angka1 * angka2; // Pastikan hasil pembagian bulat
+                jawabanBenar = angka1 / angka2;
+            }
+
+            document.getElementById("soal").innerText = "Berapa " + angka1 + " " + simbol + " " + angka2 + " ?";
             document.getElementById("hasil").innerText = "";
             document.getElementById("jawaban").value = "";
         }
@@ -255,7 +288,8 @@
         function cekJawaban() {
             let ans = document.getElementById("jawaban").value;
             if(ans == jawabanBenar) {
-                document.getElementById("hasil").innerText = "✅ Benar! Hebat!";
+                totalSkor += 10; // Tambah skor jika benar
+                document.getElementById("hasil").innerText = "✅ Benar! +10 Skor. Total: " + totalSkor;
                 document.getElementById("hasil").style.color = "green";
             } else {
                 document.getElementById("hasil").innerText = "❌ Salah! Coba lagi.";
@@ -280,8 +314,8 @@
     </div>
     <div class="nav-links">
         <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('collection')">Collection</a>
-        <a onclick="showPage('service')">Service</a>
+        <a onclick="cekLoginDanPindah('collection')">Collection</a>
+        <a onclick="cekLoginDanPindah('service')">Service</a>
         <a onclick="showPage('about')">About</a>
         <a onclick="showPage('contact')">Contact</a>
         <a onclick="showPage('admin')">Admin</a>
@@ -301,10 +335,13 @@
 
 <div id="registerModal" class="modal">
     <div class="modal-content">
-        <h2>Daftar</h2>
-        <input type="text" placeholder="Nama"><br>
+        <h2>Pendaftaran Pengguna Baru</h2>
+        <input type="text" placeholder="First Name"><br>
+        <input type="text" placeholder="Last Name"><br>
         <input type="email" placeholder="Email"><br>
-        <button onclick="alert('Berhasil Daftar!'); closeRegister(); openLogin();">Daftar</button>
+        <input type="tel" placeholder="No Handphone"><br>
+        <input type="password" placeholder="Password"><br>
+        <button onclick="alert('Berhasil Daftar!'); closeRegister(); loginSuccess();">Daftar</button>
         <button onclick="closeRegister()" style="background:gray;">Tutup</button>
     </div>
 </div>
@@ -315,7 +352,7 @@
         <p>Perpustakaan Digital Desa Pinal</p>
         <p><i>Membaca • Belajar • Bertumbuh</i></p>
         <br>
-        <button onclick="showPage('collection')">Mulai Jelajahi Koleksi</button>
+        <button onclick="cekLoginDanPindah('collection')">Mulai Jelajahi Koleksi</button>
     </div>
 
     <div class="card" style="background: #f1f5f9; padding: 25px;">
@@ -338,7 +375,7 @@
 
     <div class="card-container">
         <div class="card"> 
-            <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=600" class="event-img">
+            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600" class="event-img">
             <div style="padding:20px; text-align: left;"> 
                 <h3 style="margin-top:0; color:#2563eb;">Dunia Ceria Anak: Dongeng & Kreativitas</h3>
                 <p style="font-size: 14px; color: #64748b;">Ayo ajak adik-adik untuk seru-seruan bareng di akhir pekan ini! Kegiatannya meliputi:</p>
@@ -382,19 +419,19 @@
             <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
             <h4>Legenda Danau Toba</h4>
             <p>Cerita Rakyat</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
+            <button onclick="alert('Membuka Buku...')">Baca Sekarang</button>
         </div>
         <div class="book">
             <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
             <h4>Si Kancil dan Buaya</h4>
             <p>Buku Anak</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
+            <button onclick="alert('Membuka Buku...')">Baca Sekarang</button>
         </div>
         <div class="book">
             <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400">
             <h4>Matematika Dasar</h4>
             <p>Pelajaran</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
+            <button onclick="alert('Membuka Buku...')">Baca Sekarang</button>
         </div>
     </div>
 </div>
