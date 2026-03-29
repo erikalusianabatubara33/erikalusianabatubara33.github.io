@@ -92,54 +92,118 @@
             margin-top: 20px;
         }
 
-        .event-img { width: 100%; height: 200px; object-fit: cover; }
+        .event-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
         /* --- PROGRESS BAR --- */
-        .progress-container { background: #e2e8f0; border-radius: 10px; height: 15px; width: 100%; margin: 10px 0; }
-        .progress-bar { background: linear-gradient(to right, #10b981, #34d399); height: 100%; width: 0%; border-radius: 10px; transition: 0.5s; }
+        .progress-container {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 15px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            background: linear-gradient(to right, #10b981, #34d399);
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
 
         /* --- BUKU --- */
-        .book-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
-        .book { background: white; padding: 15px; border-radius: 20px; text-align: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        .book-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .book {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
         .book img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; }
+
+        /* --- TOMBOL --- */
+        button {
+            background: linear-gradient(to right, #3b82f6, #1e40af);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        button:hover { opacity: 0.9; }
 
         /* --- MODAL --- */
         .modal {
-            display: none; position: fixed; width: 100%; height: 100%;
-            top: 0; left: 0; background: rgba(0,0,0,0.5);
-            justify-content: center; align-items: center; z-index: 9999;
+            display: none;
+            position: fixed;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            background: rgba(0,0,0,0.5);
+            justify-content: center; align-items: center;
+            z-index: 9999;
         }
-        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 320px; text-align: center; }
 
-        input, select, textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
-        
-        button {
-            background: linear-gradient(to right, #3b82f6, #1e40af);
-            color: white; border: none; padding: 12px 20px;
-            border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s;
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 320px;
+            text-align: center;
         }
-        button:hover { opacity: 0.9; }
 
-        .password-hint { font-size: 11px; color: #64748b; text-align: left; margin-bottom: 10px; line-height: 1.2; }
+        input, textarea, select {
+            width: 100%; padding: 10px; margin: 10px 0;
+            border-radius: 8px; border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        footer { padding: 40px; color: #64748b; }
     </style>
 
     <script>
         let currentUser = null;
+        let totalSkor = 0;
 
-        // --- AUTH SYSTEM (LOCAL STORAGE) ---
+        // --- SISTEM LOGIN & REGISTRASI (LOCALSTORAGE) ---
         function registerUser() {
-            const email = document.getElementById('regEmail').value;
-            const pass = document.getElementById('regPass').value;
-            const level = document.getElementById('regLevel').value;
+            const email = document.getElementById("regEmail").value;
+            const pass = document.getElementById("regPass").value;
+            const firstName = document.getElementById("regFirst").value;
 
-            // Validasi Password: Min 6, Awal Kapital, Akhir Angka
+            // Validasi Password: Huruf awal kapital, minimal 6, akhir angka
             const passRegex = /^[A-Z].*\d$/;
             if (pass.length < 6 || !passRegex.test(pass)) {
-                alert("Password Gagal! Minimal 6 karakter, diawali huruf Kapital, dan diakhiri dengan Angka.");
+                alert("Password tidak valid!\n- Minimal 6 karakter\n- Diawali Huruf Kapital\n- Diakhiri Angka");
                 return;
             }
 
-            const userData = { email, pass, level, historyHalaman: 0, skorGame: 0 };
+            if(localStorage.getItem(email)) {
+                alert("Email sudah terdaftar! Silakan login.");
+                openLogin();
+                return;
+            }
+
+            const userData = {
+                firstName: firstName,
+                password: pass,
+                historyRead: 0,
+                skorMtk: 0
+            };
+
             localStorage.setItem(email, JSON.stringify(userData));
             alert("Pendaftaran Berhasil! Silakan Login.");
             closeRegister();
@@ -147,202 +211,219 @@
         }
 
         function loginUser() {
-            const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPass').value;
+            const email = document.getElementById("logEmail").value;
+            const pass = document.getElementById("logPass").value;
             const storedData = localStorage.getItem(email);
 
             if (storedData) {
                 const user = JSON.parse(storedData);
-                if (user.pass === pass) {
-                    currentUser = user;
-                    alert("Login berhasil! Selamat datang kembali.");
+                if (user.password === pass) {
+                    currentUser = email;
+                    document.getElementById("userNameNav").innerText = user.firstName;
+                    document.getElementById("halamanInput").value = user.historyRead;
+                    totalSkor = user.skorMtk || 0;
+                    updateProgress();
+                    alert("Selamat datang kembali, " + user.firstName + "!");
                     closeModal();
-                    updateUI();
-                    showPage('home');
-                } else { alert("Password salah!"); }
-            } else { alert("Email tidak ditemukan. Silakan daftar dulu."); }
+                } else {
+                    alert("Password salah!");
+                }
+            } else {
+                alert("Email tidak ditemukan. Silakan daftar dulu.");
+            }
         }
 
-        function updateUI() {
-            if(!currentUser) return;
-            document.getElementById('navStatus').innerText = "Halo, " + currentUser.email.split('@')[0];
-            document.getElementById('halamanInput').value = currentUser.historyHalaman;
-            refreshProgressVisual();
-            buatSoal();
+        // --- SISTEM HALAMAN ---
+        function showPage(id) {
+            let pages = document.querySelectorAll(".page");
+            pages.forEach(p => p.classList.remove("active"));
+            document.getElementById(id).classList.add("active");
+            window.scrollTo(0, 0);
         }
 
-        // --- HISTORI HALAMAN ---
-        function saveProgress() {
-            if(!currentUser) return alert("Silakan login dulu!");
-            let hal = parseInt(document.getElementById("halamanInput").value);
-            currentUser.historyHalaman = hal;
-            localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
-            refreshProgressVisual();
-            alert("History membaca kamu telah disimpan!");
+        function cekLoginDanPindah(pageId) {
+            if(!currentUser) {
+                alert("Silakan login terlebih dahulu untuk mengakses fitur ini!");
+                openLogin();
+            } else {
+                showPage(pageId);
+            }
         }
 
-        function refreshProgressVisual() {
-            let target = 100;
-            let hasilPersen = (currentUser.historyHalaman / target) * 100;
+        // --- PROGRESS MEMBACA (HISTORY) ---
+        function updateProgress() {
+            let input = parseInt(document.getElementById("halamanInput").value) || 0;
+            let target = 100; 
+            let hasilPersen = (input / target) * 100;
             if (hasilPersen > 100) hasilPersen = 100;
+            
             document.getElementById("myBar").style.width = hasilPersen + "%";
-            document.getElementById("persenText").innerText = "Tercatat: " + currentUser.historyHalaman + " halaman";
+            
+            if (currentUser) {
+                let user = JSON.parse(localStorage.getItem(currentUser));
+                user.historyRead = input;
+                localStorage.setItem(currentUser, JSON.stringify(user));
+            }
+
+            if (input >= 100) {
+                document.getElementById("persenText").innerHTML = "🏆 Target Tercapai! Kamu pembaca hebat!";
+                document.getElementById("persenText").style.color = "#10b981";
+            } else {
+                document.getElementById("persenText").innerText = "Progres: " + Math.round(hasilPersen) + "% dari target hari ini.";
+                document.getElementById("persenText").style.color = "#1e293b";
+            }
         }
 
-        // --- MATEMATIKA BERLEVEL ---
-        let angka1, angka2, jawabanBenar, simbol;
+        // --- KUIS MATEMATIKA BERLEVEL ---
+        let jawabanBenar;
         function buatSoal() {
-            if(!currentUser) return;
+            const level = document.getElementById("levelMtk").value;
             const ops = ['+', '-', '*', '/'];
-            simbol = ops[Math.floor(Math.random() * ops.length)];
-            
-            let maxAngka = 10; // Level SD
-            if(currentUser.level === 'smp') maxAngka = 50;
-            if(currentUser.level === 'sma' || currentUser.level === 'umum') maxAngka = 100;
+            let simbol = ops[Math.floor(Math.random() * ops.length)];
+            let a, b;
 
-            angka1 = Math.floor(Math.random() * maxAngka) + 1;
-            angka2 = Math.floor(Math.random() * maxAngka) + 1;
+            if (level === "sd") { a = Math.floor(Math.random() * 10) + 1; b = Math.floor(Math.random() * 10) + 1; }
+            else if (level === "smp") { a = Math.floor(Math.random() * 50) + 10; b = Math.floor(Math.random() * 20) + 1; }
+            else { a = Math.floor(Math.random() * 100) + 20; b = Math.floor(Math.random() * 50) + 10; }
 
-            if (simbol === '+') jawabanBenar = angka1 + angka2;
-            else if (simbol === '-') {
-                if (angka1 < angka2) [angka1, angka2] = [angka2, angka1];
-                jawabanBenar = angka1 - angka2;
-            }
-            else if (simbol === '*') jawabanBenar = angka1 * angka2;
-            else if (simbol === '/') {
-                angka1 = angka1 * angka2; 
-                jawabanBenar = angka1 / angka2;
-            }
+            if (simbol === '-') { if (a < b) [a, b] = [b, a]; jawabanBenar = a - b; }
+            else if (simbol === '*') { jawabanBenar = a * b; }
+            else if (simbol === '/') { a = a * b; jawabanBenar = a / b; }
+            else { jawabanBenar = a + b; }
 
-            document.getElementById("soal").innerText = `(${currentUser.level.toUpperCase()}) Berapa ${angka1} ${simbol} ${angka2} ?`;
-            document.getElementById("hasil").innerText = "Skor: " + currentUser.skorGame;
+            document.getElementById("soal").innerText = `Berapa ${a} ${simbol} ${b} ?`;
+            document.getElementById("hasilMtk").innerText = "";
+            document.getElementById("jawabanMtk").value = "";
         }
 
         function cekJawaban() {
-            let ans = document.getElementById("jawaban").value;
-            if(ans == jawabanBenar) {
-                currentUser.skorGame += 10;
-                if(currentUser.skorGame >= 100) {
-                    alert("🏆 SKOR SEMPURNA (100)! Kamu dapat REWARD bebas baca 1 buku yang kamu inginkan!");
-                    currentUser.skorGame = 0; // Reset setelah reward
+            let ans = document.getElementById("jawabanMtk").value;
+            if (ans == jawabanBenar) {
+                if (totalSkor < 100) {
+                    totalSkor += 20;
+                    if (totalSkor > 100) totalSkor = 100;
                 }
-                localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
-                document.getElementById("hasil").innerText = "✅ Benar! Skor: " + currentUser.skorGame;
-                document.getElementById("jawaban").value = "";
-                setTimeout(buatSoal, 1500);
+                
+                let msg = `✅ Benar! Skor: ${totalSkor}`;
+                if (totalSkor === 100) {
+                    msg = "🏆 SKOR SEMPURNA! Hadiah: Kamu bebas baca 1 buku pilihan apapun hari ini!";
+                }
+
+                document.getElementById("hasilMtk").innerText = msg;
+                document.getElementById("hasilMtk").style.color = "green";
+                
+                if (currentUser) {
+                    let user = JSON.parse(localStorage.getItem(currentUser));
+                    user.skorMtk = totalSkor;
+                    localStorage.setItem(currentUser, JSON.stringify(user));
+                }
             } else {
-                alert("❌ Salah, ayo coba lagi!");
+                document.getElementById("hasilMtk").innerText = "❌ Salah! Coba lagi.";
+                document.getElementById("hasilMtk").style.color = "red";
             }
         }
 
-        // --- NAVIGASI & MODAL ---
-        function showPage(id) {
-            document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-            document.getElementById(id).classList.add("active");
-            window.scrollTo(0,0);
-        }
-
-        function cekAkses(id) {
-            if(!currentUser) {
-                alert("Menu ini terkunci. Silakan Daftar/Login dulu agar history kamu tersimpan!");
-                openRegister();
-            } else { showPage(id); }
-        }
-
-        function openLogin() { document.getElementById("loginModal").style.display = "flex"; }
+        // --- UTILS ---
+        function openLogin() { closeModal(); document.getElementById("loginModal").style.display = "flex"; }
         function closeModal() { document.getElementById("loginModal").style.display = "none"; }
         function openRegister() { closeModal(); document.getElementById("registerModal").style.display = "flex"; }
         function closeRegister() { document.getElementById("registerModal").style.display = "none"; }
 
-        window.onload = function() {
-            setInterval(() => {
-                const now = new Date();
-                document.getElementById('clock').innerText = now.toLocaleTimeString();
-            }, 1000);
-        };
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+        }
+        setInterval(updateClock, 1000);
+
+        window.onload = () => { buatSoal(); updateClock(); };
     </script>
 </head>
 <body>
 
 <nav>
     <div style="display:flex; align-items:center; gap:10px;">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M12 21l-8-4.5v-13l8 4.5 8-4.5v13l-8 4.5zM12 8l-8-4.5v13l8 4.5 8-4.5v-13l-8 4.5z"/></svg>
-        <b id="navStatus">PINLIT Library</b>
-        <div id="clock" style="font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 5px;">00:00:00</div>
+        <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" width="35" style="filter: brightness(0) invert(1);">
+        <b>PINLIT Library</b>
+        <div id="clock" style="margin-left: 15px; background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 5px; font-size: 14px;">00:00:00</div>
     </div>
     <div class="nav-links">
         <a onclick="showPage('home')">Home</a>
-        <a onclick="cekAkses('collection')">Collection</a>
-        <a onclick="cekAkses('service')">Service</a>
+        <a onclick="cekLoginDanPindah('collection')">Collection</a>
+        <a onclick="cekLoginDanPindah('service')">Service</a>
         <a onclick="showPage('about')">About</a>
-        <a onclick="showPage('contact')">Contact</a>
         <a onclick="showPage('admin')">Admin</a>
-        <a onclick="openLogin()" style="background:rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 5px;">Masuk</a>
+        <a onclick="openLogin()" id="userNameNav" style="background:rgba(255,215,0,0.3); padding: 5px 15px; border-radius: 20px;">Login</a>
     </div>
 </nav>
 
-<div id="registerModal" class="modal">
+<div id="loginModal" class="modal">
     <div class="modal-content">
-        <h2>Daftar Sekali</h2>
-        <input type="email" id="regEmail" placeholder="Email">
-        <select id="regLevel">
-            <option value="sd">Anak SD</option>
-            <option value="smp">Anak SMP</option>
-            <option value="sma">Anak SMA</option>
-            <option value="umum">Umum/Orang Tua</option>
-        </select>
-        <input type="password" id="regPass" placeholder="Buat Password">
-        <div class="password-hint">
-            * Min 6 karakter<br>
-            * Huruf awal harus KAPITAL<br>
-            * Akhiri dengan ANGKA (Contoh: Buku12)
-        </div>
-        <button onclick="registerUser()">Daftar</button>
-        <button onclick="closeRegister()" style="background:gray;">Batal</button>
+        <h2>Login PINLIT</h2>
+        <input type="email" id="logEmail" placeholder="Email"><br>
+        <input type="password" id="logPass" placeholder="Password"><br>
+        <p style="font-size: 12px;">Belum punya akun? <a href="#" onclick="openRegister()">Daftar disini</a></p>
+        <button onclick="loginUser()">Masuk</button>
+        <button onclick="closeModal()" style="background:gray;">Batal</button>
     </div>
 </div>
 
-<div id="loginModal" class="modal">
+<div id="registerModal" class="modal">
     <div class="modal-content">
-        <h2>Login</h2>
-        <input type="email" id="loginEmail" placeholder="Email">
-        <input type="password" id="loginPass" placeholder="Password">
-        <button onclick="loginUser()">Masuk</button>
-        <p style="font-size:12px;">Belum punya akun? <a href="#" onclick="openRegister()">Daftar di sini</a></p>
-        <button onclick="closeModal()" style="background:gray;">Tutup</button>
+        <h3>Pendaftaran</h3>
+        <input type="text" id="regFirst" placeholder="Nama Depan">
+        <input type="email" id="regEmail" placeholder="Email">
+        <input type="password" id="regPass" placeholder="Password Baru">
+        <p style="font-size: 11px; color: #ef4444; text-align: left;">
+            * Min. 6 Karakter<br>
+            * Huruf awal Kapital (A-Z)<br>
+            * Akhiri dengan Angka (0-9)
+        </p>
+        <button onclick="registerUser()">Daftar Sekarang</button>
+        <button onclick="closeRegister()" style="background:gray;">Tutup</button>
     </div>
 </div>
 
 <div id="home" class="page active">
     <div class="hero">
-        <h1 class="dynamic-greet">Selamat Datang di PINLIT Library</h1>
-        <p>Perpustakaan Digital Desa Pinal</p>
+        <h1>Selamat Datang di PINLIT Library</h1>
+        <p><i>Membaca • Belajar • Bertumbuh</i></p>
         <br>
-        <button onclick="cekAkses('collection')">Mulai Jelajahi Koleksi</button>
+        <button onclick="cekLoginDanPindah('collection')">Mulai Jelajahi Koleksi</button>
     </div>
 
     <div class="card" style="background: #f1f5f9; padding: 25px;">
-        <h3>📊 History Membaca Kamu</h3>
-        <p style="font-size: 13px;">History kamu tersimpan otomatis saat kamu klik simpan.</p>
+        <h3>📊 Catat Progres Membaca (History)</h3>
+        <p style="font-size: 13px;">Data akan tersimpan otomatis saat Anda kembali besok.</p>
         <div class="progress-container">
             <div id="myBar" class="progress-bar"></div>
         </div>
         <div style="display:flex; gap: 10px;">
-            <input type="number" id="halamanInput" placeholder="Sudah baca berapa hal?" style="width: 150px; margin:0;">
-            <button onclick="saveProgress()" style="background: #10b981;">Simpan Progress</button>
+            <input type="number" id="halamanInput" value="0" style="width: 150px; margin:0;">
+            <button onclick="updateProgress()" style="background: #10b981;">Simpan Progres</button>
         </div>
-        <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 10px;"></p>
+        <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
     </div>
 
-    <div class="card" style="padding: 25px; text-align: center; border: 2px solid #2563eb;">
-        <h3>🎮 Tantangan Matematika Berhadiah</h3>
-        <p style="font-size: 14px;">Dapatkan skor 100 untuk Reward 1 Buku Bebas!</p>
-        <div style="background:#f8fafc; padding:20px; border-radius:15px;">
-            <p id="soal" style="font-weight:bold; font-size: 20px; color: #1e3a8a;">Silakan Login untuk Bermain</p>
-            <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 20px;">
-            <br>
-            <button onclick="cekJawaban()">Cek Jawaban</button>
-            <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
+    <div class="card-container">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
+            <div style="padding:20px; text-align: center;">
+                <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak & Reward</h3>
+                <select id="levelMtk" onchange="buatSoal()">
+                    <option value="sd">Tingkat SD</option>
+                    <option value="smp">Tingkat SMP</option>
+                    <option value="sma">Tingkat SMA</option>
+                    <option value="umum">Lulus SMA / Orang Tua</option>
+                </select>
+                <div style="background:#f8fafc; padding:20px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;"></p>
+                    <input type="number" id="jawabanMtk" style="width:100px; text-align:center;">
+                    <br>
+                    <button onclick="cekJawaban()">Cek Hasil</button>
+                    <button onclick="buatSoal()" style="background:#64748b;">Soal Lain</button>
+                    <p id="hasilMtk" style="font-weight:bold; margin-top:10px; font-size: 14px;"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -353,36 +434,24 @@
         <div class="book">
             <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
             <h4>Legenda Danau Toba</h4>
-            <button onclick="alert('Membaca Buku...')">Baca</button>
+            <p>Cerita Rakyat</p>
+            <button onclick="alert('Membuka Buku...')">Baca Sekarang</button>
         </div>
         <div class="book">
             <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
-            <h4>Si Kancil</h4>
-            <button onclick="alert('Membuka Buku...')">Baca</button>
+            <h4>Si Kancil dan Buaya</h4>
+            <p>Buku Anak</p>
+            <button onclick="alert('Membuka Buku...')">Baca Sekarang</button>
         </div>
     </div>
-</div>
-
-<div id="service" class="page">
-    <h2>🛠️ Layanan Kami</h2>
-    <div class="card" style="padding: 25px;">
-        <ul>
-            <li><b>Peminjaman Digital:</b> Gratis 24 jam.</li>
-            <li><b>Ruang Virtual:</b> Diskusi antar warga.</li>
-        </ul>
-    </div>
-</div>
-
-<div id="about" class="page">
-    <h2>ℹ️ Tentang PINLIT</h2>
-    <p>Inisiatif perpustakaan digital untuk Desa Pinal, Danau Toba.</p>
 </div>
 
 <div id="admin" class="page">
     <center>
-        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%;">
-        <h1>Profil Pengembang</h1>
-        <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Buka CV</button>
+        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%; border: 4px solid white;">
+        <h1>Halo, Erika Lusiana!</h1>
+        <p>Pengembang PINLIT Library</p>
+        <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Buka CV Digital</button>
     </center>
 </div>
 
