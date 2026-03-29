@@ -98,7 +98,7 @@
             object-fit: cover;
         }
 
-        /* --- PROGRESS BAR (Fungsi Tambahan) --- */
+        /* --- PROGRESS BAR --- */
         .progress-container {
             background: #e2e8f0;
             border-radius: 10px;
@@ -164,17 +164,44 @@
             text-align: center;
         }
 
-        input, textarea {
+        input, textarea, select {
             width: 100%; padding: 10px; margin: 10px 0;
             border-radius: 8px; border: 1px solid #ddd;
             box-sizing: border-box;
         }
 
         footer { padding: 40px; color: #64748b; }
+
+        .reward-banner {
+            display: none;
+            background: #fef3c7;
+            border: 2px dashed #f59e0b;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            color: #92400e;
+            font-weight: bold;
+        }
     </style>
 
     <script>
         let isLogin = false;
+        let totalSkor = 0;
+        let currentUser = null;
+
+        // FUNGSI BARU: Load data dari LocalStorage agar tidak hilang saat refresh
+        function loadSession() {
+            const savedUser = localStorage.getItem('pinlit_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                isLogin = true;
+                totalSkor = currentUser.skor || 0;
+                document.getElementById("nav-auth-text").innerText = "Halo, " + currentUser.nama;
+                document.getElementById("halamanInput").value = currentUser.historyHalaman || 0;
+                updateProgress(true); // Load progress bar
+                updateSkorDisplay();
+            }
+        }
 
         function showPage(id) {
             let pages = document.querySelectorAll(".page");
@@ -200,18 +227,23 @@
             else if (jam >= 15 && jam < 18) sapaan = "Selamat Sore! ⛅";
             else sapaan = "Selamat Malam! ✨";
             
-            // Update greeting di Home dan Admin
             const greets = document.querySelectorAll(".dynamic-greet");
             greets.forEach(g => g.innerText = sapaan);
         }
 
-        function updateProgress() {
+        // FUNGSI DIPERBARUI: Simpan progress ke LocalStorage
+        function updateProgress(isInitial = false) {
             let input = document.getElementById("halamanInput").value;
             let target = 100; 
             if (input > target) input = target;
             let hasilPersen = (input / target) * 100;
             document.getElementById("myBar").style.width = hasilPersen + "%";
             document.getElementById("persenText").innerText = "Progress Membaca: " + Math.round(hasilPersen) + "% dari target!";
+            
+            if(!isInitial && isLogin) {
+                currentUser.historyHalaman = input;
+                saveUserData();
+            }
         }
 
         function openLogin() { document.getElementById("loginModal").style.display = "flex"; }
@@ -222,15 +254,56 @@
         }
         function closeRegister() { document.getElementById("registerModal").style.display = "none"; }
 
+        // FUNGSI BARU: Sistem Registrasi Sekali Saja
+        function handleRegister() {
+            const nama = document.getElementById("reg-nama").value;
+            const email = document.getElementById("reg-email").value;
+            const pass = document.getElementById("reg-pass").value;
+
+            // Validasi Password: Min 6, Awal Kapital, Akhir Angka
+            const regex = /^[A-Z].*\d$/;
+            if (pass.length < 6 || !regex.test(pass)) {
+                alert("Password Gagal! Minimal 6 karakter, diawali Huruf Kapital, dan diakhiri Angka.");
+                return;
+            }
+
+            const userData = { nama, email, pass, skor: 0, historyHalaman: 0 };
+            localStorage.setItem('pinlit_user', JSON.stringify(userData));
+            alert("Registrasi Berhasil! Silakan Login.");
+            closeRegister();
+            openLogin();
+        }
+
         function loginSuccess() {
-            isLogin = true;
-            closeModal();
-            alert("Login berhasil 🎉 Selamat datang di PINLIT!");
+            const emailIn = document.getElementById("log-email").value;
+            const passIn = document.getElementById("log-pass").value;
+            const savedData = JSON.parse(localStorage.getItem('pinlit_user'));
+
+            if (savedData && emailIn === savedData.email && passIn === savedData.pass) {
+                currentUser = savedData;
+                isLogin = true;
+                localStorage.setItem('pinlit_user', JSON.stringify(currentUser));
+                alert("Login berhasil 🎉");
+                location.reload(); // Refresh untuk menerapkan perubahan
+            } else {
+                alert("Email atau Password salah / Akun belum terdaftar!");
+            }
+        }
+
+        function saveUserData() {
+            if (currentUser) {
+                currentUser.skor = totalSkor;
+                localStorage.setItem('pinlit_user', JSON.stringify(currentUser));
+            }
         }
 
         function cekLogin() {
-            if(!isLogin) openLogin();
-            else alert("Selamat membaca 📚");
+            if(!isLogin) {
+                alert("Silakan Login/Daftar dulu ya!");
+                openLogin();
+            } else {
+                alert("Selamat membaca 📚");
+            }
         }
 
         function searchBook() {
@@ -242,28 +315,63 @@
             }
         }
 
-        let angka1, angka2, jawabanBenar;
+        // FUNGSI DIPERBARUI: Matematika Berlevel & Reward
+        let angka1, angka2, jawabanBenar, operator;
         function buatSoal() {
-            angka1 = Math.floor(Math.random()*10)+1;
-            angka2 = Math.floor(Math.random()*10)+1;
-            jawabanBenar = angka1 + angka2;
-            document.getElementById("soal").innerText = "Berapa " + angka1 + " + " + angka2 + " ?";
+            const level = document.getElementById("levelPilihan").value;
+            const ops = ['+', '-', '*', '/'];
+            operator = ops[Math.floor(Math.random() * ops.length)];
+
+            if (level === "sd") {
+                angka1 = Math.floor(Math.random() * 10) + 1;
+                angka2 = Math.floor(Math.random() * 10) + 1;
+            } else if (level === "smp") {
+                angka1 = Math.floor(Math.random() * 50) + 10;
+                angka2 = Math.floor(Math.random() * 20) + 5;
+            } else {
+                angka1 = Math.floor(Math.random() * 100) + 20;
+                angka2 = Math.floor(Math.random() * 50) + 10;
+            }
+
+            if (operator === '+') jawabanBenar = angka1 + angka2;
+            else if (operator === '-') {
+                if (angka1 < angka2) [angka1, angka2] = [angka2, angka1];
+                jawabanBenar = angka1 - angka2;
+            } else if (operator === '*') jawabanBenar = angka1 * angka2;
+            else {
+                angka1 = angka1 * angka2; // Agar hasil bagi bulat
+                jawabanBenar = angka1 / angka2;
+            }
+
+            document.getElementById("soal").innerText = `Berapa ${angka1} ${operator} ${angka2} ?`;
             document.getElementById("hasil").innerText = "";
             document.getElementById("jawaban").value = "";
         }
 
         function cekJawaban() {
+            if (!isLogin) { alert("Login dulu untuk mengumpulkan skor!"); return; }
             let ans = document.getElementById("jawaban").value;
             if(ans == jawabanBenar) {
-                document.getElementById("hasil").innerText = "✅ Benar! Hebat!";
+                totalSkor += 10;
+                updateSkorDisplay();
+                document.getElementById("hasil").innerText = "✅ Benar! +10 Skor.";
                 document.getElementById("hasil").style.color = "green";
+                saveUserData();
+                if(totalSkor >= 100) {
+                    document.getElementById("rewardMsg").style.display = "block";
+                }
             } else {
                 document.getElementById("hasil").innerText = "❌ Salah! Coba lagi.";
                 document.getElementById("hasil").style.color = "red";
             }
         }
 
+        function updateSkorDisplay() {
+            document.getElementById("skorTampil").innerText = "Skor Kamu: " + totalSkor;
+        }
+
         window.onload = function() {
+            loadSession();
             buatSoal();
             updateClock();
             updateGreeting();
@@ -274,7 +382,10 @@
 
 <nav>
     <div style="display:flex; align-items:center; gap:10px;">
-       <img src="https://ui-avatars.com/api/?name=P&background=ffffff&color=2563eb&bold=true&rounded=true" width="35">
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="background:#2563eb; padding:5px; border-radius:8px;">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
         <b>PINLIT Library</b>
         <div id="clock" style="margin-left: 15px; background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 5px; font-size: 14px;">00:00:00</div>
     </div>
@@ -285,14 +396,15 @@
         <a onclick="showPage('about')">About</a>
         <a onclick="showPage('contact')">Contact</a>
         <a onclick="showPage('admin')">Admin</a>
+        <a id="nav-auth-text" onclick="openLogin()" style="background:#ffd700; color:#1e3a8a; padding:5px 15px; border-radius:15px; font-weight:bold;">Login/Daftar</a>
     </div>
 </nav>
 
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <h2>Login</h2>
-        <input type="email" placeholder="Email"><br>
-        <input type="password" placeholder="Password"><br>
+        <input type="email" id="log-email" placeholder="Email"><br>
+        <input type="password" id="log-pass" placeholder="Password"><br>
         <p>Belum punya akun? <a href="#" onclick="openRegister()">Daftar disini</a></p>
         <button onclick="loginSuccess()">Login</button>
         <button onclick="closeModal()" style="background:gray;">Tutup</button>
@@ -301,10 +413,12 @@
 
 <div id="registerModal" class="modal">
     <div class="modal-content">
-        <h2>Daftar</h2>
-        <input type="text" placeholder="Nama"><br>
-        <input type="email" placeholder="Email"><br>
-        <button onclick="alert('Berhasil Daftar!'); closeRegister(); openLogin();">Daftar</button>
+        <h2>Daftar Member Baru</h2>
+        <p style="font-size: 11px; color: #ef4444;">*Password: Min 6 karakter, Awali Huruf Kapital, Akhiri Angka</p>
+        <input type="text" id="reg-nama" placeholder="Nama Lengkap"><br>
+        <input type="email" id="reg-email" placeholder="Email"><br>
+        <input type="password" id="reg-pass" placeholder="Buat Password"><br>
+        <button onclick="handleRegister()">Daftar Sekarang</button>
         <button onclick="closeRegister()" style="background:gray;">Tutup</button>
     </div>
 </div>
@@ -359,7 +473,12 @@
             <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
             <div style="padding:20px; text-align: center;">
                 <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Tantangan Matematika</h3>
-                <p style="font-size: 14px; color: #64748b;">Uji kemampuan logikamu setiap hari dan jadilah pembaca paling jenius!</p>
+                <h4 id="skorTampil" style="color:#10b981;">Skor Kamu: 0</h4>
+                <select id="levelPilihan" onchange="buatSoal()">
+                    <option value="sd">Kelas SD</option>
+                    <option value="smp">Kelas SMP</option>
+                    <option value="sma">Kelas SMA / Umum / Orang Tua</option>
+                </select>
                 <div style="background:#f8fafc; padding:20px; border-radius:15px; border: 1px dashed #cbd5e1;">
                     <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;"></p>
                     <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
@@ -367,6 +486,9 @@
                     <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
                     <button onclick="buatSoal()" style="background:#64748b;">Soal Baru</button>
                     <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
+                    <div id="rewardMsg" class="reward-banner">
+                        🏆 SKOR SEMPURNA! <br> Reward: Kamu bebas baca 1 buku pilihanmu!
+                    </div>
                 </div>
             </div>
         </div>
