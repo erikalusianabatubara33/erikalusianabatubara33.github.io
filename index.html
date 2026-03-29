@@ -416,22 +416,37 @@
 </div>
 
 <div id="collection" class="page">
+
     <h2>Koleksi Buku Digital</h2>
     <input type="text" id="searchBook" placeholder="Cari judul buku..." onkeyup="searchBook()"><br><br>
+
     <div class="book-container">
         <div class="book">
             <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
             <h4>Legenda Danau Toba</h4>
             <p>Cerita Rakyat</p>
-            <button onclick="alert('Membuka PDF...')">Baca Sekarang</button>
+            <button onclick="cekLogin()">Baca Sekarang</button>
+
         </div>
+
         <div class="book">
             <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
             <h4>Si Kancil dan Buaya</h4>
             <p>Buku Anak</p>
-            <button onclick="alert('Membuka PDF...')">Baca Sekarang</button>
+            <button onclick="cekLogin()">Baca Sekarang</button>
+
         </div>
+
+        <div class="book">
+            <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400">
+            <h4>Matematika Dasar</h4>
+            <p>Pelajaran</p>
+            <button onclick="cekLogin()">Baca Sekarang</button>
+
+        </div>
+
     </div>
+
 </div>
 
 <div id="service" class="page">
@@ -441,17 +456,28 @@
             <li><b>Peminjaman Buku Digital:</b> Akses gratis 24 jam.</li>
             <li><b>Ruang Baca Virtual:</b> Diskusi bersama pembaca lain.</li>
             <li><b>Konsultasi Literasi:</b> Tanya jawab seputar tugas sekolah.</li>
+
         </ul>
+
     </div>
+    <h3>📥 Usulkan Buku Baru</h3>
+    <input type="text" placeholder="Judul Buku yang Diinginkan"><br>
+    <textarea placeholder="Kenapa buku ini menarik untuk dibaca?"></textarea><br>
+    <button onclick="alert('Usulan terkirim! Terima kasih!')">Kirim Usulan</button>
+
 </div>
 
-<div id="about" class="page">
+
+
+<div id="about" class="page"
     <h2>ℹ️ Tentang PINLIT Library</h2>
     <div class="card" style="padding: 25px;">
         <p>PINLIT Library adalah inisiatif perpustakaan digital mandiri yang dirancang khusus untuk mendukung literasi masyarakat di Desa Pinal, Danau Toba.</p>
         <h3>Visi:</h3>
         <p>Menciptakan masyarakat desa yang cerdas, kreatif, dan melek teknologi informasi melalui budaya membaca.</p>
+
     </div>
+
 </div>
 
 <div id="contact" class="page">
@@ -459,16 +485,33 @@
     <div class="card" style="padding: 20px;">
         <p><b>Email:</b> erikalusianabatubara@gmail.com</p>
         <p><b>WhatsApp:</b> 0813-6764-1203</p>
+
     </div>
+
+    <br>
+
+    <div class="card" style="padding: 25px;">
+        <h3>Kirim Pesan Langsung</h3>
+        <input type="text" placeholder="Nama Anda"><br>
+        <textarea placeholder="Tuliskan pesan atau saran Anda..."></textarea><br>
+        <button onclick="alert('Pesan Terkirim!')">Kirim Pesan</button>
+
+    </div>
+
 </div>
 
 <div id="admin" class="page">
+
     <center>
         <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         <h1 class="dynamic-greet">Selamat Datang!</h1>
         <p style="color: #64748b;">Pengembang PINLIT Library</p>
         <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Buka CV Digital Saya</button>
+        <br><br>
+        <h3 style="margin-top: 30px;">Video Edukasi Pilihan</h3>
+        <iframe width="100%" height="400" src="https://www.youtube.com/embed/oWnwhCDzv7E" frameborder="0" style="border-radius: 20px; max-width: 800px;" allowfullscreen></iframe>
     </center>
+
 </div>
 
 <footer>
