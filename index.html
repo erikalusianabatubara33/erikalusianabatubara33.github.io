@@ -45,50 +45,89 @@
 
         /* --- DESAIN HERO --- */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200');
-            background-size: cover; background-position: center;
-            color: white; padding: 80px 60px; text-align: center; border-radius: 20px; margin-bottom: 20px;
+            background-image: url('toba.jpeg');
+            background-size: cover;      
+            background-position: center; 
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 80px 60px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 {
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            font-size: 2.5em;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 20px; 
+            z-index: -1;
         }
 
         /* --- CARD SYSTEM --- */
         .card {
-            background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-            margin-bottom: 20px; transition: 0.3s; border: 1px solid #e2e8f0; overflow: hidden;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            transition: 0.3s;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
         }
-        .card:hover { transform: translateY(-5px); }
+
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .event-img { width: 100%; height: 200px; object-fit: cover; }
 
         /* --- PROGRESS BAR --- */
         .progress-container { background: #e2e8f0; border-radius: 10px; height: 15px; width: 100%; margin: 10px 0; }
         .progress-bar { background: linear-gradient(to right, #10b981, #34d399); height: 100%; width: 0%; border-radius: 10px; transition: 0.5s; }
 
-        /* --- MODAL --- */
-        .modal {
-            display: none; position: fixed; width: 100%; height: 100%;
-            top: 0; left: 0; background: rgba(0,0,0,0.6);
-            justify-content: center; align-items: center; z-index: 9999;
-        }
-        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 350px; text-align: center; }
-        
-        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
-        
-        button {
-            background: #2563eb; color: white; border: none; padding: 12px 20px;
-            border-radius: 10px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 10px;
-        }
-        button:hover { background: #1e40af; }
-
+        /* --- BUKU --- */
         .book-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
         .book { background: white; padding: 15px; border-radius: 20px; text-align: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
         .book img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; }
 
-        .password-hint { font-size: 11px; color: #64748b; text-align: left; margin-bottom: 10px; }
+        /* --- MODAL --- */
+        .modal {
+            display: none; position: fixed; width: 100%; height: 100%;
+            top: 0; left: 0; background: rgba(0,0,0,0.5);
+            justify-content: center; align-items: center; z-index: 9999;
+        }
+        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 320px; text-align: center; }
+
+        input, select, textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
+        
+        button {
+            background: linear-gradient(to right, #3b82f6, #1e40af);
+            color: white; border: none; padding: 12px 20px;
+            border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s;
+        }
+        button:hover { opacity: 0.9; }
+
+        .password-hint { font-size: 11px; color: #64748b; text-align: left; margin-bottom: 10px; line-height: 1.2; }
     </style>
 
     <script>
         let currentUser = null;
 
-        // --- SISTEM AUTH & STORAGE ---
-        function register() {
+        // --- AUTH SYSTEM (LOCAL STORAGE) ---
+        function registerUser() {
             const email = document.getElementById('regEmail').value;
             const pass = document.getElementById('regPass').value;
             const level = document.getElementById('regLevel').value;
@@ -96,18 +135,18 @@
             // Validasi Password: Min 6, Awal Kapital, Akhir Angka
             const passRegex = /^[A-Z].*\d$/;
             if (pass.length < 6 || !passRegex.test(pass)) {
-                alert("Password tidak valid! Harus min. 6 karakter, diawali huruf Kapital, dan diakhiri Angka.");
+                alert("Password Gagal! Minimal 6 karakter, diawali huruf Kapital, dan diakhiri dengan Angka.");
                 return;
             }
 
-            const userData = { email, pass, level, historyHalaman: 0, skorMatematika: 0 };
+            const userData = { email, pass, level, historyHalaman: 0, skorGame: 0 };
             localStorage.setItem(email, JSON.stringify(userData));
             alert("Pendaftaran Berhasil! Silakan Login.");
             closeRegister();
             openLogin();
         }
 
-        function login() {
+        function loginUser() {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPass').value;
             const storedData = localStorage.getItem(email);
@@ -116,47 +155,48 @@
                 const user = JSON.parse(storedData);
                 if (user.pass === pass) {
                     currentUser = user;
-                    document.getElementById('navUser').innerText = "Halo, " + email.split('@')[0];
-                    alert("Login Berhasil!");
+                    alert("Login berhasil! Selamat datang kembali.");
                     closeModal();
-                    loadUserData();
+                    updateUI();
                     showPage('home');
                 } else { alert("Password salah!"); }
-            } else { alert("Email tidak terdaftar!"); }
+            } else { alert("Email tidak ditemukan. Silakan daftar dulu."); }
         }
 
-        function loadUserData() {
+        function updateUI() {
             if(!currentUser) return;
-            document.getElementById("halamanInput").value = currentUser.historyHalaman;
-            updateProgressVisual();
+            document.getElementById('navStatus').innerText = "Halo, " + currentUser.email.split('@')[0];
+            document.getElementById('halamanInput').value = currentUser.historyHalaman;
+            refreshProgressVisual();
             buatSoal();
         }
 
+        // --- HISTORI HALAMAN ---
         function saveProgress() {
-            if(!currentUser) return alert("Login dulu ya!");
+            if(!currentUser) return alert("Silakan login dulu!");
             let hal = parseInt(document.getElementById("halamanInput").value);
             currentUser.historyHalaman = hal;
             localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
-            updateProgressVisual();
-            alert("Progress disimpan!");
+            refreshProgressVisual();
+            alert("History membaca kamu telah disimpan!");
         }
 
-        function updateProgressVisual() {
+        function refreshProgressVisual() {
             let target = 100;
             let hasilPersen = (currentUser.historyHalaman / target) * 100;
             if (hasilPersen > 100) hasilPersen = 100;
             document.getElementById("myBar").style.width = hasilPersen + "%";
-            document.getElementById("persenText").innerText = "Total Membaca: " + currentUser.historyHalaman + " Halaman";
+            document.getElementById("persenText").innerText = "Tercatat: " + currentUser.historyHalaman + " halaman";
         }
 
-        // --- SISTEM MATEMATIKA BERLEVEL ---
+        // --- MATEMATIKA BERLEVEL ---
         let angka1, angka2, jawabanBenar, simbol;
         function buatSoal() {
             if(!currentUser) return;
             const ops = ['+', '-', '*', '/'];
             simbol = ops[Math.floor(Math.random() * ops.length)];
             
-            let maxAngka = 10;
+            let maxAngka = 10; // Level SD
             if(currentUser.level === 'smp') maxAngka = 50;
             if(currentUser.level === 'sma' || currentUser.level === 'umum') maxAngka = 100;
 
@@ -175,71 +215,89 @@
             }
 
             document.getElementById("soal").innerText = `(${currentUser.level.toUpperCase()}) Berapa ${angka1} ${simbol} ${angka2} ?`;
-            document.getElementById("jawaban").value = "";
+            document.getElementById("hasil").innerText = "Skor: " + currentUser.skorGame;
         }
 
         function cekJawaban() {
             let ans = document.getElementById("jawaban").value;
             if(ans == jawabanBenar) {
-                currentUser.skorMatematika += 10;
-                if(currentUser.skorMatematika >= 100) {
-                    alert("🎉 SELAMAT! Skor kamu 100. Kamu dapat REWARD: Bebas baca 1 buku pilihanmu!");
-                    currentUser.skorMatematika = 0; // Reset setelah dapat reward
+                currentUser.skorGame += 10;
+                if(currentUser.skorGame >= 100) {
+                    alert("🏆 SKOR SEMPURNA (100)! Kamu dapat REWARD bebas baca 1 buku yang kamu inginkan!");
+                    currentUser.skorGame = 0; // Reset setelah reward
                 }
                 localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
-                document.getElementById("hasil").innerText = "✅ Benar! Skor: " + currentUser.skorMatematika;
-                buatSoal();
+                document.getElementById("hasil").innerText = "✅ Benar! Skor: " + currentUser.skorGame;
+                document.getElementById("jawaban").value = "";
+                setTimeout(buatSoal, 1500);
             } else {
-                document.getElementById("hasil").innerText = "❌ Salah! Coba lagi.";
+                alert("❌ Salah, ayo coba lagi!");
             }
         }
 
-        // --- NAVIGASI ---
+        // --- NAVIGASI & MODAL ---
         function showPage(id) {
             document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
             document.getElementById(id).classList.add("active");
+            window.scrollTo(0,0);
+        }
+
+        function cekAkses(id) {
+            if(!currentUser) {
+                alert("Menu ini terkunci. Silakan Daftar/Login dulu agar history kamu tersimpan!");
+                openRegister();
+            } else { showPage(id); }
         }
 
         function openLogin() { document.getElementById("loginModal").style.display = "flex"; }
         function closeModal() { document.getElementById("loginModal").style.display = "none"; }
         function openRegister() { closeModal(); document.getElementById("registerModal").style.display = "flex"; }
         function closeRegister() { document.getElementById("registerModal").style.display = "none"; }
+
+        window.onload = function() {
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('clock').innerText = now.toLocaleTimeString();
+            }, 1000);
+        };
     </script>
 </head>
 <body>
 
 <nav>
     <div style="display:flex; align-items:center; gap:10px;">
-        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <b id="navUser">PINLIT Library</b>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M12 21l-8-4.5v-13l8 4.5 8-4.5v13l-8 4.5zM12 8l-8-4.5v13l8 4.5 8-4.5v-13l-8 4.5z"/></svg>
+        <b id="navStatus">PINLIT Library</b>
+        <div id="clock" style="font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 5px;">00:00:00</div>
     </div>
     <div class="nav-links">
         <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('collection')">Collection</a>
-        <a onclick="openLogin()">Login/Daftar</a>
+        <a onclick="cekAkses('collection')">Collection</a>
+        <a onclick="cekAkses('service')">Service</a>
+        <a onclick="showPage('about')">About</a>
+        <a onclick="showPage('contact')">Contact</a>
+        <a onclick="showPage('admin')">Admin</a>
+        <a onclick="openLogin()" style="background:rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 5px;">Masuk</a>
     </div>
 </nav>
 
 <div id="registerModal" class="modal">
     <div class="modal-content">
-        <h2>Daftar Akun</h2>
+        <h2>Daftar Sekali</h2>
         <input type="email" id="regEmail" placeholder="Email">
         <select id="regLevel">
-            <option value="sd">Tingkat SD</option>
-            <option value="smp">Tingkat SMP</option>
-            <option value="sma">Tingkat SMA</option>
-            <option value="umum">Umum / Orang Tua</option>
+            <option value="sd">Anak SD</option>
+            <option value="smp">Anak SMP</option>
+            <option value="sma">Anak SMA</option>
+            <option value="umum">Umum/Orang Tua</option>
         </select>
         <input type="password" id="regPass" placeholder="Buat Password">
         <div class="password-hint">
-            * Min. 6 Karakter<br>
+            * Min 6 karakter<br>
             * Huruf awal harus KAPITAL<br>
-            * Harus diakhiri ANGKA
+            * Akhiri dengan ANGKA (Contoh: Buku12)
         </div>
-        <button onclick="register()">Daftar Sekarang</button>
+        <button onclick="registerUser()">Daftar</button>
         <button onclick="closeRegister()" style="background:gray;">Batal</button>
     </div>
 </div>
@@ -249,39 +307,42 @@
         <h2>Login</h2>
         <input type="email" id="loginEmail" placeholder="Email">
         <input type="password" id="loginPass" placeholder="Password">
-        <button onclick="login()">Masuk</button>
-        <p style="font-size: 12px;">Belum punya akun? <a href="#" onclick="openRegister()">Daftar</a></p>
+        <button onclick="loginUser()">Masuk</button>
+        <p style="font-size:12px;">Belum punya akun? <a href="#" onclick="openRegister()">Daftar di sini</a></p>
         <button onclick="closeModal()" style="background:gray;">Tutup</button>
     </div>
 </div>
 
 <div id="home" class="page active">
     <div class="hero">
-        <h1>Selamat Datang di PINLIT Library</h1>
-        <p>Akses Ilmu Pengetahuan Tanpa Batas</p>
+        <h1 class="dynamic-greet">Selamat Datang di PINLIT Library</h1>
+        <p>Perpustakaan Digital Desa Pinal</p>
+        <br>
+        <button onclick="cekAkses('collection')">Mulai Jelajahi Koleksi</button>
     </div>
 
-    <div class="card" style="padding: 25px; background: #e0f2fe;">
-        <h3>📊 Histori Membaca Kamu</h3>
-        <p id="persenText">Silakan login untuk melihat progress.</p>
+    <div class="card" style="background: #f1f5f9; padding: 25px;">
+        <h3>📊 History Membaca Kamu</h3>
+        <p style="font-size: 13px;">History kamu tersimpan otomatis saat kamu klik simpan.</p>
         <div class="progress-container">
             <div id="myBar" class="progress-bar"></div>
         </div>
         <div style="display:flex; gap: 10px;">
-            <input type="number" id="halamanInput" placeholder="Update halaman..." style="width: 150px;">
-            <button onclick="saveProgress()" style="width: 120px; background: #10b981;">Update</button>
+            <input type="number" id="halamanInput" placeholder="Sudah baca berapa hal?" style="width: 150px; margin:0;">
+            <button onclick="saveProgress()" style="background: #10b981;">Simpan Progress</button>
         </div>
+        <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 10px;"></p>
     </div>
 
-    <div class="card" style="padding: 25px; text-align: center;">
-        <h3 style="color:#1e3a8a;">🧠 Tantangan Skor 100</h3>
-        <p>Dapatkan skor 100 untuk klaim Reward Baca Buku Gratis!</p>
-        <div style="background:#f8fafc; padding:20px; border-radius:15px; border: 2px dashed #2563eb;">
-            <p id="soal" style="font-weight:bold; font-size: 20px;">Silakan login untuk main</p>
-            <input type="number" id="jawaban" style="width:100px; text-align:center;">
+    <div class="card" style="padding: 25px; text-align: center; border: 2px solid #2563eb;">
+        <h3>🎮 Tantangan Matematika Berhadiah</h3>
+        <p style="font-size: 14px;">Dapatkan skor 100 untuk Reward 1 Buku Bebas!</p>
+        <div style="background:#f8fafc; padding:20px; border-radius:15px;">
+            <p id="soal" style="font-weight:bold; font-size: 20px; color: #1e3a8a;">Silakan Login untuk Bermain</p>
+            <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 20px;">
             <br>
-            <button onclick="cekJawaban()" style="width: 150px;">Cek Jawaban</button>
-            <p id="hasil" style="font-weight:bold; color: #10b981;"></p>
+            <button onclick="cekJawaban()">Cek Jawaban</button>
+            <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
         </div>
     </div>
 </div>
@@ -292,23 +353,41 @@
         <div class="book">
             <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
             <h4>Legenda Danau Toba</h4>
-            <button onclick="alert('Membuka PDF...')">Baca</button>
+            <button onclick="alert('Membaca Buku...')">Baca</button>
         </div>
         <div class="book">
-            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400">
-            <h4>Sains Modern</h4>
-            <button onclick="alert('Membuka PDF...')">Baca</button>
-        </div>
-        <div class="book">
-            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400">
-            <h4>Filosofi Teras</h4>
-            <button onclick="alert('Membuka PDF...')">Baca</button>
+            <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
+            <h4>Si Kancil</h4>
+            <button onclick="alert('Membuka Buku...')">Baca</button>
         </div>
     </div>
 </div>
 
+<div id="service" class="page">
+    <h2>🛠️ Layanan Kami</h2>
+    <div class="card" style="padding: 25px;">
+        <ul>
+            <li><b>Peminjaman Digital:</b> Gratis 24 jam.</li>
+            <li><b>Ruang Virtual:</b> Diskusi antar warga.</li>
+        </ul>
+    </div>
+</div>
+
+<div id="about" class="page">
+    <h2>ℹ️ Tentang PINLIT</h2>
+    <p>Inisiatif perpustakaan digital untuk Desa Pinal, Danau Toba.</p>
+</div>
+
+<div id="admin" class="page">
+    <center>
+        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%;">
+        <h1>Profil Pengembang</h1>
+        <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Buka CV</button>
+    </center>
+</div>
+
 <footer>
-    <center><p>© 2026 PINLIT Library | Created by Erika Lusiana Batubara</p></center>
+    <center><p>© 2026 PINLIT Library | Erika Lusiana Batubara</p></center>
 </footer>
 
 </body>
