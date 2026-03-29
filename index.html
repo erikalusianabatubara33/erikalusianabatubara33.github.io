@@ -182,6 +182,7 @@
         let timer;
         let timeLeft = 5;
 
+        // FUNGSI LOCK: Mencegah navigasi klik jika belum login
         function securedAction(targetPage) {
             if (!isLogin) {
                 alert("🔒 Akses Terbatas! Kamu harus Daftar/Login dulu sebagai member untuk melihat isi PINLIT.");
@@ -258,6 +259,7 @@
             }
         }
 
+        // GAME DENGAN SKOR SALAH DIHITUNG & TIMER 5 DETIK
         let angka1, angka2, jawabanBenar;
         function buatSoal() {
             if(!isLogin) return securedAction();
@@ -352,10 +354,10 @@
     <div class="modal-content">
         <h2>Daftar Member Desa</h2>
         <input type="text" placeholder="Last Name"><br>
-		<input type="text" placeholder="First Name"><br>
+        <input type="text" placeholder="First Name"><br>
         <input type="email" placeholder="Email"><br>
-		<input type="text" placeholder="No Handphone"><br>
-		<input type="password" placeholder="Password"><br>
+        <input type="text" placeholder="No Handphone"><br>
+        <input type="password" placeholder="Password"><br>
         <button onclick="alert('Pendaftaran Berhasil!'); closeRegister(); openLogin();">Daftar</button>
         <button onclick="closeRegister()" style="background:gray;">Tutup</button>
     </div>
