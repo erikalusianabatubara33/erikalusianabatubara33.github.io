@@ -1,4 +1,3 @@
-ini bagus pas dikit
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,7 +172,6 @@ ini bagus pas dikit
 
         footer { padding: 40px; color: #64748b; }
 
-        /* Timer Style */
         #timerBox {
             font-size: 20px;
             font-weight: bold;
@@ -192,10 +190,10 @@ ini bagus pas dikit
         let timer;
         let timeLeft = 5;
 
-        // FUNGSI LOCK: Cek login saat klik apapun
+        // FUNGSI LOCK: Menahan navigasi jika belum jadi anggota
         function securedAction(targetPage) {
             if (!isLogin) {
-                alert("Ups! Kamu harus Daftar/Login sebagai member Desa Pinal dulu untuk mengakses fitur ini.");
+                alert("🔒 Akses Terbatas! Kamu harus Daftar/Login dulu sebagai member untuk melihat isi PINLIT.");
                 openLogin();
             } else {
                 if(targetPage) showPage(targetPage);
@@ -252,11 +250,11 @@ ini bagus pas dikit
             isLogin = true;
             closeModal();
             document.getElementById("authBtn").innerText = "Member Aktif ✅";
-            alert("Login berhasil 🎉 Selamat datang Erika!");
+            alert("Login berhasil 🎉 Selamat datang di PINLIT!");
         }
 
         function cekLogin() {
-            if(!isLogin) openLogin();
+            if(!isLogin) securedAction();
             else alert("Selamat membaca 📚");
         }
 
@@ -269,7 +267,7 @@ ini bagus pas dikit
             }
         }
 
-        // GAME MATEMATIKA DENGAN TIMER & SKOR MINUS
+        // GAME MATEMATIKA BERLEVEL + TIMER + SKOR MINUS
         let angka1, angka2, jawabanBenar;
         function buatSoal() {
             if(!isLogin) return securedAction();
@@ -277,8 +275,19 @@ ini bagus pas dikit
             timeLeft = 5;
             document.getElementById("timer").innerText = timeLeft;
             
-            angka1 = Math.floor(Math.random()*10)+1;
-            angka2 = Math.floor(Math.random()*10)+1;
+            let level = document.getElementById("levelPilihan").value;
+            
+            if(level === "sd") {
+                angka1 = Math.floor(Math.random()*10)+1;
+                angka2 = Math.floor(Math.random()*10)+1;
+            } else if(level === "smp") {
+                angka1 = Math.floor(Math.random()*50)+10;
+                angka2 = Math.floor(Math.random()*30)+5;
+            } else {
+                angka1 = Math.floor(Math.random()*100)+50;
+                angka2 = Math.floor(Math.random()*50)+20;
+            }
+
             jawabanBenar = angka1 + angka2;
             document.getElementById("soal").innerText = "Berapa " + angka1 + " + " + angka2 + " ?";
             document.getElementById("hasil").innerText = "";
@@ -289,7 +298,7 @@ ini bagus pas dikit
                 document.getElementById("timer").innerText = timeLeft;
                 if(timeLeft <= 0) {
                     clearInterval(timer);
-                    totalSkor -= 5; // Kurangi skor jika waktu habis
+                    totalSkor -= 5;
                     document.getElementById("hasil").innerText = "⏰ Waktu Habis! Skor -5";
                     document.getElementById("hasil").style.color = "red";
                     document.getElementById("skorDisplay").innerText = "Skor: " + totalSkor;
@@ -298,6 +307,7 @@ ini bagus pas dikit
         }
 
         function cekJawaban() {
+            if(!isLogin) return securedAction();
             clearInterval(timer);
             let ans = document.getElementById("jawaban").value;
             if(ans == jawabanBenar) {
@@ -333,7 +343,7 @@ ini bagus pas dikit
         <a onclick="securedAction('about')">About</a>
         <a onclick="securedAction('contact')">Contact</a>
         <a onclick="securedAction('admin')">Admin</a>
-        <button id="authBtn" onclick="openLogin()" style="margin-left:15px; padding:5px 15px; background:#ffd700; color:#1e3a8a;">Login</button>
+        <button id="authBtn" onclick="openLogin()" style="margin-left:15px; padding:5px 15px; background:#ffd700; color:#1e3a8a; border-radius:10px;">Login/Daftar</button>
     </div>
 </nav>
 
@@ -353,7 +363,7 @@ ini bagus pas dikit
         <h2>Daftar Member Desa</h2>
         <input type="text" placeholder="Nama Lengkap"><br>
         <input type="email" placeholder="Email"><br>
-        <button onclick="alert('Berhasil Daftar!'); closeRegister(); openLogin();">Daftar</button>
+        <button onclick="alert('Pendaftaran Berhasil!'); closeRegister(); openLogin();">Daftar</button>
         <button onclick="closeRegister()" style="background:gray;">Tutup</button>
     </div>
 </div>
@@ -381,27 +391,39 @@ ini bagus pas dikit
     </div>
 
     <div class="card-container">
-        <div class="card"> 
-            <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=600" class="event-img">
+        <div class="card" onclick="if(!isLogin) securedAction()"> 
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da07bb5e?w=600" class="event-img">
             <div style="padding:20px; text-align: left;"> 
                 <h3 style="margin-top:0; color:#2563eb;">Dunia Ceria Anak: Dongeng & Kreativitas</h3>
-                <p style="font-size: 14px; color: #64748b;">Ayo ajak adik-adik untuk seru-seruan bareng!</p>
+                <p style="font-size: 14px; color: #64748b;">Ayo ajak adik-adik untuk seru-seruan bareng di akhir pekan ini! Kegiatannya meliputi:</p>
+                <ul style="padding-left: 20px; font-size: 14px; color: #475569;">
+                    <li>📖 <b>Mendongeng:</b> Kisah Legenda Rakyat.</li>
+                    <li>🎨 <b>Mewarnai:</b> Karakter impian anak-anak.</li>
+                    <li>🎁 <b>Hadiah:</b> Bingkisan untuk karya terbaik.</li>
+                </ul>
                 <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 15px; font-size: 13px;">
-                    <b>📅 12 April 2026 | 📍 Aula Desa Pinal</b>
+                    <b>📅 12 April 2026 | ⏰ 09:00 WIB | 📍 Aula Desa Pinal</b>
                 </div>
                 <br>
                 <button onclick="securedAction()" style="width:100%; background:#10b981;">Ikuti Kegiatan</button>
             </div>
         </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=600" class="event-img">
+        <div class="card" onclick="if(!isLogin) securedAction()">
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
             <div style="padding:20px; text-align: center;">
                 <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Tantangan Matematika</h3>
                 <h4 id="skorDisplay">Skor: 0</h4>
+                
+                <select id="levelPilihan" style="margin-bottom: 10px;">
+                    <option value="sd">Level SD (Mudah)</option>
+                    <option value="smp">Level SMP (Sedang)</option>
+                    <option value="sma">Level SMA/Umum (Sulit)</option>
+                </select>
+
                 <div style="background:#f8fafc; padding:20px; border-radius:15px; border: 1px dashed #cbd5e1;">
                     <div id="timerBox">⏳ <span id="timer">5</span>s</div>
-                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Klik 'Mulai Game'</p>
+                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level lalu klik Mulai</p>
                     <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
                     <br>
                     <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
@@ -448,18 +470,12 @@ ini bagus pas dikit
             <li><b>Konsultasi Literasi:</b> Tanya jawab seputar tugas sekolah.</li>
         </ul>
     </div>
-    <h3>📥 Usulkan Buku Baru</h3>
-    <input type="text" placeholder="Judul Buku yang Diinginkan"><br>
-    <textarea placeholder="Kenapa buku ini menarik untuk dibaca?"></textarea><br>
-    <button onclick="alert('Usulan terkirim! Terima kasih!')">Kirim Usulan</button>
 </div>
 
 <div id="about" class="page">
     <h2>ℹ️ Tentang PINLIT Library</h2>
     <div class="card" style="padding: 25px;">
         <p>PINLIT Library adalah inisiatif perpustakaan digital mandiri yang dirancang khusus untuk mendukung literasi masyarakat di Desa Pinal, Danau Toba.</p>
-        <h3>Visi:</h3>
-        <p>Menciptakan masyarakat desa yang cerdas, kreatif, dan melek teknologi informasi melalui budaya membaca.</p>
     </div>
 </div>
 
@@ -469,29 +485,19 @@ ini bagus pas dikit
         <p><b>Email:</b> erikalusianabatubara@gmail.com</p>
         <p><b>WhatsApp:</b> 0813-6764-1203</p>
     </div>
-    <br>
-    <div class="card" style="padding: 25px;">
-        <h3>Kirim Pesan Langsung</h3>
-        <input type="text" placeholder="Nama Anda"><br>
-        <textarea placeholder="Tuliskan pesan atau saran Anda..."></textarea><br>
-        <button onclick="alert('Pesan Terkirim!')">Kirim Pesan</button>
-    </div>
 </div>
 
 <div id="admin" class="page">
     <center>
-        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <img src="https://ui-avatars.com/api/?name=Erika+Batubara&background=2563eb&color=fff&size=128" width="120" style="border-radius:50%; border: 4px solid white;">
         <h1 class="dynamic-greet">Selamat Datang!</h1>
-        <p style="color: #64748b;">Pengembang PINLIT Library</p>
+        <p>Pengembang PINLIT Library</p>
         <button onclick="window.open('https://drive.google.com/file/d/1JeIn3OI2xGvdswFE_qBWPW891y1b42xa/view?usp=sharing')">Buka CV Digital Saya</button>
-        <br><br>
-        <h3 style="margin-top: 30px;">Video Edukasi Pilihan</h3>
-        <iframe width="100%" height="400" src="https://www.youtube.com/embed/oWnwhCDzv7E" frameborder="0" style="border-radius: 20px; max-width: 800px;" allowfullscreen></iframe>
     </center>
 </div>
 
 <footer>
-    <center><p>© 2026 PINLIT Library | Dirancang dengan penuh dedikasi oleh Erika Lusiana Batubara</p></center>
+    <center><p>© 2026 PINLIT Library | Erika Lusiana Batubara</p></center>
 </footer>
 
 </body>
