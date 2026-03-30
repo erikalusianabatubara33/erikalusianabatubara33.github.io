@@ -321,14 +321,29 @@
             updateClock();
             updateGreeting();
         };
+		
 		function bukaBuku(judul) {
-          if(!isLogin) {
-                alert("🔒 Akses Terbatas! Kamu harus Login dulu.");
-                openLogin();
-          } else {
-                alert("📖 Membuka buku: " + judul + "\nSedang menyiapkan dokumen PDF...");
-          }
+    if(!isLogin) {
+        alert("🔒 Akses Terbatas! Kamu harus Login dulu.");
+        openLogin();
+    } else {
+        let linkBuku = "";
+
+        if(judul === 'Legenda Danau Toba') {
+            linkBuku = "https://literacycloud.org/stories/300-the-legend-of-lake-toba/"; 
+        } else if(judul === 'Si Kancil & Buaya') {
+            linkBuku = "https://literacycloud.org/stories/216-the-mouse-deer-and-the-crocodiles/";
+        } else if(judul === 'Matematika Dasar') {
+            linkBuku = "https://ia800203.us.archive.org/15/items/fp_Matematika_Dasar/Matematika_Dasar.pdf";
+        } else {
+            linkBuku = "https://www.google.co.id/books/edition/" + judul;
         }
+
+        alert("📖 Membuka: " + judul + "\nSelamat membaca, Erika!");
+        window.open(linkBuku, '_blank');
+       }
+     }
+	
 		function searchBook() {
             let input = document.getElementById('searchBook').value.toLowerCase();
             let cards = document.getElementsByClassName('book-card');
