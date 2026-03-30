@@ -109,22 +109,6 @@
             transition: width 0.5s ease-in-out;
         }
 
-        .book-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-        }
-
-        .book {
-            background: white;
-            padding: 15px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        }
-
-        .book img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; }
-
         button {
             background: linear-gradient(to right, #3b82f6, #1e40af);
             color: white;
@@ -168,6 +152,46 @@
             font-size: 18px;
             font-weight: bold;
             color: #ef4444;
+            margin-bottom: 10px;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .book-card {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+    .book-card:hover { transform: translateY(-8px); }
+
+        .book-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+    .book-card h4 { margin: 10px 0 5px 0; font-size: 16px; color: #1e3a8a; }
+
+        .category-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #dbeafe;
+            color: #2563eb;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
             margin-bottom: 10px;
         }
     </style>
@@ -297,6 +321,27 @@
             updateClock();
             updateGreeting();
         };
+		function bukaBuku(judul) {
+          if(!isLogin) {
+                alert("🔒 Akses Terbatas! Kamu harus Login dulu.");
+                openLogin();
+          } else {
+                alert("📖 Membuka buku: " + judul + "\nSedang menyiapkan dokumen PDF...");
+          }
+        }
+		function searchBook() {
+            let input = document.getElementById('searchBook').value.toLowerCase();
+            let cards = document.getElementsByClassName('book-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByTagName('h4')[0].innerText.toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
     </script>
 </head>
 <body>
@@ -414,30 +459,48 @@
     <h2>Koleksi Buku Digital</h2>
     <input type="text" id="searchBook" placeholder="Cari judul buku..." onkeyup="searchBook()"><br><br>
 
-    <div class="book-container">
-        <div class="book">
-            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
-            <h4>Legenda Danau Toba</h4>
-            <p>Cerita Rakyat</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
+<div class="book-grid">
+    <div class="book-card">
+        <span class="category-tag">Cerita Rakyat</span>
+        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400">
+        <h4>Legenda Danau Toba</h4>
+        <button onclick="bukaBuku('Legenda Danau Toba')" style="width:100%;">Baca Sekarang</button>
+    </div>
 
-        </div>
+    <div class="book-card">
+        <span class="category-tag">Buku Anak</span>
+        <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
+        <h4>Si Kancil & Buaya</h4>
+        <button onclick="bukaBuku('Si Kancil & Buaya')" style="width:100%;">Baca Sekarang</button>
+    </div>
 
-        <div class="book">
-            <img src="https://images.unsplash.com/photo-1533161352520-226e691a53ae?w=400">
-            <h4>Si Kancil dan Buaya</h4>
-            <p>Buku Anak</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
+<div class="book-card">
+        <span class="category-tag">Pengetahuan</span>
+        <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400">
+        <h4>Matematika Dasar</h4>
+        <button onclick="bukaBuku('Matematika Dasar')" style="width:100%;">Baca Sekarang</button>
+    </div>
 
-        </div>
+    <div class="book-card">
+        <span class="category-tag">Sejarah</span>
+        <img src="https://images.unsplash.com/photo-1590069230005-db393739a731?w=400">
+        <h4>Pahlawan Nasional</h4>
+        <button onclick="bukaBuku('Pahlawan Nasional')" style="width:100%;">Baca Sekarang</button>
+    </div>
 
-        <div class="book">
-            <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400">
-            <h4>Matematika Dasar</h4>
-            <p>Pelajaran</p>
-            <button onclick="cekLogin()">Baca Sekarang</button>
+    <div class="book-card">
+        <span class="category-tag">Sains</span>
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400">
+        <h4>Rahasia Alam Semesta</h4>
+        <button onclick="bukaBuku('Rahasia Alam Semesta')" style="width:100%;">Baca Sekarang</button>
+    </div>
 
-        </div>
+    <div class="book-card">
+        <span class="category-tag">Fiksi</span>
+        <img src="https://images.unsplash.com/photo-1474932430478-367dbb6832c1?w=400">
+        <h4>Petualangan di Desa</h4>
+        <button onclick="bukaBuku('Petualangan di Desa')" style="width:100%;">Baca Sekarang</button>
+    </div>
 
     </div>
 
@@ -461,7 +524,7 @@
 
 </div>
 
-<div id="about" class="page"
+<div id="about" class="page">
     <h2>ℹ️ Tentang PINLIT Library</h2>
     <div class="card" style="padding: 25px;">
         <p>PINLIT Library adalah inisiatif perpustakaan digital mandiri yang dirancang khusus untuk mendukung literasi masyarakat di Desa Pinal, Danau Toba.</p>
