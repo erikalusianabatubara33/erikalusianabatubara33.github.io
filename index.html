@@ -1,11 +1,12 @@
+setelah di tambahkan bootstrap
 <!DOCTYPE html>
 <html>
 <head>
     <title>PINLIT Library | Erika Lusiana</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -28,6 +29,15 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
         .nav-links a:hover { color: #ffd700; }
@@ -188,57 +198,6 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
-		
-		.nav-link.active-menu {
-            color: #ffd700 !important; 
-            font-weight: bold;
-            border-bottom: 2px solid #ffd700; 
-}
-
-        .map-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-}
-
-        .map-card {
-            padding: 30px;
-            border-radius: 20px;
-            color: white;
-            text-align: center;
-            transition: 0.4s;
-            cursor: pointer;
-            position: relative;
-            border: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            text-decoration: none; /* Supaya link tidak bergaris bawah */
-        }
-
-        .map-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .map-card h3 { font-family: 'Fredoka', sans-serif; font-size: 22px; margin-bottom: 10px; }
-        .map-card p { font-size: 14px; opacity: 0.9; }
-
-        .arrow-icon {
-            margin-top: 15px;
-            font-size: 24px;
-            transition: 0.3s;
-        }
-        .map-card:hover .arrow-icon { transform: translateX(10px); }
-
-        /* Warna-warni Card */
-        .bg-home { background: linear-gradient(135deg, #FF6B6B, #EE5253); }
-        .bg-events { background: linear-gradient(135deg, #4834D4, #686DE0); }
-        .bg-collection { background: linear-gradient(135deg, #6AB04C, #BADC58); }
-        .bg-service { background: linear-gradient(135deg, #F0932B, #FFBE76); }
-        .bg-about { background: linear-gradient(135deg, #22A6B3, #7ED6DF); }
-        .bg-contact { background: linear-gradient(135deg, #EB4D4B, #FF7979); }
-
-
     </style>
 
     <script>
@@ -257,25 +216,11 @@
         }
 
         function showPage(id) {
-   
-           let pages = document.querySelectorAll(".page");
-           pages.forEach(p => p.classList.remove("active"));
-           document.getElementById(id).classList.add("active");
-
-           let navLinks = document.querySelectorAll(".nav-link");
-    
-           navLinks.forEach(link => {
-           link.classList.remove("active-menu");
-    });
-
-    navLinks.forEach(link => {
-        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(id)) {
-            link.classList.add("active-menu");
+            let pages = document.querySelectorAll(".page");
+            pages.forEach(p => p.classList.remove("active"));
+            document.getElementById(id).classList.add("active");
+            window.scrollTo(0, 0);
         }
-    });
-
-    window.scrollTo(0, 0);
-}
 
         function updateClock() {
             const now = new Date();
@@ -360,7 +305,7 @@
             }, 1000);
         }
 
-		 function cekJawaban() {
+        function cekJawaban() {
             if(!isLogin) return securedAction();
             clearInterval(timer);
             let ans = document.getElementById("jawaban").value;
@@ -380,39 +325,6 @@
             updateClock();
             updateGreeting();
         };
-		
-        const soalBahasa = [
-            { s: "Apa lawan kata dari 'Tinggi'?", j: "rendah" },
-            { s: "Apa lawan kata dari 'Berani'?", j: "takut" },
-            { s: "Apa lawan kata dari 'Rajin'?", j: "malas" },
-            { s: "Apa persamaan kata (sinonim) dari 'Bunga'?", j: "kembang" },
-            { s: "Lengkapilah peribahasa: Berat sama dipikul, ringan sama di....", j: "jinjing" }
-        ];
-
-        let soalAktifIndo;
-
-        function mulaiGameIndo() {
-            if(!isLogin) return securedAction();
-            const randomIdx = Math.floor(Math.random() * soalBahasa.length);
-            soalAktifIndo = soalBahasa[randomIdx];
-            
-            document.getElementById("soalIndo").innerText = soalAktifIndo.s;
-            document.getElementById("jawabanIndo").value = "";
-            document.getElementById("hasilIndo").innerText = "";
-        }
-
-        function cekJawabanIndo() {
-            let userAns = document.getElementById("jawabanIndo").value.toLowerCase().trim();
-            if(userAns === soalAktifIndo.j) {
-                document.getElementById("hasilIndo").innerText = "🎉 Pintar! Jawabanmu benar.";
-                document.getElementById("hasilIndo").style.color = "green";
-                totalSkor += 15; // Hadiah skor lebih besar untuk bahasa
-            } else {
-                document.getElementById("hasilIndo").innerText = "❌ Ups! Coba lagi ya. Jawabannya: " + soalAktifIndo.j;
-                document.getElementById("hasilIndo").style.color = "red";
-            }
-            document.getElementById("skorDisplay").innerText = "Skor: " + totalSkor;
-        }
 		
 		function bukaBuku(judul) {
     if(!isLogin) {
@@ -453,37 +365,50 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background: linear-gradient(to right, #2563eb, #1e3a8a); padding: 10px 20px;">
+<nav>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(to right, #2563eb, #1e3a8a); padding: 10px 40px;">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#" style="font-weight: bold; font-family: 'Fredoka', sans-serif;">
-            <img src="https://ui-avatars.com/api/?name=P&background=ffffff&color=2563eb&bold=true&rounded=true" width="35" class="me-2">
-            PINLIT Library
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#" onclick="showPage('home')">
+            <img src="https://ui-avatars.com/api/?name=P&background=ffffff&color=2563eb&bold=true&rounded=true" width="35">
+            <b class="text-white">PINLIT Library</b>
         </a>
-
-        <div id="clock" class="d-none d-lg-block text-white px-3 py-1 rounded" style="background: rgba(255,255,255,0.2); font-size: 14px;">00:00:00</div>
-
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAdmin">
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNavAdmin">
-            <div class="navbar-nav ms-auto align-items-center">
-                <a class="nav-link text-white fw-medium px-3 active-menu" onclick="showPage('home')" style="cursor:pointer;">Home</a>
-                <a class="nav-link text-white fw-medium px-3" onclick="securedAction('events')" style="cursor:pointer;">Events</a>
-                <a class="nav-link text-white fw-medium px-3" onclick="securedAction('collection')" style="cursor:pointer;">Collection</a>
-                <a class="nav-link text-white fw-medium px-3" onclick="securedAction('service')" style="cursor:pointer;">Service</a>
-                <a class="nav-link text-white fw-medium px-3" onclick="securedAction('about')" style="cursor:pointer;">About</a>
-                <a class="nav-link text-white fw-medium px-3" onclick="securedAction('contact')" style="cursor:pointer;">Contact</a>
-                <a class="nav-link text-white fw-medium px-3" onclick="securedAction('admin')" style="cursor:pointer;">Admin</a>
-                <a class="nav-link text-white fw-medium px-3" onclick="showPage('panduan')" style="cursor:pointer;">Panduan</a>
-                
-                <span id="authStatus" onclick="openLogin()" class="badge bg-warning text-dark ms-lg-3 mt-2 mt-lg-0 p-2" style="cursor:pointer; font-size:12px;">Login/Daftar</span>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div id="clock" class="ms-3 text-white d-none d-lg-block" style="background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 5px; font-size: 14px;">00:00:00</div>
+            
+            <ul class="navbar-nav ms-auto nav-links">
+                <li class="nav-item"><a class="nav-link text-white" onclick="showPage('home')">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white" onclick="securedAction('events')">Events</a></li>
+                <li class="nav-item"><a class="nav-link text-white" onclick="securedAction('collection')">Collection</a></li>
+                <li class="nav-item"><a class="nav-link text-white" onclick="securedAction('service')">Service</a></li>
+                <li class="nav-item"><a class="nav-link text-white" onclick="securedAction('about')">About</a></li>
+                <li class="nav-item"><a class="nav-link text-white" onclick="securedAction('contact')">Contact</a></li>
+                <li class="nav-item"><a class="nav-link text-white" onclick="securedAction('admin')">Admin</a></li>
+                <li class="nav-item ms-lg-3">
+                    <span id="authStatus" onclick="openLogin()" class="badge rounded-pill bg-warning text-dark p-2 px-3" style="cursor:pointer; font-weight:bold;">Login/Daftar</span>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
-<div class="container-fluid mt-3"> 
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2>Login Member</h2>
+        <p>Silakan masuk untuk mengakses fitur.</p>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button onclick="loginSuccess()">Masuk</button>
+        <p style="margin-top:10px; font-size:13px;">
+            Belum punya akun? <a href="#" onclick="openRegister()" style="color:#2563eb; font-weight:bold;">Daftar di sini</a>
+        </p>
+        <button onclick="closeModal()" style="background:gray; margin-top:5px;">Batal</button>
+    </div>
+</div>
 
 <div id="loginModal" class="modal">
     <div class="modal-content">
@@ -530,15 +455,14 @@
         </div>
         <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
     </div>
-	
-	<div class="row g-4" onclick="if(!isLogin) securedAction()">
-    <div class="col-md-6">
-        <div class="card h-100">
+
+        <div class="card" onclick="if(!isLogin) securedAction()">
             <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
             <div style="padding:20px; text-align: center;">
                 <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
                 <h4 id="skorDisplay">Skor: 0</h4>
-                <select id="levelGame" class="form-select mb-3">
+                
+                <select id="levelGame" style="margin-bottom: 10px;">
                     <option value="sd">Level SD (Mudah)</option>
                     <option value="smp">Level SMP (Sedang)</option>
                     <option value="sma">Level SMA (Sulit)</option>
@@ -546,33 +470,12 @@
 
                 <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
                     <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
-                    <p id="soal" style="font-weight:bold; font-size: 16px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
-                    <input type="number" id="jawaban" style="width:100%; text-align:center; font-size: 18px; margin-bottom: 10px;">
-                    <div class="d-grid gap-2">
-                        <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
-                        <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
-                    </div>
+                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
+                    <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
+                    <br>
+                    <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
+                    <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
                     <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600" class="event-img">
-            <div style="padding:20px; text-align: center;">
-                <h3 style="margin-top:0; color:#1e3a8a;">Kuis Bahasa Indonesia</h3>
-                <p style="font-size: 13px;">Asah kemampuan kosakatamu di sini!</p>
-                
-                <div style="background:#fff7ed; padding:15px; border-radius:15px; border: 1px dashed #f97316;">
-                    <p id="soalIndo" style="font-weight:bold; font-size: 16px; color: #9a3412;">Klik tombol mulai untuk bermain!</p>
-                    <input type="text" id="jawabanIndo" placeholder="Ketik jawaban..." style="width:100%; text-align:center; font-size: 16px; margin-bottom: 10px;">
-                    <div class="d-grid gap-2">
-                        <button onclick="cekJawabanIndo()" style="background: #f97316;">Cek Jawaban</button>
-                        <button onclick="mulaiGameIndo()" style="background: #fb923c;">Mulai Soal</button>
-                    </div>
-                    <p id="hasilIndo" style="font-weight:bold; margin-top:10px;"></p>
                 </div>
             </div>
         </div>
@@ -586,18 +489,19 @@
     </div>
     
     <div class="card-container">
-        
         <div class="card" style="background: #eff6ff; border: 2px solid #dbeafe;"> 
             <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600" class="event-img" alt="Mendongeng">
             <div style="padding:20px;"> 
                 <span style="background: #2563eb; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">COMING SOON</span>
                 <h3 style="margin: 10px 0; color:#1e3a8a;">Dunia Ceria: Dongeng Rakyat</h3>
                 <p style="font-size: 14px; color: #475569;">Mengenal kekayaan budaya melalui cerita legenda yang menarik dan interaktif.</p>
+                
                 <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
                     <b>📅 12 April 2026</b><br>
                     <b>⏰ 09:00 WIB</b><br>
                     <b>📍 Aula Utama Desa Pinal</b>
                 </div>
+                
                 <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #2563eb, #1d4ed8);">Daftar Sekarang</button>
             </div>
         </div>
@@ -608,61 +512,18 @@
                 <span style="background: #10b981; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">NEW EVENT</span>
                 <h3 style="margin: 10px 0; color:#065f46;">Workshop: Desa Melek Digital</h3>
                 <p style="font-size: 14px; color: #475569;">Pelatihan dasar komputer dan internet sehat untuk warga desa Pinal.</p>
+                
                 <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
                     <b>📅 20 April 2026</b><br>
                     <b>⏰ 14:00 WIB</b><br>
                     <b>📍 Laboratorium PINLIT</b>
                 </div>
+                
                 <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #10b981, #059669);">Ikuti Workshop</button>
             </div>
         </div>
-
-        <div class="card" style="background: #fff7ed; border: 2px solid #ffedd5;"> 
-            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600" class="event-img" alt="Tari Tradisional">
-            <div style="padding:20px;"> 
-                <span style="background: #f97316; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">WEEKLY CLASS</span>
-                <h3 style="margin: 10px 0; color:#9a3412;">Gema Budaya: Kelas Tari</h3>
-                <p style="font-size: 14px; color: #475569;">Melestarikan warisan leluhur melalui gerakan tari daerah untuk generasi muda.</p>
-                <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
-                    <b>📅 Setiap Sabtu & Minggu</b><br>
-                    <b>⏰ 16:00 WIB</b><br>
-                    <b>📍 Pelataran PINLIT Library</b>
-                </div>
-                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #f97316, #ea580c);">Daftar Kelas Tari</button>
-            </div>
-        </div>
-
-        <div class="card" style="background: #fdf2f8; border: 2px solid #fce7f3;"> 
-            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600" class="event-img" alt="Sosialisasi">
-            <div style="padding:20px;"> 
-                <span style="background: #ec4899; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">SOCIAL CARE</span>
-                <h3 style="margin: 10px 0; color:#9d174d;">Sosialisasi Kesehatan</h3>
-                <p style="font-size: 14px; color: #475569;">Penyuluhan pentingnya menjaga kesehatan keluarga dan sanitasi lingkungan.</p>
-                <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
-                    <b>📅 25 April 2026</b><br>
-                    <b>⏰ 10:00 WIB</b><br>
-                    <b>📍 Posyandu Desa Pinal</b>
-                </div>
-                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #ec4899, #db2777);">Ikuti Sosialisasi</button>
-            </div>
-        </div>
-
-        <div class="card" style="background: #f5f3ff; border: 2px solid #ede9fe;"> 
-            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600" class="event-img" alt="Camp Buku">
-            <div style="padding:20px;"> 
-                <span style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">BIG EVENT</span>
-                <h3 style="margin: 10px 0; color:#5b21b6;">Book Camp 2026</h3>
-                <p style="font-size: 14px; color: #475569;">Tidur di bawah bintang, membaca di alam terbuka, dan diskusi buku seru.</p>
-                <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
-                    <b>📅 02 - 03 Mei 2026</b><br>
-                    <b>⏰ Menginap (Weekend)</b><br>
-                    <b>📍 Area Camping</b>
-                </div>
-                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #8b5cf6, #7c3aed);">Daftar Camp Buku</button>
-            </div>
-        </div>
-    </div> 
-</div> ```
+    </div>
+</div>
 
 <div id="collection" class="page">
 
@@ -726,7 +587,7 @@
 
         </ul>
 
-	 </div>
+    </div>
     <h3>📥 Usulkan Buku Baru</h3>
     <input type="text" placeholder="Judul Buku yang Diinginkan"><br>
     <textarea placeholder="Kenapa buku ini menarik untuk dibaca?"></textarea><br>
@@ -785,53 +646,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<div id="panduan" class="page">
-    <div style="text-align: center; margin-bottom: 40px;">
-        <h2 style="color: #1e3a8a; font-size: 2.5em;">🗺️ Peta Navigasi PINLIT</h2>
-        <p>Bingung mau ke mana? Pilih tujuanmu di bawah ini!</p>
-    </div>
-
-    <div class="map-grid">
-        <div class="map-card bg-home" onclick="showPage('home')">
-            <h3>🏠 Beranda</h3>
-            <p>Kembali ke halaman utama, cek jam, dan sapaan hangat.</p>
-            <div class="arrow-icon">➔</div>
-        </div>
-
-        <div class="map-card bg-events" onclick="securedAction('events')">
-            <h3>📅 Kegiatan</h3>
-            <p>Lihat jadwal dongeng, workshop, dan camping desa.</p>
-            <div class="arrow-icon">➔</div>
-        </div>
-
-        <div class="map-card bg-collection" onclick="securedAction('collection')">
-            <h3>📚 Koleksi Buku</h3>
-            <p>Kamar buku digital! Baca Danau Toba atau Si Kancil di sini.</p>
-            <div class="arrow-icon">➔</div>
-        </div>
-
-        <div class="map-card bg-service" onclick="securedAction('service')">
-            <h3>🛠️ Layanan</h3>
-            <p>Informasi fasilitas dan bantuan untuk member PINLIT.</p>
-            <div class="arrow-icon">➔</div>
-        </div>
-
-        <div class="map-card bg-about" onclick="showPage('about')">
-            <h3>📖 Tentang Kami</h3>
-            <p>Kenali lebih jauh tentang visi misi Perpustakaan Desa Pinal.</p>
-            <div class="arrow-icon">➔</div>
-        </div>
-
-        <div class="map-card bg-contact" onclick="showPage('contact')">
-            <h3>📞 Kontak</h3>
-            <p>Butuh bantuan? Hubungi admin desa lewat halaman ini.</p>
-            <div class="arrow-icon">➔</div>
-        </div>
-    </div>
-</div>
-
-</body>
-
 </body>
 </html>
-	
