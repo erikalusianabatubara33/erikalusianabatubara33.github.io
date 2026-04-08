@@ -189,6 +189,12 @@
             margin-bottom: 10px;
         }
     </style>
+	
+	.nav-link.active-menu {
+    color: #ffd700 !important; /* Warna kuning emas */
+    font-weight: bold;
+    border-bottom: 2px solid #ffd700; /* Garis bawah biar cantik */
+}
 
     <script>
         let isLogin = false;
@@ -206,11 +212,25 @@
         }
 
         function showPage(id) {
-            let pages = document.querySelectorAll(".page");
-            pages.forEach(p => p.classList.remove("active"));
-            document.getElementById(id).classList.add("active");
-            window.scrollTo(0, 0);
+   
+           let pages = document.querySelectorAll(".page");
+           pages.forEach(p => p.classList.remove("active"));
+           document.getElementById(id).classList.add("active");
+
+           let navLinks = document.querySelectorAll(".nav-link");
+    
+           navLinks.forEach(link => {
+           link.classList.remove("active-menu");
+    });
+
+    navLinks.forEach(link => {
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(id)) {
+            link.classList.add("active-menu");
         }
+    });
+
+    window.scrollTo(0, 0);
+}
 
         function updateClock() {
             const now = new Date();
@@ -370,7 +390,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAdmin">
             <div class="navbar-nav ms-auto align-items-center">
-                <a class="nav-link text-white fw-medium px-3" onclick="showPage('home')" style="cursor:pointer;">Home</a>
+                <a class="nav-link text-white fw-medium px-3 active-menu" onclick="showPage('home')" style="cursor:pointer;">Home</a>
                 <a class="nav-link text-white fw-medium px-3" onclick="securedAction('events')" style="cursor:pointer;">Events</a>
                 <a class="nav-link text-white fw-medium px-3" onclick="securedAction('collection')" style="cursor:pointer;">Collection</a>
                 <a class="nav-link text-white fw-medium px-3" onclick="securedAction('service')" style="cursor:pointer;">Service</a>
