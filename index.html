@@ -2,9 +2,6 @@
 <html>
 <head>
     <title>PINLIT Library | Erika Lusiana</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -260,54 +257,12 @@
         }
         function closeRegister() { document.getElementById("registerModal").style.display = "none"; }
 
-function loginSuccess() {
-            let emailInput = document.querySelector("#loginModal input[type='email']").value;
-            let passInput = document.querySelector("#loginModal input[type='password']").value;
-
-            if (emailInput === "" || passInput === "") {
-                alert("❌ Mohon isi Email dan Password terlebih dahulu!");
-                return;
-            }
-
+        function loginSuccess() {
             isLogin = true;
-            localStorage.setItem("isLogin", "true");
-            localStorage.setItem("userEmail", emailInput); // Menyimpan email yang login
-
             closeModal();
-            renderAuthStatus();
-            alert("Login berhasil 🎉 Selamat datang kembali, " + emailInput);
+            document.getElementById("authStatus").innerText = "Member Aktif ✅";
+            alert("Login berhasil 🎉 Selamat datang di PINLIT!");
         }
-
-        function renderAuthStatus() {
-            const authStatus = document.getElementById("authStatus");
-            if (isLogin) {
-                let savedEmail = localStorage.getItem("userEmail");
-                authStatus.innerText = "Halo, " + savedEmail.split('@')[0] + " ✅";
-                authStatus.style.background = "#10b981"; // Ubah jadi hijau kalau sukses
-                authStatus.onclick = null; // Matikan fungsi klik login jika sudah masuk
-            } else {
-                authStatus.innerText = "Login/Daftar";
-                authStatus.style.background = "#ffd700";
-                authStatus.onclick = openLogin;
-            }
-        }
-
-window.onload = function() {
-    updateClock();
-    updateGreeting();
-    
-    if (localStorage.getItem("isLogin") === "true") {
-        isLogin = true;
-        renderAuthStatus(); // Memanggil fungsi yang sudah kamu buat untuk update UI
-    }
-};
-
-function logout() {
-    localStorage.removeItem("isLogin");
-    localStorage.removeItem("userEmail");
-    location.reload(); // Refresh halaman untuk reset status
-}
-      
 
         let angka1, angka2, jawabanBenar;
         function buatSoal() {
@@ -414,7 +369,6 @@ function logout() {
     </div>
     <div class="nav-links">
         <a onclick="showPage('home')">Home</a>
-		<a onclick="securedAction('events')">Events</a>
         <a onclick="securedAction('collection')">Collection</a>
         <a onclick="securedAction('service')">Service</a>
         <a onclick="securedAction('about')">About</a>
@@ -424,7 +378,16 @@ function logout() {
     </div>
 </nav>
 
-
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2>Login Member</h2>
+        <input type="email" placeholder="Email"><br>
+        <input type="password" placeholder="Password"><br>
+        <p style="font-size:12px;">Belum punya akun? <a href="#" onclick="openRegister()">Daftar disini</a></p>
+        <button onclick="loginSuccess()">Login</button>
+        <button onclick="closeModal()" style="background:gray;">Tutup</button>
+    </div>
+</div>
 
 <div id="registerModal" class="modal">
     <div class="modal-content">
@@ -448,7 +411,27 @@ function logout() {
         <button onclick="securedAction('collection')">Mulai Jelajahi Koleksi</button>
     </div>
 
-<div class="card-container">
+    <div class="card" style="background: #f1f5f9; padding: 25px;" onclick="if(!isLogin) securedAction()">
+        <h3>📊 Catat Progress Membaca</h3>
+        <p style="font-size: 13px;">Sudah baca berapa halaman hari ini? (Target harian: 100)</p>
+        <div class="progress-container">
+            <div id="myBar" class="progress-bar"></div>
+        </div>
+        <div style="display:flex; gap: 10px;">
+            <input type="number" id="halamanInput" placeholder="Contoh: 25" style="width: 150px; margin:0;">
+            <button onclick="updateProgress()" style="background: #10b981;">Simpan</button>
+        </div>
+        <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
+    </div>
+	
+	<div id="home" class="page active">
+    <div class="hero">
+        <h1 class="dynamic-greet">Selamat Datang di PINLIT Library</h1>
+        <p>Perpustakaan Digital Desa Pinal</p>
+        <p><i>Membaca • Belajar • Bertumbuh</i></p>
+        <br>
+        <button onclick="securedAction('collection')">Mulai Jelajahi Koleksi</button>
+    </div>
 
     <div class="card" style="background: #f1f5f9; padding: 25px;" onclick="if(!isLogin) securedAction()">
         <h3>📊 Catat Progress Membaca</h3>
@@ -463,68 +446,76 @@ function logout() {
         <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
     </div>
 
-        <div class="card" onclick="if(!isLogin) securedAction()">
-            <div style="padding:20px; text-align: center;">
-                <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
-                <h4 id="skorDisplay">Skor: 0</h4>
-                <select id="levelGame">
-                    <option value="sd">Level SD</option>
-                    <option value="smp">Level SMP</option>
-                    <option value="sma">Level SMA</option>
-                </select>
-                <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1; margin-top:10px;">
-                    <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
-                    <p id="soal" style="font-weight:bold;">Klik Mulai!</p>
-                    <input type="number" id="jawaban" style="width:100%; text-align:center;">
-                    <div style="display:flex; gap:5px; margin-top:10px;">
-                        <button onclick="buatSoal()" style="background:#10b981; flex:1;">Mulai</button>
-                        <button onclick="cekJawaban()" style="background: #2563eb; flex:1;">Cek</button>
-                    </div>
-                    <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
-                </div>
+    <div class="card" onclick="if(!isLogin) securedAction()">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
+        <div style="padding:20px; text-align: center;">
+            <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
+            <h4 id="skorDisplay">Skor: 0</h4>
+            <br>
+            <select id="levelGame" style="margin-bottom: 10px;">
+                <option value="sd">Level SD (Mudah)</option>
+                <option value="smp">Level SMP (Sedang)</option>
+                <option value="sma">Level SMA (Sulit)</option>
+            </select>
+
+            <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
+                <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
+                <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
+                <br>
+                <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
+                <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
+                <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 
 <div id="events" class="page">
-    <div style="text-align: center; margin-bottom: 30px;">
-        <h2 style="color: #1e3a8a; font-size: 2em;">📅 Agenda Kegiatan Desa Pinal</h2>
-        <p>Jangan lewatkan momen seru belajar dan bermain bersama komunitas PINLIT.</p>
-    </div>
+    <h2>📅 Kegiatan & Event Mendatang</h2>
+    <p>Ikuti berbagai kegiatan seru di Desa Pinal untuk meningkatkan kreativitas dan pengetahuan.</p>
     
     <div class="card-container">
-        <div class="card" style="background: #eff6ff; border: 2px solid #dbeafe;"> 
-            <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600" class="event-img" alt="Mendongeng">
-            <div style="padding:20px;"> 
-                <span style="background: #2563eb; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">COMING SOON</span>
-                <h3 style="margin: 10px 0; color:#1e3a8a;">Dunia Ceria: Dongeng Rakyat</h3>
-                <p style="font-size: 14px; color: #475569;">Mengenal kekayaan budaya melalui cerita legenda yang menarik dan interaktif.</p>
-                
-                <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
-                    <b>📅 12 April 2026</b><br>
-                    <b>⏰ 09:00 WIB</b><br>
-                    <b>📍 Aula Utama Desa Pinal</b>
+        <div class="card"> 
+            <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=600" class="event-img">
+            <div style="padding:20px; text-align: left;"> 
+                <h3 style="margin-top:0; color:#2563eb;">Dunia Ceria Anak: Dongeng & Kreativitas</h3>
+                <p style="font-size: 14px; color: #64748b;">Ayo ajak adik-adik untuk seru-seruan bareng di akhir pekan ini!</p>
+                <ul style="padding-left: 20px; font-size: 14px; color: #475569;">
+                    <li>📖 <b>Mendongeng:</b> Kisah Legenda Rakyat.</li>
+                    <li>🎨 <b>Mewarnai:</b> Karakter impian anak-anak.</li>
+                </ul>
+                <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 15px; font-size: 13px;">
+                    <b>📅 12 April 2026 | ⏰ 09:00 WIB | 📍 Aula Desa Pinal</b>
                 </div>
-                
-                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #2563eb, #1d4ed8);">Daftar Sekarang</button>
+                <br>
+                <button onclick="alert('Terima kasih sudah mendaftar!')" style="width:100%; background:#10b981;">Ikuti Kegiatan</button>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="card" style="background: #f0fdf4; border: 2px solid #dcfce7;"> 
-            <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600" class="event-img" alt="Workshop">
-            <div style="padding:20px;"> 
-                <span style="background: #10b981; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">NEW EVENT</span>
-                <h3 style="margin: 10px 0; color:#065f46;">Workshop: Desa Melek Digital</h3>
-                <p style="font-size: 14px; color: #475569;">Pelatihan dasar komputer dan internet sehat untuk warga desa Pinal.</p>
+        <div class="card" onclick="if(!isLogin) securedAction()">
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
+            <div style="padding:20px; text-align: center;">
+                <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
+                <h4 id="skorDisplay">Skor: 0</h4>
                 
-                <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
-                    <b>📅 20 April 2026</b><br>
-                    <b>⏰ 14:00 WIB</b><br>
-                    <b>📍 Laboratorium PINLIT</b>
+                <select id="levelGame" style="margin-bottom: 10px;">
+                    <option value="sd">Level SD (Mudah)</option>
+                    <option value="smp">Level SMP (Sedang)</option>
+                    <option value="sma">Level SMA (Sulit)</option>
+                </select>
+
+                <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                    <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
+                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
+                    <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
+                    <br>
+                    <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
+                    <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
+                    <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
                 </div>
-                
-                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #10b981, #059669);">Ikuti Workshop</button>
             </div>
         </div>
     </div>
