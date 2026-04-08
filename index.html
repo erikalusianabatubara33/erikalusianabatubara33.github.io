@@ -531,48 +531,6 @@
     </div>
 </div>
 
-    <div class="card" onclick="if(!isLogin) securedAction()">
-        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
-        <div style="padding:20px; text-align: center;">
-            <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
-            <h4 id="skorDisplay">Skor: 0</h4>
-            <br>
-            <select id="levelGame" style="margin-bottom: 10px;">
-                <option value="sd">Level SD (Mudah)</option>
-                <option value="smp">Level SMP (Sedang)</option>
-                <option value="sma">Level SMA (Sulit)</option>
-            </select>
-
-            <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
-                <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
-                <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
-                <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
-                <br>
-                <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
-                <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
-                <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card" onclick="if(!isLogin) securedAction()">
-        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600" class="event-img">
-        <div style="padding:20px; text-align: center;">
-            <h3 style="margin-top:0; color:#1e3a8a;">Kuis Bahasa Indonesia</h3>
-            <p style="font-size: 13px;">Asah kemampuan kosakatamu di sini!</p>
-            
-            <div style="background:#fff7ed; padding:15px; border-radius:15px; border: 1px dashed #f97316;">
-                <p id="soalIndo" style="font-weight:bold; font-size: 18px; color: #9a3412;">Klik tombol mulai untuk bermain!</p>
-                <input type="text" id="jawabanIndo" placeholder="Ketik jawabanmu..." style="text-align:center; font-size: 16px; margin-bottom: 10px;">
-                <br>
-                <button onclick="cekJawabanIndo()" style="background: #f97316;">Cek Jawaban</button>
-                <button onclick="mulaiGameIndo()" style="background: #fb923c;">Mulai Soal</button>
-                <p id="hasilIndo" style="font-weight:bold; margin-top:10px;"></p>
-            </div>
-        </div>
-    </div>
-
 <div id="events" class="page">
     <div style="text-align: center; margin-bottom: 30px;">
         <h2 style="color: #1e3a8a; font-size: 2em;">📅 Agenda Kegiatan Desa Pinal</h2>
