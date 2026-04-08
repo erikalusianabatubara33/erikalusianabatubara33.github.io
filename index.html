@@ -1,5 +1,3 @@
-sebelum ditambahin navbar events 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -371,6 +369,7 @@ sebelum ditambahin navbar events
     </div>
     <div class="nav-links">
         <a onclick="showPage('home')">Home</a>
+		<a onclick="securedAction('events')">Events</a>
         <a onclick="securedAction('collection')">Collection</a>
         <a onclick="securedAction('service')">Service</a>
         <a onclick="securedAction('about')">About</a>
@@ -426,46 +425,120 @@ sebelum ditambahin navbar events
         <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
     </div>
 
-     <div class="card-container">
-        <div class="card"> 
-            <img src="https://images.unsplash.com/photo-1544390553-29f5f00e95b0?w=600" class="event-img">
-            <div style="padding:20px; text-align: left;"> 
-                <h3 style="margin-top:0; color:#2563eb;">Dunia Ceria Anak: Dongeng & Kreativitas</h3>
-                <p style="font-size: 14px; color: #64748b;">Ayo ajak adik-adik untuk seru-seruan bareng di akhir pekan ini! Kegiatannya meliputi:</p>
-                <ul style="padding-left: 20px; font-size: 14px; color: #475569;">
-                    <li>📖 <b>Mendongeng:</b> Kisah Legenda Rakyat.</li>
-                    <li>🎨 <b>Mewarnai:</b> Karakter impian anak-anak.</li>
-                    <li>🎁 <b>Hadiah:</b> Bingkisan untuk karya terbaik.</li>
-                </ul>
-                <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 15px; font-size: 13px;">
-                    <b>📅 12 April 2026 | ⏰ 09:00 WIB | 📍 Aula Desa Pinal</b>
-                </div>
+    <div class="card" onclick="if(!isLogin) securedAction()">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
+        <div style="padding:20px; text-align: center;">
+            <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
+            <h4 id="skorDisplay">Skor: 0</h4>
+            <br>
+            <select id="levelGame" style="margin-bottom: 10px;">
+                <option value="sd">Level SD (Mudah)</option>
+                <option value="smp">Level SMP (Sedang)</option>
+                <option value="sma">Level SMA (Sulit)</option>
+            </select>
+
+            <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
+                <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
+                <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
                 <br>
-                <button onclick="alert('Terima kasih sudah mendaftar!')" style="width:100%; background:#10b981;">Ikuti Kegiatan</button>
+                <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
+                <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
+                <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="events" class="page">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #1e3a8a; font-size: 2em;">📅 Agenda Kegiatan Desa Pinal</h2>
+        <p>Jangan lewatkan momen seru belajar dan bermain bersama komunitas PINLIT.</p>
+    </div>
+    
+    <div class="card-container">
+        <div class="card" style="background: #eff6ff; border: 2px solid #dbeafe;"> 
+            <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600" class="event-img" alt="Mendongeng">
+            <div style="padding:20px;"> 
+                <span style="background: #2563eb; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">COMING SOON</span>
+                <h3 style="margin: 10px 0; color:#1e3a8a;">Dunia Ceria: Dongeng Rakyat</h3>
+                <p style="font-size: 14px; color: #475569;">Mengenal kekayaan budaya melalui cerita legenda yang menarik dan interaktif.</p>
+                
+                <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
+                    <b>📅 12 April 2026</b><br>
+                    <b>⏰ 09:00 WIB</b><br>
+                    <b>📍 Aula Utama Desa Pinal</b>
+                </div>
+                
+                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #2563eb, #1d4ed8);">Daftar Sekarang</button>
             </div>
         </div>
 
-        <div class="card" onclick="if(!isLogin) securedAction()">
-            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
-            <div style="padding:20px; text-align: center;">
-                <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
-                <h4 id="skorDisplay">Skor: 0</h4>
+        <div class="card" style="background: #f0fdf4; border: 2px solid #dcfce7;"> 
+            <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600" class="event-img" alt="Workshop">
+            <div style="padding:20px;"> 
+                <span style="background: #10b981; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">NEW EVENT</span>
+                <h3 style="margin: 10px 0; color:#065f46;">Workshop: Desa Melek Digital</h3>
+                <p style="font-size: 14px; color: #475569;">Pelatihan dasar komputer dan internet sehat untuk warga desa Pinal.</p>
                 
-                <select id="levelGame" style="margin-bottom: 10px;">
-                    <option value="sd">Level SD (Mudah)</option>
-                    <option value="smp">Level SMP (Sedang)</option>
-                    <option value="sma">Level SMA (Sulit)</option>
-                </select>
-
-                <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
-                    <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
-                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
-                    <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
-                    <br>
-                    <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
-                    <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
-                    <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
+                <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
+                    <b>📅 20 April 2026</b><br>
+                    <b>⏰ 14:00 WIB</b><br>
+                    <b>📍 Laboratorium PINLIT</b>
                 </div>
+				
+				<div class="card" style="background: #fff7ed; border: 2px solid #ffedd5;"> 
+    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600" class="event-img" alt="Tari Tradisional">
+    <div style="padding:20px;"> 
+        <span style="background: #f97316; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">WEEKLY CLASS</span>
+        <h3 style="margin: 10px 0; color:#9a3412;">Gema Budaya: Kelas Tari Tradisional</h3>
+        <p style="font-size: 14px; color: #475569;">Melestarikan warisan leluhur melalui gerakan tari Tortor dan tarian daerah lainnya untuk generasi muda.</p>
+        
+        <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
+            <b>📅 Setiap Sabtu & Minggu</b><br>
+            <b>⏰ 16:00 WIB</b><br>
+            <b>📍 Pelataran PINLIT Library</b>
+        </div>
+        
+        <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #f97316, #ea580c);">Daftar Kelas Tari</button>
+    </div>
+</div>
+
+<div class="card" style="background: #fdf2f8; border: 2px solid #fce7f3;"> 
+    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600" class="event-img" alt="Sosialisasi">
+    <div style="padding:20px;"> 
+        <span style="background: #ec4899; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">SOCIAL CARE</span>
+        <h3 style="margin: 10px 0; color:#9d174d;">Sosialisasi: Pola Hidup Sehat & Bersih</h3>
+        <p style="font-size: 14px; color: #475569;">Penyuluhan pentingnya menjaga kesehatan keluarga dan sanitasi lingkungan pasca pandemi.</p>
+        
+        <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
+            <b>📅 25 April 2026</b><br>
+            <b>⏰ 10:00 WIB</b><br>
+            <b>📍 Posyandu Desa Pinal</b>
+        </div>
+        
+        <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #ec4899, #db2777);">Ikuti Sosialisasi</button>
+    </div>
+</div>
+
+<div class="card" style="background: #f5f3ff; border: 2px solid #ede9fe;"> 
+    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600" class="event-img" alt="Camp Buku">
+    <div style="padding:20px;"> 
+        <span style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold;">BIG EVENT</span>
+        <h3 style="margin: 10px 0; color:#5b21b6;">Kemah Literasi (Book Camp 2026)</h3>
+        <p style="font-size: 14px; color: #475569;">Tidur di bawah bintang, membaca di alam terbuka, dan diskusi buku bersama penulis lokal.</p>
+        
+        <div style="background: white; padding: 12px; border-radius: 10px; margin: 15px 0; font-size: 13px; border: 1px solid #e2e8f0;">
+            <b>📅 02 - 03 Mei 2026</b><br>
+            <b>⏰ Menginap (Weekend)</b><br>
+            <b>📍 Area Camping Danau Toba</b>
+        </div>
+        
+        <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #8b5cf6, #7c3aed);">Daftar Camp Buku</button>
+    </div>
+</div>
+                
+                <button onclick="alert('Pendaftaran Berhasil!')" style="width:100%; background: linear-gradient(to right, #10b981, #059669);">Ikuti Workshop</button>
             </div>
         </div>
     </div>
