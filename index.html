@@ -336,6 +336,39 @@
             updateGreeting();
         };
 		
+        const soalBahasa = [
+            { s: "Apa lawan kata dari 'Tinggi'?", j: "rendah" },
+            { s: "Apa lawan kata dari 'Berani'?", j: "takut" },
+            { s: "Apa lawan kata dari 'Rajin'?", j: "malas" },
+            { s: "Apa persamaan kata (sinonim) dari 'Bunga'?", j: "kembang" },
+            { s: "Lengkapilah peribahasa: Berat sama dipikul, ringan sama di....", j: "jinjing" }
+        ];
+
+        let soalAktifIndo;
+
+        function mulaiGameIndo() {
+            if(!isLogin) return securedAction();
+            const randomIdx = Math.floor(Math.random() * soalBahasa.length);
+            soalAktifIndo = soalBahasa[randomIdx];
+            
+            document.getElementById("soalIndo").innerText = soalAktifIndo.s;
+            document.getElementById("jawabanIndo").value = "";
+            document.getElementById("hasilIndo").innerText = "";
+        }
+
+        function cekJawabanIndo() {
+            let userAns = document.getElementById("jawabanIndo").value.toLowerCase().trim();
+            if(userAns === soalAktifIndo.j) {
+                document.getElementById("hasilIndo").innerText = "🎉 Pintar! Jawabanmu benar.";
+                document.getElementById("hasilIndo").style.color = "green";
+                totalSkor += 15; // Hadiah skor lebih besar untuk bahasa
+            } else {
+                document.getElementById("hasilIndo").innerText = "❌ Ups! Coba lagi ya. Jawabannya: " + soalAktifIndo.j;
+                document.getElementById("hasilIndo").style.color = "red";
+            }
+            document.getElementById("skorDisplay").innerText = "Skor: " + totalSkor;
+        }
+		
 		function bukaBuku(judul) {
     if(!isLogin) {
         alert("🔒 Akses Terbatas! Kamu harus Login dulu.");
@@ -474,6 +507,23 @@
         </div>
     </div>
 </div>
+
+<div class="card" onclick="if(!isLogin) securedAction()">
+        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600" class="event-img">
+        <div style="padding:20px; text-align: center;">
+            <h3 style="margin-top:0; color:#1e3a8a;">Kuis Bahasa Indonesia</h3>
+            <p style="font-size: 13px;">Asah kemampuan kosakatamu di sini!</p>
+            
+            <div style="background:#fff7ed; padding:15px; border-radius:15px; border: 1px dashed #f97316;">
+                <p id="soalIndo" style="font-weight:bold; font-size: 18px; color: #9a3412;">Klik tombol mulai untuk bermain!</p>
+                <input type="text" id="jawabanIndo" placeholder="Ketik jawabanmu..." style="text-align:center; font-size: 16px; margin-bottom: 10px;">
+                <br>
+                <button onclick="cekJawabanIndo()" style="background: #f97316;">Cek Jawaban</button>
+                <button onclick="mulaiGameIndo()" style="background: #fb923c;">Mulai Soal</button>
+                <p id="hasilIndo" style="font-weight:bold; margin-top:10px;"></p>
+            </div>
+        </div>
+    </div>
 
 <div id="events" class="page">
     <div style="text-align: center; margin-bottom: 30px;">
