@@ -222,6 +222,22 @@
             font-weight: bold;         
         }
 		
+		#panduan .card button {
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        display: block;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    #panduan .card button:hover {
+        transform: translateX(10px);
+        opacity: 0.7;
+    }
+		
     </style>
 
     <script>
@@ -415,12 +431,14 @@
         <div class="collapse navbar-collapse" id="menuPinlit">
             <div class="navbar-nav ms-auto nav-links text-center">
                 <a class="nav-link text-white px-3" onclick="showPage('home')">Home</a>
+			
                 <a class="nav-link text-white px-3" onclick="securedAction('events')">Events</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('collection')">Collection</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('service')">Service</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('about')">About</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('contact')">Contact</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('admin')">Admin</a>
+				<a class="nav-link text-white px-3" onclick="showPage('panduan')">Panduan</a> <a class="nav-link text-white px-3" onclick="securedAction('admin')">Admin</a>
                 
                 <span id="authStatus" class="nav-link" onclick="openLogin()" 
                       style="cursor:pointer; font-size:12px; background:#ffd700; color:#1e3a8a; padding:8px 15px; border-radius:5px; font-weight:bold; margin-top: 5px;">
@@ -699,6 +717,55 @@
         <h3 style="margin-top: 30px;">Video Edukasi Pilihan</h3>
         <iframe width="100%" height="400" src="https://www.youtube.com/embed/oWnwhCDzv7E" frameborder="0" style="border-radius: 20px; max-width: 800px;" allowfullscreen></iframe>
     </center>
+	
+	<div id="panduan" class="page">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #1e3a8a; font-size: 2em;">🗺️ Panduan Navigasi PINLIT</h2>
+        <p>Gunakan peta ini untuk memahami fitur-fitur yang tersedia di perpustakaan kami.</p>
+    </div>
+
+    <div class="card-container">
+        <div class="card" style="padding: 20px; border-left: 5px solid #2563eb;">
+            <h4>🏠 Home</h4>
+            <p style="font-size: 14px; color: #475569;">Halaman utama untuk melihat ringkasan aktivitas, progress membaca, dan game asah otak.</p>
+            <button onclick="showPage('home')" style="background: none; color: #2563eb; text-align: right; padding: 0;">
+                Ke Ruangan ➔
+            </button>
+        </div>
+
+        <div class="card" style="padding: 20px; border-left: 5px solid #10b981;">
+            <h4>📅 Events</h4>
+            <p style="font-size: 14px; color: #475569;">Daftar kegiatan seru di Desa Pinal, mulai dari dongeng hingga workshop digital.</p>
+            <button onclick="securedAction('events')" style="background: none; color: #10b981; text-align: right; padding: 0;">
+                Lihat Agenda ➔
+            </button>
+        </div>
+
+        <div class="card" style="padding: 20px; border-left: 5px solid #f59e0b;">
+            <h4>📚 Collection</h4>
+            <p style="font-size: 14px; color: #475569;">Gudang buku digital. Kamu bisa mencari dan membaca berbagai judul buku di sini.</p>
+            <button onclick="securedAction('collection')" style="background: none; color: #f59e0b; text-align: right; padding: 0;">
+                Ambil Buku ➔
+            </button>
+        </div>
+
+        <div class="card" style="padding: 20px; border-left: 5px solid #ef4444;">
+            <h4>🛠️ Service</h4>
+            <p style="font-size: 14px; color: #475569;">Layanan peminjaman, konsultasi tugas, dan formulir usulan buku baru.</p>
+            <button onclick="securedAction('service')" style="background: none; color: #ef4444; text-align: right; padding: 0;">
+                Cek Layanan ➔
+            </button>
+        </div>
+
+        <div class="card" style="padding: 20px; border-left: 5px solid #8b5cf6;">
+            <h4>📞 Hubungi Kami</h4>
+            <p style="font-size: 14px; color: #475569;">Informasi profil PINLIT dan cara menghubungi pengelola jika ada kendala.</p>
+            <button onclick="showPage('contact')" style="background: none; color: #8b5cf6; text-align: right; padding: 0;">
+                Tanya Kami ➔
+            </button>
+        </div>
+    </div>
+</div>
 
 </div>
 
