@@ -199,12 +199,22 @@
         }
 		
         .nav-links a.active-link {
-            background-color: #ffd700;
-            color: #1e3a8a !important; 
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: bold;
+           color: #ffd700 !important; 
+           font-weight: 700;
+           text-decoration: none;
+           border-bottom: 2px solid #ffd700; 
+           padding-bottom: 5px;
+           transition: all 0.3s ease;
         }
+
+        .nav-links a {
+           margin-left: 20px;
+           text-decoration: none;
+           color: white;
+           font-weight: 500;
+           cursor: pointer;
+           transition: 0.3s;
+           border-bottom: 2px solid transparent; 
 		
         .nav-links a.active-link {
             background-color: #ffd700; 
@@ -230,15 +240,15 @@
         }
 
         function showPage(id) {
-          let pages = document.querySelectorAll(".page");
-          pages.forEach(p => p.classList.remove("active"));
-          document.getElementById(id).classList.add("active");
+            let pages = document.querySelectorAll(".page");
+            pages.forEach(p => p.classList.remove("active"));
+            document.getElementById(id).classList.add("active");
 
-        let navLinks = document.querySelectorAll(".nav-links a");
-        navLinks.forEach(link => {
-        link.classList.remove("active-link");
-        
-        if (link.getAttribute("onclick").includes(`'${id}'`)) {
+            let navLinks = document.querySelectorAll(".nav-links a");
+            navLinks.forEach(link => {
+            link.classList.remove("active-link");
+       
+        if (link.getAttribute("onclick") && link.getAttribute("onclick").includes(`'${id}'`)) {
             link.classList.add("active-link");
         }
     });
