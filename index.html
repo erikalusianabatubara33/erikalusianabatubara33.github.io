@@ -261,12 +261,36 @@
         function closeRegister() { document.getElementById("registerModal").style.display = "none"; }
 
 function loginSuccess() {
-    isLogin = true;
-    localStorage.setItem("isLogin", "true"); // Simpan status ke browser
-    closeModal();
-    document.getElementById("authStatus").innerText = "Member Aktif ✅";
-    alert("Login berhasil 🎉 Selamat datang di PINLIT!");
-}
+            let emailInput = document.querySelector("#loginModal input[type='email']").value;
+            let passInput = document.querySelector("#loginModal input[type='password']").value;
+
+            if (emailInput === "" || passInput === "") {
+                alert("❌ Mohon isi Email dan Password terlebih dahulu!");
+                return;
+            }
+
+            isLogin = true;
+            localStorage.setItem("isLogin", "true");
+            localStorage.setItem("userEmail", emailInput); // Menyimpan email yang login
+
+            closeModal();
+            renderAuthStatus();
+            alert("Login berhasil 🎉 Selamat datang kembali, " + emailInput);
+        }
+
+        function renderAuthStatus() {
+            const authStatus = document.getElementById("authStatus");
+            if (isLogin) {
+                let savedEmail = localStorage.getItem("userEmail");
+                authStatus.innerText = "Halo, " + savedEmail.split('@')[0] + " ✅";
+                authStatus.style.background = "#10b981"; // Ubah jadi hijau kalau sukses
+                authStatus.onclick = null; // Matikan fungsi klik login jika sudah masuk
+            } else {
+                authStatus.innerText = "Login/Daftar";
+                authStatus.style.background = "#ffd700";
+                authStatus.onclick = openLogin;
+            }
+        }
 
 window.onload = function() {
     updateClock();
@@ -274,10 +298,16 @@ window.onload = function() {
     
     if (localStorage.getItem("isLogin") === "true") {
         isLogin = true;
-        document.getElementById("authStatus").innerText = "Member Aktif ✅";
-		alert("Login berhasil 🎉 Selamat datang di PINLIT!");
+        renderAuthStatus(); // Memanggil fungsi yang sudah kamu buat untuk update UI
     }
 };
+
+function logout() {
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("userEmail");
+    location.reload(); // Refresh halaman untuk reset status
+}
+      
 
         let angka1, angka2, jawabanBenar;
         function buatSoal() {
@@ -394,16 +424,7 @@ window.onload = function() {
     </div>
 </nav>
 
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h2>Login Member</h2>
-        <input type="email" placeholder="Email"><br>
-        <input type="password" placeholder="Password"><br>
-        <p style="font-size:12px;">Belum punya akun? <a href="#" onclick="openRegister()">Daftar disini</a></p>
-        <button onclick="loginSuccess()">Login</button>
-        <button onclick="closeModal()" style="background:gray;">Tutup</button>
-    </div>
-</div>
+
 
 <div id="registerModal" class="modal">
     <div class="modal-content">
