@@ -237,6 +237,7 @@
         transform: translateX(10px);
         opacity: 0.7;
     }
+
 		
     </style>
 
@@ -258,7 +259,8 @@
         function showPage(id) {
             let pages = document.querySelectorAll(".page");
             pages.forEach(p => p.classList.remove("active"));
-            document.getElementById(id).classList.add("active");
+            
+			document.getElementById(id).classList.add("active");
 
             let navLinks = document.querySelectorAll(".nav-links a");
             navLinks.forEach(link => {
@@ -431,7 +433,7 @@
         <div class="collapse navbar-collapse" id="menuPinlit">
             <div class="navbar-nav ms-auto nav-links text-center">
                 <a class="nav-link text-white px-3" onclick="showPage('home')">Home</a>
-			
+			<a class="nav-link text-white px-3" onclick="showPage('panduan')">Panduan</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('events')">Events</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('collection')">Collection</a>
                 <a class="nav-link text-white px-3" onclick="securedAction('service')">Service</a>
@@ -717,56 +719,47 @@
         <h3 style="margin-top: 30px;">Video Edukasi Pilihan</h3>
         <iframe width="100%" height="400" src="https://www.youtube.com/embed/oWnwhCDzv7E" frameborder="0" style="border-radius: 20px; max-width: 800px;" allowfullscreen></iframe>
     </center>
-	
-	<div id="panduan" class="page">
+</div>
+
+<div id="panduan" class="page">
     <div style="text-align: center; margin-bottom: 30px;">
-        <h2 style="color: #1e3a8a; font-size: 2em;">🗺️ Panduan Navigasi PINLIT</h2>
-        <p>Gunakan peta ini untuk memahami fitur-fitur yang tersedia di perpustakaan kami.</p>
+        <h2 style="color: #1e3a8a; font-family: 'Fredoka', sans-serif;">🗺️ Peta Navigasi PINLIT</h2>
+        <p>Pilih menu di bawah ini untuk penjelasan singkat dan akses cepat.</p>
     </div>
 
     <div class="card-container">
         <div class="card" style="padding: 20px; border-left: 5px solid #2563eb;">
             <h4>🏠 Home</h4>
-            <p style="font-size: 14px; color: #475569;">Halaman utama untuk melihat ringkasan aktivitas, progress membaca, dan game asah otak.</p>
-            <button onclick="showPage('home')" style="background: none; color: #2563eb; text-align: right; padding: 0;">
-                Ke Ruangan ➔
+            <p style="font-size: 14px; color: #475569;">Halaman utama untuk melihat ringkasan aktivitas, progres membaca, dan bermain game asah otak matematika.</p>
+            <button onclick="showPage('home')" style="background: #2563eb; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; float: right;">
+                Ke Halaman ➔
             </button>
         </div>
 
         <div class="card" style="padding: 20px; border-left: 5px solid #10b981;">
             <h4>📅 Events</h4>
-            <p style="font-size: 14px; color: #475569;">Daftar kegiatan seru di Desa Pinal, mulai dari dongeng hingga workshop digital.</p>
-            <button onclick="securedAction('events')" style="background: none; color: #10b981; text-align: right; padding: 0;">
-                Lihat Agenda ➔
+            <p style="font-size: 14px; color: #475569;">Berisi jadwal kegiatan seru di Desa Pinal, seperti kelas mendongeng, workshop digital, dan camp buku.</p>
+            <button onclick="securedAction('events')" style="background: #10b981; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; float: right;">
+                Ke Halaman ➔
             </button>
         </div>
 
         <div class="card" style="padding: 20px; border-left: 5px solid #f59e0b;">
             <h4>📚 Collection</h4>
-            <p style="font-size: 14px; color: #475569;">Gudang buku digital. Kamu bisa mencari dan membaca berbagai judul buku di sini.</p>
-            <button onclick="securedAction('collection')" style="background: none; color: #f59e0b; text-align: right; padding: 0;">
-                Ambil Buku ➔
+            <p style="font-size: 14px; color: #475569;">Perpustakaan digital tempat kamu bisa mencari, memfilter, dan membaca berbagai macam judul buku secara gratis.</p>
+            <button onclick="securedAction('collection')" style="background: #f59e0b; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; float: right;">
+                Ke Halaman ➔
             </button>
         </div>
 
         <div class="card" style="padding: 20px; border-left: 5px solid #ef4444;">
             <h4>🛠️ Service</h4>
-            <p style="font-size: 14px; color: #475569;">Layanan peminjaman, konsultasi tugas, dan formulir usulan buku baru.</p>
-            <button onclick="securedAction('service')" style="background: none; color: #ef4444; text-align: right; padding: 0;">
-                Cek Layanan ➔
-            </button>
-        </div>
-
-        <div class="card" style="padding: 20px; border-left: 5px solid #8b5cf6;">
-            <h4>📞 Hubungi Kami</h4>
-            <p style="font-size: 14px; color: #475569;">Informasi profil PINLIT dan cara menghubungi pengelola jika ada kendala.</p>
-            <button onclick="showPage('contact')" style="background: none; color: #8b5cf6; text-align: right; padding: 0;">
-                Tanya Kami ➔
+            <p style="font-size: 14px; color: #475569;">Layanan tambahan seperti konsultasi tugas sekolah dan formulir untuk mengusulkan buku baru yang kamu inginkan.</p>
+            <button onclick="securedAction('service')" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; float: right;">
+                Ke Halaman ➔
             </button>
         </div>
     </div>
-</div>
-
 </div>
 
 <footer>
