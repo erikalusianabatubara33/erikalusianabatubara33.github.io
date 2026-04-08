@@ -424,8 +424,33 @@
         </div>
         <p id="persenText" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
     </div>
-	
-	<div id="home" class="page active">
+
+    <div class="card" onclick="if(!isLogin) securedAction()">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
+        <div style="padding:20px; text-align: center;">
+            <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
+            <h4 id="skorDisplay">Skor: 0</h4>
+            <br>
+            <select id="levelGame" style="margin-bottom: 10px;">
+                <option value="sd">Level SD (Mudah)</option>
+                <option value="smp">Level SMP (Sedang)</option>
+                <option value="sma">Level SMA (Sulit)</option>
+            </select>
+
+            <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
+                <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
+                <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
+                <br>
+                <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
+                <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
+                <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="home" class="page active">
     <div class="hero">
         <h1 class="dynamic-greet">Selamat Datang di PINLIT Library</h1>
         <p>Perpustakaan Digital Desa Pinal</p>
