@@ -206,12 +206,11 @@
             font-weight: bold;
         }
 		
-        .bg-home { background: linear-gradient(135deg, #FF6B6B, #EE5253); }
-        .bg-events { background: linear-gradient(135deg, #4834D4, #686DE0); }
-        .bg-collection { background: linear-gradient(135deg, #6AB04C, #BADC58); }
-        .bg-service { background: linear-gradient(135deg, #F0932B, #FFBE76); }
-        .bg-about { background: linear-gradient(135deg, #22A6B3, #7ED6DF); }
-        .bg-contact { background: linear-gradient(135deg, #EB4D4B, #FF7979); }
+        .nav-links a.active-link {
+            background-color: #ffd700; 
+            color: #1e3a8a !important;
+            font-weight: bold;         
+        }
 		
     </style>
 
@@ -231,11 +230,24 @@
         }
 
         function showPage(id) {
-            let pages = document.querySelectorAll(".page");
-            pages.forEach(p => p.classList.remove("active"));
-            document.getElementById(id).classList.add("active");
-            window.scrollTo(0, 0);
+          let pages = document.querySelectorAll(".page");
+          pages.forEach(p => p.classList.remove("active"));
+          document.getElementById(id).classList.add("active");
+
+        let navLinks = document.querySelectorAll(".nav-links a");
+    
+        navLinks.forEach(link => {
+        
+        link.classList.remove("active-link");
+        
+        if (link.getAttribute("onclick").includes(`'${id}'`)) {
+            // Jika cocok, tempelkan warna kuningnya!
+            link.classList.add("active-link");
         }
+    });
+
+    window.scrollTo(0, 0);
+}
 
         function updateClock() {
             const now = new Date();
