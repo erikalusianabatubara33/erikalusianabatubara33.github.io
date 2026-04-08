@@ -235,13 +235,10 @@
           document.getElementById(id).classList.add("active");
 
         let navLinks = document.querySelectorAll(".nav-links a");
-    
         navLinks.forEach(link => {
-        
         link.classList.remove("active-link");
         
         if (link.getAttribute("onclick").includes(`'${id}'`)) {
-            // Jika cocok, tempelkan warna kuningnya!
             link.classList.add("active-link");
         }
     });
