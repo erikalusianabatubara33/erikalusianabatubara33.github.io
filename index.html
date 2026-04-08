@@ -360,7 +360,7 @@
             }, 1000);
         }
 
-        function cekJawaban() {
+		 function cekJawaban() {
             if(!isLogin) return securedAction();
             clearInterval(timer);
             let ans = document.getElementById("jawaban").value;
@@ -475,13 +475,15 @@
                 <a class="nav-link text-white fw-medium px-3" onclick="securedAction('about')" style="cursor:pointer;">About</a>
                 <a class="nav-link text-white fw-medium px-3" onclick="securedAction('contact')" style="cursor:pointer;">Contact</a>
                 <a class="nav-link text-white fw-medium px-3" onclick="securedAction('admin')" style="cursor:pointer;">Admin</a>
-				<a class="nav-link text-white fw-medium px-3" onclick="showPage('panduan')" style="cursor:pointer;">Panduan</a>
+                <a class="nav-link text-white fw-medium px-3" onclick="showPage('panduan')" style="cursor:pointer;">Panduan</a>
                 
                 <span id="authStatus" onclick="openLogin()" class="badge bg-warning text-dark ms-lg-3 mt-2 mt-lg-0 p-2" style="cursor:pointer; font-size:12px;">Login/Daftar</span>
             </div>
         </div>
     </div>
 </nav>
+
+<div class="container-fluid mt-3"> 
 
 <div id="loginModal" class="modal">
     <div class="modal-content">
@@ -724,7 +726,7 @@
 
         </ul>
 
-    </div>
+	 </div>
     <h3>📥 Usulkan Buku Baru</h3>
     <input type="text" placeholder="Judul Buku yang Diinginkan"><br>
     <textarea placeholder="Kenapa buku ini menarik untuk dibaca?"></textarea><br>
@@ -832,3 +834,4 @@
 
 </body>
 </html>
+	
