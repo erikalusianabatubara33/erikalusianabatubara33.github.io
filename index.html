@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -260,12 +261,24 @@
         }
         function closeRegister() { document.getElementById("registerModal").style.display = "none"; }
 
-        function loginSuccess() {
-            isLogin = true;
-            closeModal();
-            document.getElementById("authStatus").innerText = "Member Aktif ✅";
-            alert("Login berhasil 🎉 Selamat datang di PINLIT!");
-        }
+function loginSuccess() {
+    isLogin = true;
+    localStorage.setItem("isLogin", "true"); // Simpan status ke browser
+    closeModal();
+    document.getElementById("authStatus").innerText = "Member Aktif ✅";
+    alert("Login berhasil 🎉 Selamat datang di PINLIT!");
+}
+
+window.onload = function() {
+    updateClock();
+    updateGreeting();
+    
+    if (localStorage.getItem("isLogin") === "true") {
+        isLogin = true;
+        document.getElementById("authStatus").innerText = "Member Aktif ✅";
+		alert("Login berhasil 🎉 Selamat datang di PINLIT!");
+    }
+};
 
         let angka1, angka2, jawabanBenar;
         function buatSoal() {
@@ -415,6 +428,8 @@
         <button onclick="securedAction('collection')">Mulai Jelajahi Koleksi</button>
     </div>
 
+<div class="card-container">
+
     <div class="card" style="background: #f1f5f9; padding: 25px;" onclick="if(!isLogin) securedAction()">
         <h3>📊 Catat Progress Membaca</h3>
         <p style="font-size: 13px;">Sudah baca berapa halaman hari ini? (Target harian: 100)</p>
@@ -429,29 +444,27 @@
     </div>
 
         <div class="card" onclick="if(!isLogin) securedAction()">
-            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600" class="event-img">
             <div style="padding:20px; text-align: center;">
                 <h3 style="margin-top:0; color:#1e3a8a;">Asah Otak: Matematika</h3>
                 <h4 id="skorDisplay">Skor: 0</h4>
-                
-                <select id="levelGame" style="margin-bottom: 10px;">
-                    <option value="sd">Level SD (Mudah)</option>
-                    <option value="smp">Level SMP (Sedang)</option>
-                    <option value="sma">Level SMA (Sulit)</option>
+                <select id="levelGame">
+                    <option value="sd">Level SD</option>
+                    <option value="smp">Level SMP</option>
+                    <option value="sma">Level SMA</option>
                 </select>
-
-                <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                <div style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1; margin-top:10px;">
                     <div id="timerBox">⏳ <span id="timer">5</span> detik</div>
-                    <p id="soal" style="font-weight:bold; font-size: 18px; color: #1e3a8a;">Pilih level & klik Mulai!</p>
-                    <input type="number" id="jawaban" style="width:100px; text-align:center; font-size: 18px; margin-bottom: 10px;">
-                    <br>
-                    <button onclick="cekJawaban()" style="background: #2563eb;">Cek Hasil</button>
-                    <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
+                    <p id="soal" style="font-weight:bold;">Klik Mulai!</p>
+                    <input type="number" id="jawaban" style="width:100%; text-align:center;">
+                    <div style="display:flex; gap:5px; margin-top:10px;">
+                        <button onclick="buatSoal()" style="background:#10b981; flex:1;">Mulai</button>
+                        <button onclick="cekJawaban()" style="background: #2563eb; flex:1;">Cek</button>
+                    </div>
                     <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
 
 <div id="events" class="page">
