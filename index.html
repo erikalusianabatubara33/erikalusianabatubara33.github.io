@@ -378,6 +378,63 @@
             updateGreeting();
         };
 		
+const bankSoal = {
+    indo: ["PERPUSTAKAAN", "LITERASI", "BUKU", "BELAJAR", "CERDAS", "DIGITAL", "DESA", "PINAL", "INFORMAN", "ARSIP"],
+    inggris: [
+        {q: "Bahasa Inggris dari 'Buku'?", a: "book"},
+        {q: "Bahasa Inggris dari 'Membaca'?", a: "read"},
+        {q: "Bahasa Inggris dari 'Perpustakaan'?", a: "library"},
+        {q: "Bahasa Inggris dari 'Siswa'?", a: "student"}
+    ],
+    tebak: [
+        {q: "Sapi apa yang bisa nulis?", a: "sapidol"},
+        {q: "Buah apa yang cocok untuk jomblo?", a: "buahagia"},
+        {q: "Lemari apa yang bisa masuk kantong?", a: "lema-ribu"}
+    ]
+};
+
+let gameAktif = "";
+let kunciJawaban = "";
+
+function mainkanGame(tipe) {
+    if(!isLogin) return securedAction(); 
+    gameAktif = tipe;
+    
+    document.getElementById("inputGameBaru").value = "";
+    document.getElementById("hasilGameBaru").innerText = "";
+    
+    let data = bankSoal[tipe];
+    let pilihan = data[Math.floor(Math.random() * data.length)];
+
+    if(tipe === 'indo') {
+        kunciJawaban = pilihan;
+        let acak = pilihan.split('').sort(() => 0.5 - Math.random()).join('');
+        document.getElementById("soalGameBaru").innerText = "Susun Kata: " + acak;
+    } else {
+        kunciJawaban = pilihan.a;
+        document.getElementById("soalGameBaru").innerText = pilihan.q;
+    }
+}
+
+function cekJawabanBaru() {
+    if(!gameAktif) return alert("Pilih jenis game dulu!");
+    
+    let userAns = document.getElementById("inputGameBaru").value.toLowerCase().trim();
+    let display = document.getElementById("hasilGameBaru");
+    
+    if(userAns === kunciJawaban.toLowerCase()) {
+        totalSkor += 15; 
+        display.innerText = "⭐ BENAR! +15 Poin";
+        display.style.color = "#10b981";
+        
+        setTimeout(() => { mainkanGame(gameAktif); }, 1000);
+    } else {
+        display.innerText = "❌ Salah! Coba lagi.";
+        display.style.color = "#ef4444";
+    }
+    document.getElementById("skorDisplay").innerText = "Skor: " + totalSkor; 
+}
+		
 		function bukaBuku(judul) {
     if(!isLogin) {
         alert("🔒 Akses Terbatas! Kamu harus Login dulu.");
@@ -517,6 +574,30 @@
                 <button onclick="buatSoal()" style="background:#10b981;">Mulai Soal</button>
                 <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" onclick="if(!isLogin) securedAction()">
+    <div style="padding:20px; text-align: center;">
+        <h3 style="color:#1e3a8a; font-family: 'Fredoka', sans-serif;">🎮 Area Game Literasi</h3>
+        <p style="font-size: 14px; color: #64748b;">Pilih kategori untuk bermain soal tanpa batas!</p>
+        
+        <div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
+            <button onclick="mainkanGame('indo')" style="background: #f59e0b; font-size: 11px; padding: 10px; flex: 1; min-width: 80px;">🇮🇩 Indo</button>
+            <button onclick="mainkanGame('inggris')" style="background: #3b82f6; font-size: 11px; padding: 10px; flex: 1; min-width: 80px;">🇬🇧 English</button>
+            <button onclick="mainkanGame('tebak')" style="background: #ec4899; font-size: 11px; padding: 10px; flex: 1; min-width: 80px;">🤣 Tebak</button>
+        </div>
+
+        <div style="background:#f1f5f9; padding:20px; border-radius:15px; border: 2px dashed #cbd5e1;">
+            <p id="soalGameBaru" style="font-weight:bold; font-size: 18px; color: #1e3a8a; min-height: 50px;">
+                Siap bermain? <br><span style="font-size: 13px; font-weight: normal;">Klik tombol di atas untuk memilih game!</span>
+            </p>
+            <input type="text" id="inputGameBaru" placeholder="Ketik jawaban di sini..." 
+                   style="width:100%; text-align:center; font-size: 16px; border: 2px solid #e2e8f0; margin-bottom: 15px;">
+            
+            <button onclick="cekJawabanBaru()" style="background: #10b981; width: 100%; font-size: 16px;">Kirim Jawaban</button>
+            <p id="hasilGameBaru" style="font-weight:bold; margin-top:15px; min-height: 24px;"></p>
         </div>
     </div>
 </div>
