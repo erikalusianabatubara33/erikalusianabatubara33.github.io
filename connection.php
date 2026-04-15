@@ -1,7 +1,12 @@
 <?php
-$conn = mysqli_connect("sql200.infinityfree.com", "if0_41670861", "Batubara10", "if0_41670861_PINLIT_LIBRARY");
+$host = "sql200.infinityfree.com"; 
+$user = "if0_41670861";            
+$pass = "Batubara10";          
+$db   = "if0_41670861_PINLIT_LIBRARY";    
+
+$conn = mysqli_connect($host, $user, $pass, $db);
 
 if (!$conn) {
-    die("Koneksi gagal");
+    die("Koneksi gagal: " . mysqli_connect_error());
 }
 ?>
