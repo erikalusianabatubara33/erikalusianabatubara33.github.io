@@ -575,8 +575,6 @@ function cekJawabanBaru() {
                 <p id="hasil" style="font-weight:bold; margin-top:10px;"></p>
             </div>
         </div>
-    </div>
-</div>
 
 <div class="card" onclick="if(!isLogin) securedAction()">
     <div style="padding:20px; text-align: center;">
